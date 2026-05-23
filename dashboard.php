@@ -1,0 +1,256 @@
+<?php 
+session_start();
+
+$is_logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
+
+
+ if (!$is_logged_in) {
+     header("Location: login.php?msg=login_required");
+     exit; 
+ }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Applications - Dashboard | FluffSide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboardstyle.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <a href="index.php"><img src="Fluffside.png" alt="Logo" class="logo-img" onerror="this.outerHTML='<h1 style=\'color:#EF8E35\'>FluffSide</h1>'"></a>
+            <nav>
+                <ul>
+                    <li><a href="index.php">HOME</a></li>
+                    <li><a href="residents.php">RESIDENTS</a></li>
+                    <li><a href="supplies.php">SUPPLIES</a></li>
+                    <!-- Set DASHBOARD as active -->
+                    <li><a href="dashboard.php" class="active">DASHBOARD</a></li>
+                    <li><a href="about.php">ABOUT US</a></li>
+                    <li><a href="help.php">HELP</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.php" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
+                <?php if ($is_logged_in): ?>
+                    <a href="profile.php" class="btn">ACCOUNT</a>
+                <?php else: ?>
+                    <a href="login.php" class="btn">LOG IN/SIGN UP</a>
+                <?php endif; ?>
+            </div>
+        </header>
+
+        <div class="dash-header-section">
+            <h1>My Applications</h1>
+            <p>Track your adoption and foster applications in real time.</p>
+        </div>
+
+        <main class="dashboard-layout">
+            
+            <div class="dash-main">
+                
+                <div class="dash-tabs">
+                    <button class="tab-btn active">Active Applications</button>
+                    <button class="tab-btn">Past Applications</button>
+                    <button class="tab-btn">Messages</button>
+                </div>
+
+                <div class="app-card">
+                    <div class="app-card-top">
+                        <div class="app-pet-info">
+                            <img src="scout.jpg" alt="Scout" class="app-pet-img" onerror="this.src='placeholder.jpg';">
+                            <div class="app-pet-details">
+                                <h2>SCOUT</h2>
+                                <p>Golden Retriever</p>
+                                <span class="tag-type tag-adoption">ADOPTION</span>
+                            </div>
+                        </div>
+                        <div class="app-status-area">
+                            <div class="status-badge status-review">Under Review</div>
+                            <div class="submit-date">
+                                Submitted on
+                                <strong>May 14, 2026</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stepper-container">
+                        <div class="step completed">
+                            <div class="step-icon"><i class="fas fa-check"></i></div>
+                            <span class="step-label">Application<br>Submitted</span>
+                        </div>
+                        <div class="step-line line-green"></div>
+                        
+                        <div class="step completed">
+                            <div class="step-icon"><i class="fas fa-check"></i></div>
+                            <span class="step-label">Reviewed</span>
+                        </div>
+                        <div class="step-line line-green"></div>
+                        
+                        <div class="step action-yellow">
+                            <div class="step-icon"><i class="fas fa-clock"></i></div>
+                            <span class="step-label">Online<br>Interview</span>
+                        </div>
+                        <div class="step-line"></div> <!-- Gray line -->
+                        
+                        <div class="step">
+                            <div class="step-icon"></div>
+                            <span class="step-label">Application<br>Approval</span>
+                        </div>
+                        <div class="step-line"></div>
+                        
+                        <div class="step">
+                            <div class="step-icon"></div>
+                            <span class="step-label">Meet and<br>Greet</span>
+                        </div>
+                        <div class="step-line"></div>
+                        
+                        <div class="step">
+                            <div class="step-icon"></div>
+                            <span class="step-label">Take Home</span>
+                        </div>
+                    </div>
+
+                    <div class="app-card-bottom">
+                        <div class="update-msg">
+                            <strong>Last Update:</strong> We've reviewed your application and would like to schedule an interview, please check your messages and coordinate with us.
+                        </div>
+                        <button class="btn-cancel">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="app-card">
+                    <div class="app-card-top">
+                        <div class="app-pet-info">
+                            <img src="#" alt="#" class="app-pet-img" onerror="this.src='placeholder.jpg';">
+                            <div class="app-pet-details">
+                                <h2>BENNY</h2>
+                                <p>Persian Cat</p>
+                                <span class="tag-type tag-foster">FOSTER</span>
+                            </div>
+                        </div>
+                        <div class="app-status-area">
+                            <div class="status-badge status-approved">Approved</div>
+                            <div class="submit-date">
+                                Submitted on
+                                <strong>May 11, 2026</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stepper-container">
+                        <div class="step completed">
+                            <div class="step-icon"><i class="fas fa-check"></i></div>
+                            <span class="step-label">Application<br>Submitted</span>
+                        </div>
+                        <div class="step-line line-green"></div>
+                        
+                        <div class="step completed">
+                            <div class="step-icon"><i class="fas fa-check"></i></div>
+                            <span class="step-label">Reviewed</span>
+                        </div>
+                        <div class="step-line line-green"></div>
+                        
+                        <div class="step completed">
+                            <div class="step-icon"><i class="fas fa-check"></i></div>
+                            <span class="step-label">Online<br>Interview</span>
+                        </div>
+                        <div class="step-line line-green"></div>
+                        
+                        <div class="step completed">
+                            <div class="step-icon"><i class="fas fa-check"></i></div>
+                            <span class="step-label">Application<br>Approved</span>
+                        </div>
+                        <div class="step-line line-green"></div>
+                        
+                        <div class="step action-green">
+                            <div class="step-icon"><i class="fas fa-exclamation"></i></div>
+                            <span class="step-label">Meet and<br>Greet</span>
+                        </div>
+                        <div class="step-line"></div>
+                        
+                        <div class="step">
+                            <div class="step-icon"></div>
+                            <span class="step-label">Take Home</span>
+                        </div>
+                    </div>
+
+                    <div class="app-card-bottom">
+                        <div class="update-msg">
+                            <strong>Last Update:</strong> We've reviewed your application and would like to schedule an interview, please check your messages and coordinate with us.
+                        </div>
+                        <button class="btn-cancel" disabled>Cancel</button> <!-- Disabled Cancel Button -->
+                    </div>
+                </div>
+
+            </div>
+
+            <aside class="dash-sidebar">
+
+                <div class="side-card">
+                    <h3>Application Summary</h3>
+                    
+                    <div class="summary-list">
+                        <div class="summary-item">
+                            <div class="sum-icon icon-orange"><i class="fas fa-file-alt"></i></div>
+                            <div class="sum-text">
+                                <h4>2</h4>
+                                <p>Active Applications</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-item">
+                            <div class="sum-icon icon-yellow"></div>
+                            <div class="sum-text">
+                                <h4>1</h4>
+                                <p>Approved</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-item">
+                            <div class="sum-icon icon-green"></div>
+                            <div class="sum-text">
+                                <h4>1</h4>
+                                <p>In Progress</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-item">
+                            <div class="sum-icon icon-red"><i class="fas fa-times"></i></div>
+                            <div class="sum-text">
+                                <h4>2</h4>
+                                <p>Withdrawn/ Declined</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="side-card">
+                    <h3>Quick Links</h3>
+                    
+                    <div class="quick-links-list">
+                        <a href="residents.php" class="btn-quick-link">Browse Available Residents</a>
+                        <a href="supplies.php" class="btn-quick-link">Check Out Pet Supplies</a>
+                        <a href="help.php" class="btn-quick-link">Help Center</a>
+                    </div>
+                </div>
+
+            </aside>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </footer>
+
+</body>
+</html>
