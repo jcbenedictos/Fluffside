@@ -33,7 +33,7 @@ $is_logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true
         body {
             font-family: 'Nunito', sans-serif;
             color: var(--fs-text-dark);
-            background: url('about_background.png') no-repeat center top;
+            background: url('Assets/about_background.png') no-repeat center top;
             background-size: 100% auto;
             background-color: #ffffff;
             min-height: 100vh;

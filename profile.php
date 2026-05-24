@@ -11,6 +11,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['first_name'] = !empty(trim($_POST['first_name'] ?? '')) ? trim($_POST['first_name']) : ($_SESSION['first_name'] ?? '');
     $_SESSION['last_name']  = !empty(trim($_POST['last_name'] ?? ''))  ? trim($_POST['last_name'])  : ($_SESSION['last_name'] ?? '');
     $_SESSION['email']      = !empty(trim($_POST['email'] ?? ''))      ? trim($_POST['email'])      : ($_SESSION['email'] ?? '');
+
+    $users_file = 'users.json';
+    $users_data = json_decode(file_get_contents($users_file), true);
+    $current_email = $_SESSION['email'];
+
+    foreach ($users_data as &$user) {
+        if ($user['email'] === $current_email) {
+            $user['name']    = trim(($_POST['first_name'] ?? '') . ' ' . ($_POST['last_name'] ?? ''));
+            $user['address'] = trim($_POST['address'] ?? '');
+            $user['phone']   = trim($_POST['phone'] ?? '');
+            $user['dob']     = trim($_POST['dob'] ?? '');
+            if (!empty(trim($_POST['email'] ?? ''))) {
+                $user['email'] = trim($_POST['email']);
+            }
+            break;
+        }
+    }
+    unset($user);
+    file_put_contents($users_file, json_encode($users_data, JSON_PRETTY_PRINT));
+
+
     $_SESSION['address']    = trim($_POST['address'] ?? '');
     $_SESSION['phone']      = trim($_POST['phone'] ?? '');
     $_SESSION['dob']        = trim($_POST['dob'] ?? '');
@@ -64,6 +85,7 @@ $role        = $_SESSION['role'] ?? '';
 $profile_pic = $_SESSION['profile_pic'] ?? '';
 
 $display_name = (!empty($first_name) || !empty($last_name)) ? trim("$first_name $last_name") : "NAME";
+$highlight = isset($_GET['highlight']) && $_GET['highlight'] === '1';
 
 ?>
 <!DOCTYPE html>
@@ -548,7 +570,7 @@ $display_name = (!empty($first_name) || !empty($last_name)) ? trim("$first_name 
 
                         <div class="form-group full-width-field">
                             <label for="address">Address</label>
-                            <input type="text" class="form-control" placeholder="Address" id="address" name="address" value="<?php echo htmlspecialchars($address); ?>" readonly>
+                            <input type="text" class="form-control" placeholder="Address" id="address" name="address" value="<?php echo htmlspecialchars($address); ?>" readonly <?php if($highlight && empty($address)) echo 'style="border:2px solid #EF8E35;background:#FDF1E6;"'; ?>>
                         </div>
 
                         <div class="form-group">
@@ -693,6 +715,20 @@ $display_name = (!empty($first_name) || !empty($last_name)) ? trim("$first_name 
                 cropper.destroy();
             }
         }
+
+        <?php if($highlight): ?>
+        window.addEventListener('load', function() {
+            document.getElementById('dashboardWrapper').classList.add('is-editing');
+            const inputs = document.querySelectorAll('.form-grid input');
+            inputs.forEach(input => input.removeAttribute('readonly'));
+
+            const addressField = document.getElementById('address');
+            addressField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            addressField.focus();
+            addressField.style.border = '2px solid #EF8E35';
+            addressField.style.background = '#FDF1E6';
+        });
+        <?php endif; ?>
     </script>
 </body>
 

@@ -216,5 +216,23 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
         updateClock();
     </script>
+
+    <?php 
+    $profile_incomplete = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true 
+        && (empty($_SESSION['address']) || empty($_SESSION['phone']) || empty($_SESSION['dob']));
+    ?>
+    <?php if ($profile_incomplete): ?>
+    <div id="finishProfileModal" style="display:flex;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;justify-content:center;align-items:center;">
+        <div style="background:#F5F1ED;border:2px solid #EF8E35;border-radius:20px;padding:40px;max-width:420px;width:90%;text-align:center;font-family:'Nunito',sans-serif;">
+            <i class="fas fa-paw" style="font-size:36px;color:#EF8E35;margin-bottom:15px;"></i>
+            <h2 style="font-size:22px;font-weight:900;color:#5A483E;margin-bottom:10px;">Complete Your Profile!</h2>
+            <p style="font-size:14px;font-weight:600;color:#8E8279;margin-bottom:30px;">Help us get to know you better. Fill in your remaining details so we can match you with the perfect pet!</p>
+            <div style="display:flex;gap:15px;justify-content:center;">
+                <a href="profile.php?highlight=1" style="background:#EF8E35;color:#fff;padding:12px 24px;border-radius:25px;text-decoration:none;font-weight:800;font-size:14px;">Go to Profile</a>
+                <button onclick="document.getElementById('finishProfileModal').style.display='none'" style="background:transparent;border:2px solid #EF8E35;color:#5A483E;padding:12px 24px;border-radius:25px;font-weight:800;font-size:14px;cursor:pointer;font-family:'Nunito',sans-serif;">Skip, Do It Later</button>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
 </body>
 </html>

@@ -25,8 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $users_data = json_decode(file_get_contents($users_file), true);
 
     if ($action_taken === 'signup') {
-        $name = trim($_POST['name']);
-        $confirm = $_POST['confirm_password'];
+        $first_name = trim($_POST['first_name']);
+        $last_name  = trim($_POST['last_name']);
+        $name       = $first_name . ' ' . $last_name;
+        $phone      = trim($_POST['phone']);
+        $dob        = trim($_POST['dob']);
+        $confirm    = $_POST['confirm_password'];
 
         if ($password !== $confirm) {
             $error_msg = "Passwords do not match!";
@@ -43,9 +47,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error_msg = "An account with that email already exists!";
             } else {
                 $users_data[] = [
-                    'name' => htmlspecialchars($name),
-                    'email' => $email,
-                    'password' => password_hash($password, PASSWORD_DEFAULT)
+                    'name'       => htmlspecialchars($name),
+                    'first_name' => htmlspecialchars($first_name),
+                    'last_name'  => htmlspecialchars($last_name),
+                    'email'      => $email,
+                    'phone'      => htmlspecialchars($phone),
+                    'dob'        => htmlspecialchars($dob),
+                    'password'   => password_hash($password, PASSWORD_DEFAULT)
                 ];
                 file_put_contents($users_file, json_encode($users_data, JSON_PRETTY_PRINT));
                 $success_msg = "Account created successfully! Please log in.";
@@ -66,10 +74,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($is_authenticated) {
-            header("Location: index.php"); 
+            $_SESSION['logged_in'] = true;
+            $_SESSION['user_name'] = $user['name'];
+            $_SESSION['first_name'] = $user['first_name'] ?? explode(' ', $user['name'])[0];
+            $_SESSION['last_name']  = $user['last_name']  ?? implode(' ', array_slice(explode(' ', $user['name']), 1));
+            $_SESSION['email']      = $user['email'];
+            $_SESSION['phone']   = $user['phone']   ?? '';
+            $_SESSION['dob']     = $user['dob']     ?? '';
+            $_SESSION['address'] = $user['address'] ?? '';
+            header("Location: index.php");
             exit;
         } else {
-            $error_msg = "Invalid email or password.";
+            $error_msg = "Invalid email or password!";
         }
     }
 }
@@ -170,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <form action="login.php" method="POST">
                         <input type="hidden" name="action" value="login">
                         <div class="form-group"><label class="form-label">Email</label><input type="email" name="email" class="form-control" placeholder="jcbenedictos@gmail.com" required></div>
-                        <div class="form-group"><label class="form-label">Password</label><input type="password" name="password" class="form-control" placeholder="********" required></div>
+                        <div class="form-group"><label class="form-label">Password</label><div style="position:relative;"><input type="password" name="password" id="login-password" class="form-control" placeholder="********" required style="padding-right:45px;"><span onclick="togglePassword('login-password', this)" style="position:absolute;right:15px;top:50%;transform:translateY(-50%);cursor:pointer;color:#8E8279;"><i class="fas fa-eye"></i></span></div></div>
                         <a href="#" class="forgot-pass">Forgot Password?</a>
                         <button type="submit" class="btn-submit">Log In</button>
                     </form>
@@ -181,10 +197,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="auth-header"><h2>CREATE YOUR ACCOUNT</h2><p>Join Fluffside and give the residents the home they deserve</p></div>
                     <form action="login.php" method="POST">
                         <input type="hidden" name="action" value="signup">
-                        <div class="form-group"><label class="form-label">Full Name</label><input type="text" name="name" class="form-control" placeholder="BATUMBAKAL BENEDICTOS" required></div>
-                        <div class="form-group"><label class="form-label">Email</label><input type="email" name="email" class="form-control" placeholder="jcbenedictos@gmail.com" required></div>
-                        <div class="form-group"><label class="form-label">Password</label><input type="password" name="password" class="form-control" placeholder="********" required></div>
-                        <div class="form-group"><label class="form-label">Confirm Password</label><input type="password" name="confirm_password" class="form-control" placeholder="********" required></div>
+                        <div class="form-group"><label class="form-label">First Name</label><input type="text" name="first_name" class="form-control" placeholder="Juan" required></div>
+                        <div class="form-group"><label class="form-label">Last Name</label><input type="text" name="last_name" class="form-control" placeholder="Dela Cruz" required></div>
+                        <div class="form-group"><label class="form-label">Email</label><input type="email" name="email" id="signup-email" class="form-control" placeholder="juan@gmail.com" required><span id="email-error" style="display:none;color:#C0392B;font-size:12px;font-weight:700;margin-top:4px;"><i class="fas fa-exclamation-circle"></i> Please enter a valid Gmail address (e.g. juan@gmail.com)</span></div>
+                        <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" name="phone" id="signup-phone" class="form-control" placeholder="09XXXXXXXXX" required><span id="phone-error" style="display:none;color:#C0392B;font-size:12px;font-weight:700;margin-top:4px;"><i class="fas fa-exclamation-circle"></i> Please enter a valid 11-digit phone number (e.g. 09XXXXXXXXX)</span></div>
+                        <div class="form-group"><label class="form-label">Date of Birth</label><input type="date" name="dob" class="form-control" required></div>
+                        <div class="form-group"><label class="form-label">Password</label><div style="position:relative;"><input type="password" name="password" id="signup-password" class="form-control" placeholder="********" required style="padding-right:45px;"><span onclick="togglePassword('signup-password', this)" style="position:absolute;right:15px;top:50%;transform:translateY(-50%);cursor:pointer;color:#8E8279;"><i class="fas fa-eye"></i></span></div></div>
+                        <div class="form-group"><label class="form-label">Confirm Password</label><div style="position:relative;"><input type="password" name="confirm_password" id="signup-confirm" class="form-control" placeholder="********" required style="padding-right:45px;"><span onclick="togglePassword('signup-confirm', this)" style="position:absolute;right:15px;top:50%;transform:translateY(-50%);cursor:pointer;color:#8E8279;"><i class="fas fa-eye"></i></span></div></div>
                         <button type="submit" class="btn-submit">Sign Up</button>
                     </form>
                     <div class="auth-footer">Already have an account? <a href="#" id="toggle-to-login">Log In</a></div>
@@ -195,6 +214,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
+
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            const i = icon.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                i.classList.remove('fa-eye');
+                i.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                i.classList.remove('fa-eye-slash');
+                i.classList.add('fa-eye');
+            }
+        }
+
+        document.querySelector('#form-signup form').addEventListener('submit', function(e) {
+            let valid = true;
+
+            const phone = document.getElementById('signup-phone');
+            const phoneError = document.getElementById('phone-error');
+            if (!/^09\d{9}$/.test(phone.value.trim())) {
+                phoneError.style.display = 'block';
+                valid = false;
+            } else {
+                phoneError.style.display = 'none';
+            }
+
+            const email = document.getElementById('signup-email');
+            const emailError = document.getElementById('email-error');
+            if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email.value.trim())) {
+                emailError.style.display = 'block';
+                valid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            if (!valid) e.preventDefault();
+        });
+
         const loginForm = document.getElementById('form-login');
         const signupForm = document.getElementById('form-signup');
         const imgLogin = document.getElementById('img-login');
