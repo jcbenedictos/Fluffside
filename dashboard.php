@@ -22,28 +22,8 @@ $is_logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true
 <body>
 
     <div class="container">
-        <header>
-            <a href="index.php"><img src="Fluffside.png" alt="Logo" class="logo-img" onerror="this.outerHTML='<h1 style=\'color:#EF8E35\'>FluffSide</h1>'"></a>
-            <nav>
-                <ul>
-                    <li><a href="index.php">HOME</a></li>
-                    <li><a href="residents.php">RESIDENTS</a></li>
-                    <li><a href="supplies.php">SUPPLIES</a></li>
-                    <!-- Set DASHBOARD as active -->
-                    <li><a href="dashboard.php" class="active">DASHBOARD</a></li>
-                    <li><a href="about.php">ABOUT US</a></li>
-                    <li><a href="help.php">HELP</a></li>
-                </ul>
-            </nav>
-            <div class="header-actions">
-                <a href="cart.php" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
-                <?php if ($is_logged_in): ?>
-                    <a href="profile.php" class="btn">ACCOUNT</a>
-                <?php else: ?>
-                    <a href="login.php" class="btn">LOG IN/SIGN UP</a>
-                <?php endif; ?>
-            </div>
-        </header>
+       <!-- ════ HEADER ════ -->
+        <?php include 'header.php'; ?> 
 
         <div class="dash-header-section">
             <h1>My Applications</h1>

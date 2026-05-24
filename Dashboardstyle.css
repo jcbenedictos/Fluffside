@@ -1,3 +1,7 @@
+html {
+    scrollbar-gutter: stable;
+}
+
 :root {
     --fs-orange: #EF8E35;
     --fs-orange-light: #FDF1E6;
@@ -43,75 +47,6 @@ body {
     width: 100%;
 }
 
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0;
-    margin-top: 15px;
-    margin-bottom: 30px;
-    width: 100%;
-}
-
-.logo-img {
-    height: 250px;
-    width: auto;
-    mix-blend-mode: multiply;
-    margin-top: -100px;
-    margin-bottom: -100px;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 30px;
-    align-items: center;
-    margin: 0;
-}
-
-nav a {
-    text-decoration: none;
-    color: var(--fs-text-dark);
-    font-weight: 800;
-    font-size: 13px;
-    text-transform: uppercase;
-    transition: color 0.2s;
-}
-
-nav a.active {
-    border-bottom: 2px solid var(--fs-orange);
-    color: var(--fs-orange);
-    padding-bottom: 4px;
-}
-
-nav a:hover {
-    color: var(--fs-orange);
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.cart-icon {
-    color: var(--fs-orange);
-    font-size: 20px;
-    text-decoration: none;
-    position: relative;
-}
-
-.btn {
-    background-color: var(--fs-orange);
-    color: white;
-    padding: 10px 24px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 800;
-    font-size: 14px;
-    text-transform: uppercase;
-}
 
 .dash-header-section {
     margin-bottom: 25px;
