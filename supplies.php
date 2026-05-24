@@ -680,6 +680,8 @@ function h(string $s): string {
         </main>
     </div>
 
+    <?php include 'footer.php'; ?>
+
     <script>
         // Collapsible filter groups (same pattern as residents.php)
         function toggleGroup(id) {
