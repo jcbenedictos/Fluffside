@@ -827,6 +827,8 @@ function age_class(string $age, string $age_group = ''): string
         </main>
     </div>
 
+    <?php include 'footer.php'; ?>
+
     <script>
         // Collapsible filter groups
         function toggleGroup(id) {

@@ -492,21 +492,7 @@ $is_logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true
                 </div>
             </section>
 
-            <section class="compact-contact-section">
-                <div class="compact-contact-card">
-                    <h3>Contact Us</h3>
-
-                    <div class="contact-details-text">
-                        <i class="fas fa-map-marker-alt"></i> 123 FluffSide, Pet Valley, 4234 <br>
-                        <i class="fas fa-envelope" style="margin-top: 8px;"></i> <a href="mailto:baguhinniyonalang@gmail.com">baguhinniyonalang@gmail.com</a>
-                    </div>
-
-                    <div class="social-media-links">
-                        <a href="#" class="social-icon-btn" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon-btn" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </section>
+        
 
         </main>
     </div>
