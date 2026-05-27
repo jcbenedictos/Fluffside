@@ -702,6 +702,36 @@ function h(string $s): string {
                     </ul>
                 <?php endif; ?>
 
+                <!-- Materials -->
+                <?php if (!empty($product->materials)): ?>
+                    <p class="desc-section-title">Materials</p>
+                    <ul class="desc-list">
+                        <?php foreach ($product->materials as $item): ?>
+                            <li><?= h($item) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+
+                <!-- Features -->
+                <?php if (!empty($product->features)): ?>
+                    <p class="desc-section-title">Features</p>
+                    <ul class="desc-list">
+                        <?php foreach ($product->features as $item): ?>
+                            <li><?= h($item) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+
+                <!-- Use Guide -->
+                <?php if (!empty($product->use_guide)): ?>
+                    <p class="desc-section-title">Use Guide</p>
+                    <ul class="desc-list">
+                        <?php foreach ($product->use_guide as $item): ?>
+                            <li><?= h($item) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+
                 <!-- What's in the Package -->
                 <?php if (!empty($product->whats_inside)): ?>
                     <p class="desc-section-title">What's Inside the Package</p>
