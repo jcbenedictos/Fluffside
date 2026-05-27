@@ -163,14 +163,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
     </div>
 
-    <footer class="site-footer">
-        <div class="footer-wave">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-            </svg>
-        </div>
-        <i class="fas fa-paw footer-paw paw-1"></i><i class="fas fa-paw footer-paw paw-2"></i><i class="fas fa-paw footer-paw paw-3"></i><i class="fas fa-paw footer-paw paw-4"></i><i class="fas fa-paw footer-paw paw-5"></i>
-    </footer>
+    <?php include 'footer.php'; ?>
     
     <script>
         document.getElementById('slideLeft').addEventListener('click', function() {
