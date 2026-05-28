@@ -158,7 +158,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <p>From treats to toys, Fluffside has all the essentials. 10% of<br>every purchase goes to supporting rescued animals.</p>
                 <a href="supplies.php" class="btn btn-square" style="background-color: var(--btn-green); border: none;">SHOP NOW</a>
             </div>
-            <div class="empty-box"></div>
+            
+            <div>
+                <img src="Assets/Supply.png" alt="Supplies" class="empty-box">
+            </div>
         </section>
 
     </div>
