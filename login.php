@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+if (!file_exists('db.inc.php')) {
+    die("<h2 style='color:red; text-align:center; padding:50px;'>CRITICAL ERROR: db.inc.php file is missing! Please create it.</h2>");
+}
+
+require_once 'db.inc.php';
+
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     header("Location: index.php");
     exit;
@@ -10,24 +16,15 @@ $error_msg = '';
 $success_msg = '';
 $action_taken = 'login';
 
-$users_file = 'users.json';
-
-if (!file_exists($users_file)) {
-    file_put_contents($users_file, json_encode([]));
-}
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action_taken = $_POST['action'];
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    $users_data = json_decode(file_get_contents($users_file), true);
-
     if ($action_taken === 'signup') {
         $first_name = trim($_POST['first_name']);
         $last_name  = trim($_POST['last_name']);
-        $name       = $first_name . ' ' . $last_name;
+        $full_name  = $first_name . ' ' . $last_name;
         $phone      = trim($_POST['phone']);
         $dob        = trim($_POST['dob']);
         $confirm    = $_POST['confirm_password'];
@@ -35,57 +32,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($password !== $confirm) {
             $error_msg = "Passwords do not match!";
         } else {
-            $email_exists = false;
-            foreach ($users_data as $user) {
-                if ($user['email'] === $email) {
-                    $email_exists = true;
-                    break;
-                }
-            }
+            try {
+                $stmt = $pdo->prepare("SELECT user_id FROM tbl_users WHERE email = ?");
+                $stmt->execute([$email]);
+                
+                if ($stmt->rowCount() > 0) {
+                    $error_msg = "An account with that email already exists!";
+                } else {
 
-            if ($email_exists) {
-                $error_msg = "An account with that email already exists!";
-            } else {
-                $users_data[] = [
-                    'name'       => htmlspecialchars($name),
-                    'first_name' => htmlspecialchars($first_name),
-                    'last_name'  => htmlspecialchars($last_name),
-                    'email'      => $email,
-                    'phone'      => htmlspecialchars($phone),
-                    'dob'        => htmlspecialchars($dob),
-                    'password'   => password_hash($password, PASSWORD_DEFAULT)
-                ];
-                file_put_contents($users_file, json_encode($users_data, JSON_PRETTY_PRINT));
-                $success_msg = "Account created successfully! Please log in.";
-                $action_taken = 'login';
+                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                    $insert_stmt = $pdo->prepare("INSERT INTO tbl_users (full_name, email, phone, dob, password_hash) VALUES (?, ?, ?, ?, ?)");
+                    $insert_stmt->execute([$full_name, $email, $phone, $dob, $hashed_password]);
+                    
+                    $success_msg = "Account created successfully! Please log in.";
+                    $action_taken = 'login';
+                }
+            } catch(PDOException $e) {
+
+                $error_msg = "MySQL Error: " . $e->getMessage();
+                $action_taken = 'signup';
             }
         }
     } 
-    elseif ($action_taken === 'login') {
-        $is_authenticated = false;
-        
-        foreach ($users_data as $user) {
-            if ($user['email'] === $email && password_verify($password, $user['password'])) {
-                $is_authenticated = true;
-                $_SESSION['logged_in'] = true;
-                $_SESSION['user_name'] = $user['name'];
-                break;
-            }
-        }
 
-        if ($is_authenticated) {
-            $_SESSION['logged_in'] = true;
-            $_SESSION['user_name'] = $user['name'];
-            $_SESSION['first_name'] = $user['first_name'] ?? explode(' ', $user['name'])[0];
-            $_SESSION['last_name']  = $user['last_name']  ?? implode(' ', array_slice(explode(' ', $user['name']), 1));
-            $_SESSION['email']      = $user['email'];
-            $_SESSION['phone']   = $user['phone']   ?? '';
-            $_SESSION['dob']     = $user['dob']     ?? '';
-            $_SESSION['address'] = $user['address'] ?? '';
-            header("Location: index.php");
-            exit;
-        } else {
-            $error_msg = "Invalid email or password!";
+    elseif ($action_taken === 'login') {
+        try {
+            $stmt = $pdo->prepare("SELECT * FROM tbl_users WHERE email = ? LIMIT 1");
+            $stmt->execute([$email]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user && password_verify($password, $user['password_hash'])) {
+                if ($user['is_active'] == 0) {
+                    $error_msg = "This account has been deactivated.";
+                } else {
+                    $name_parts = explode(' ', $user['full_name'], 2);
+                    
+                    $_SESSION['logged_in'] = true;
+                    $_SESSION['user_id']   = $user['user_id'];
+                    $_SESSION['first_name']= $name_parts[0];
+                    $_SESSION['last_name'] = $name_parts[1] ?? '';
+                    $_SESSION['email']     = $user['email'];
+                    $_SESSION['phone']     = $user['phone'] ?? '';
+                    $_SESSION['dob']       = $user['dob'] ?? '';
+                    $_SESSION['address']   = $user['address'] ?? '';
+                    $_SESSION['role']      = $user['role'] ?? 'User';
+                    $_SESSION['profile_pic']= $user['profile_photo'] ?? '';
+
+                    session_regenerate_id(true); 
+                    $session_id = session_id();
+                    $ip_address = $_SERVER['REMOTE_ADDR'];
+                    $expires_at = date('Y-m-d H:i:s', time() + (60));// 1 minute lang just for testing purposes
+
+                    $sess_stmt = $pdo->prepare("INSERT INTO tbl_sessions (session_id, user_id, ip_address, expires_at) VALUES (?, ?, ?, ?)");
+                    $sess_stmt->execute([$session_id, $user['user_id'], $ip_address, $expires_at]);
+
+                    header("Location: index.php");
+                    exit;
+                }
+            } else {
+                $error_msg = "Invalid email or password!";
+            }
+        } catch(PDOException $e) {
+            $error_msg = "MySQL Error: " . $e->getMessage();
         }
     }
 }
@@ -98,9 +106,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>FluffSide - Log In / Sign Up</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<style>
-            :root {
+    
+    <style>
+        :root {
             --primary-orange: #EF8E35;
             --primary-hover: #D67A26;
             --bg-light: #FDFBF5;
@@ -156,7 +164,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .auth-footer a { color: var(--primary-orange); text-decoration: none; font-weight: 800; }
         .auth-footer a:hover { text-decoration: underline; }
         .hidden { display: none !important; }
-</style>
+    </style>
+</head>
 <body>
 
     <div class="container">
