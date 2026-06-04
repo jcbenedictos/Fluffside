@@ -1,6 +1,6 @@
-<?php 
+<?php
 session_start();
-require_once 'product.inc.php'; 
+require_once 'product.inc.php';
 
 if (isset($_GET['remove'])) {
     $remove_id = (int)$_GET['remove'];
@@ -33,6 +33,7 @@ if (isset($products)) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,102 +41,277 @@ if (isset($products)) {
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-    <style>
-            :root {
-                --primary-orange: #EF8E35;
-                --primary-hover: #D67A26;
-                --bg-light: #FDFBF5;
-                --text-dark: #5A483E;
-                --text-light: #8E8279;
-                --bg-yellow-light: #FCEABB;
-                --btn-green: #9BB374;
-                --footer-green: #B8C7A1;
-                --white: #FFFFFF;
-            }
+<style>
+    :root {
+        --primary-orange: #EF8E35;
+        --primary-hover: #D67A26;
+        --bg-light: #FDFBF5;
+        --text-dark: #5A483E;
+        --text-light: #8E8279;
+        --bg-yellow-light: #FCEABB;
+        --btn-green: #9BB374;
+        --footer-green: #B8C7A1;
+        --white: #FFFFFF;
+    }
 
-            * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
-            body { background-color: var(--bg-light); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
-            .container {max-width: 100%;margin: 0;padding: 0 5%; width: 100%;}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Nunito', sans-serif;
+    }
 
-            header { display: flex; justify-content: space-between; align-items: center; padding: 0; margin-top: 15px; margin-bottom: 30px; width: 100%; }
-            .logo-img { height: 250px; width: auto; mix-blend-mode: multiply; margin-top: -100px; margin-bottom: -100px; }
-            nav ul { display: flex; list-style: none; gap: 30px; align-items: center; margin: 0;}
-            nav a { text-decoration: none; color: var(--text-dark); font-weight: 800; font-size: 13px; text-transform: uppercase; transition: color 0.2s;}
-            nav a.active { border-bottom: 2px solid var(--primary-orange); color: var(--primary-orange); padding-bottom: 4px; }
-            nav a:hover { color: var(--primary-orange); }
-            
-            .header-actions { display: flex; align-items: center; gap: 20px; }
-            .cart-icon { color: var(--primary-orange); font-size: 20px; text-decoration: none; position: relative;}
-            .cart-badge { position: absolute; top: -8px; right: -10px; background-color: #E74C3C; color: white; font-size: 10px; font-weight: 900; width: 16px; height: 16px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
-            .btn-header { background-color: var(--primary-orange); color: var(--white); padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: 800; font-size: 14px; text-transform: uppercase;}
+    body {
+        background-color: var(--bg-light);
+        color: var(--text-dark);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+    }
 
-            .section-title { font-size: 22px; font-weight: 900; margin-bottom: 30px; text-transform: uppercase; }
-            .section-title span { color: var(--primary-orange); }
+    .container {
+        max-width: 100%;
+        margin: 0;
+        padding: 0 5%;
+        width: 100%;
+    }
 
-            .empty-cart-wrapper { background-color: var(--white); border-radius: 15px; border: 1px solid #EAE3D9; padding: 80px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 80px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
-            .empty-cart-icon { width: 120px; height: 120px; background-color: var(--bg-yellow-light); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 50px; color: var(--primary-orange); margin-bottom: 25px; }
-            .empty-cart-wrapper h2 { font-size: 28px; font-weight: 900; color: var(--text-dark); margin-bottom: 10px; }
-            .empty-cart-wrapper p { font-size: 15px; font-weight: 700; color: var(--text-light); margin-bottom: 35px; max-width: 400px; line-height: 1.5; }
-            
-            .cart-layout { display: flex; gap: 30px; align-items: flex-start; margin-bottom: 80px; width: 100%; }
-            .cart-items-container { flex: 1; background-color: var(--white); border-radius: 15px; border: 1px solid #EAE3D9; overflow: hidden; }
-            .cart-header-row { display: grid; grid-template-columns: 3fr 1fr 1fr auto; padding: 15px 25px; background-color: #F8F6F0; border-bottom: 1px solid #EAE3D9; font-weight: 800; font-size: 12px; text-transform: uppercase; color: var(--text-light); }
-            
-            .cart-item { display: grid; grid-template-columns: 3fr 1fr 1fr auto; align-items: center; padding: 25px; border-bottom: 1px solid #EAE3D9; }
-            .cart-item:last-child { border-bottom: none; }
-            
-            .item-info { display: flex; align-items: center; gap: 20px; }
-            .item-img-box { width: 80px; height: 80px; background-color: #F8F8F8; border-radius: 8px; display: flex; justify-content: center; align-items: center; padding: 10px; }
-            .item-img-box img { max-width: 100%; max-height: 100%; object-fit: contain; mix-blend-mode: multiply; }
-            .item-details h3 { font-size: 16px; font-weight: 800; margin-bottom: 5px; }
-            .item-details p { font-size: 14px; font-weight: 700; color: var(--primary-orange); }
-            
-            .item-qty { font-weight: 800; font-size: 15px; }
-            .item-subtotal { font-weight: 900; font-size: 16px; color: var(--text-dark); }
-            .btn-remove { color: #E74C3C; text-decoration: none; font-size: 18px; transition: 0.2s; }
-            .btn-remove:hover { transform: scale(1.1); }
+    
 
-            .cart-summary { width: 350px; background-color: var(--white); border-radius: 15px; border: 1px solid #EAE3D9; padding: 30px; position: sticky; top: 20px; }
-            .summary-title { font-size: 18px; font-weight: 900; margin-bottom: 20px; border-bottom: 2px solid #F8F6F0; padding-bottom: 15px; }
-            .summary-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 15px; font-weight: 700; color: var(--text-light); }
-            .summary-total { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 2px solid #F8F6F0; font-size: 20px; font-weight: 900; color: var(--text-dark); }
-            
-            .btn-checkout { display: block; width: 100%; background-color: var(--btn-green); color: var(--white); text-align: center; padding: 15px; border-radius: 30px; text-decoration: none; font-weight: 900; font-size: 15px; margin-top: 25px; transition: 0.2s; text-transform: uppercase; }
-            .btn-checkout:hover { background-color: #8DA466; transform: translateY(-2px); }
-            .btn-browse { background-color: var(--primary-orange); color: var(--white); padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 15px; display: inline-block; transition: 0.2s; }
-            .btn-browse:hover { background-color: var(--primary-hover); }
-    </style>
+    .section-title {
+        font-size: 22px;
+        font-weight: 900;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+    }
+
+    .section-title span {
+        color: var(--primary-orange);
+    }
+
+    .empty-cart-wrapper {
+        background-color: var(--white);
+        border-radius: 15px;
+        border: 1px solid #EAE3D9;
+        padding: 80px 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 80px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+
+    .empty-cart-icon {
+        width: 120px;
+        height: 120px;
+        background-color: var(--bg-yellow-light);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 50px;
+        color: var(--primary-orange);
+        margin-bottom: 25px;
+    }
+
+    .empty-cart-wrapper h2 {
+        font-size: 28px;
+        font-weight: 900;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+    }
+
+    .empty-cart-wrapper p {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-light);
+        margin-bottom: 35px;
+        max-width: 400px;
+        line-height: 1.5;
+    }
+
+    .cart-layout {
+        display: flex;
+        gap: 30px;
+        align-items: flex-start;
+        margin-bottom: 80px;
+        width: 100%;
+    }
+
+    .cart-items-container {
+        flex: 1;
+        background-color: var(--white);
+        border-radius: 15px;
+        border: 1px solid #EAE3D9;
+        overflow: hidden;
+    }
+
+    .cart-header-row {
+        display: grid;
+        grid-template-columns: 3fr 1fr 1fr auto;
+        padding: 15px 25px;
+        background-color: #F8F6F0;
+        border-bottom: 1px solid #EAE3D9;
+        font-weight: 800;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: var(--text-light);
+    }
+
+    .cart-item {
+        display: grid;
+        grid-template-columns: 3fr 1fr 1fr auto;
+        align-items: center;
+        padding: 25px;
+        border-bottom: 1px solid #EAE3D9;
+    }
+
+    .cart-item:last-child {
+        border-bottom: none;
+    }
+
+    .item-info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .item-img-box {
+        width: 80px;
+        height: 80px;
+        background-color: #F8F8F8;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .item-img-box img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        mix-blend-mode: multiply;
+    }
+
+    .item-details h3 {
+        font-size: 16px;
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
+
+    .item-details p {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--primary-orange);
+    }
+
+    .item-qty {
+        font-weight: 800;
+        font-size: 15px;
+    }
+
+    .item-subtotal {
+        font-weight: 900;
+        font-size: 16px;
+        color: var(--text-dark);
+    }
+
+    .btn-remove {
+        color: #E74C3C;
+        text-decoration: none;
+        font-size: 18px;
+        transition: 0.2s;
+    }
+
+    .btn-remove:hover {
+        transform: scale(1.1);
+    }
+
+    .cart-summary {
+        width: 350px;
+        background-color: var(--white);
+        border-radius: 15px;
+        border: 1px solid #EAE3D9;
+        padding: 30px;
+        position: sticky;
+        top: 20px;
+    }
+
+    .summary-title {
+        font-size: 18px;
+        font-weight: 900;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #F8F6F0;
+        padding-bottom: 15px;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-light);
+    }
+
+    .summary-total {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 2px solid #F8F6F0;
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--text-dark);
+    }
+
+    .btn-checkout {
+        display: block;
+        width: 100%;
+        background-color: var(--btn-green);
+        color: var(--white);
+        text-align: center;
+        padding: 15px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 900;
+        font-size: 15px;
+        margin-top: 25px;
+        transition: 0.2s;
+        text-transform: uppercase;
+    }
+
+    .btn-checkout:hover {
+        background-color: #8DA466;
+        transform: translateY(-2px);
+    }
+
+    .btn-browse {
+        background-color: var(--primary-orange);
+        color: var(--white);
+        padding: 15px 40px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 15px;
+        display: inline-block;
+        transition: 0.2s;
+    }
+
+    .btn-browse:hover {
+        background-color: var(--primary-hover);
+    }
+</style>
+
 <body>
 
     <div class="container">
-
-        <header>
-            <a href="index.php"><img src="Assets/Fluffside.png" alt="Logo" class="logo-img" onerror="this.outerHTML='<h1 style=&quot;color:#EF8E35&quot;>FluffSide</h1>'"></a>
-            <nav>
-                <ul>
-                    <li><a href="index.php">HOME</a></li>
-                    <li><a href="residents.php">RESIDENTS</a></li>
-                    <li><a href="supplies.php">SUPPLIES</a></li>
-                    <li><a href="#">DASHBOARD</a></li>
-                    <li><a href="#">ABOUT US</a></li>
-                    <li><a href="#">HELP</a></li>
-                </ul>
-            </nav>
-            <div class="header-actions">
-                <a href="cart.php" class="cart-icon">
-                    <i class="fas fa-shopping-cart"></i>
-                    <?php if($cart_total_items > 0): ?>
-                        <span class="cart-badge"><?= $cart_total_items ?></span>
-                    <?php endif; ?>
-                </a>
-                
-                <?php if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
-                    <a href="profile.php" class="btn-header">ACCOUNT</a>
-                <?php else: ?>
-                    <a href="login.php" class="btn-header">LOG IN/SIGN UP</a>
-                <?php endif; ?>
-            </div>
-        </header>
+       <!-- ════ HEADER ════ -->
+        <?php include 'header.php'; ?>
 
 
         <section class="cart-section">
@@ -149,7 +325,7 @@ if (isset($products)) {
                     </div>
                     <h2>Your cart is empty!</h2>
                     <p>Looks like you haven't added any treats, toys, or supplies for your furry friends yet.</p>
-                    
+
                     <a href="supplies.php" class="btn-browse">
                         <i class="fas fa-paw"></i> BROWSE SUPPLIES
                     </a>
@@ -157,7 +333,7 @@ if (isset($products)) {
             <?php else: ?>
 
                 <div class="cart-layout">
-                    
+
                     <div class="cart-items-container">
                         <div class="cart-header-row">
                             <div>Product</div>
@@ -167,15 +343,15 @@ if (isset($products)) {
                         </div>
 
                         <?php foreach ($_SESSION['cart'] as $id => $quantity): ?>
-                            <?php 
-                                if (isset($product_lookup[$id])) {
-                                    $product = $product_lookup[$id];
+                            <?php
+                            if (isset($product_lookup[$id])) {
+                                $product = $product_lookup[$id];
 
-                                    $item_subtotal = $product->price * $quantity; 
-                                    $grand_total += $item_subtotal;
-                                } else {
-                                    continue;
-                                }
+                                $item_subtotal = $product->price * $quantity;
+                                $grand_total += $item_subtotal;
+                            } else {
+                                continue;
+                            }
                             ?>
                             <div class="cart-item">
                                 <div class="item-info">
@@ -202,12 +378,12 @@ if (isset($products)) {
 
                     <div class="cart-summary">
                         <h3 class="summary-title">Order Summary</h3>
-                        
+
                         <div class="summary-row">
                             <span>Total Items:</span>
                             <span><?= $cart_total_items ?></span>
                         </div>
-                        
+
                         <div class="summary-row">
                             <span>Subtotal:</span>
                             <span>₱<?= number_format($grand_total, 2) ?></span>
@@ -230,20 +406,26 @@ if (isset($products)) {
 
         </section>
 
-    </div> 
+    </div>
+
+    <?php include 'footer.php'; ?>
+
     <script>
         // 30-second inactivity logout
         let inactivityTimer;
+
         function resetTimer() {
             clearTimeout(inactivityTimer);
             inactivityTimer = setTimeout(function() {
                 window.location.href = 'logout.php?reason=inactive';
             }, 30000);
         }
-        ['mousemove','keydown','click','scroll','touchstart'].forEach(function(e) {
+        ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(function(e) {
             document.addEventListener(e, resetTimer);
         });
         resetTimer();
     </script>
+
 </body>
+
 </html>
