@@ -18,12 +18,26 @@ $product_id = (int)($_GET['id'] ?? 0);
 // ── Guard: 404 if not found ───────────────────────────────────
 if ($product_id === 0 || !isset($product_lookup[$product_id])) {
     http_response_code(404);
-    die('<!DOCTYPE html><html><head><title>Product not found — FluffSide</title>
+    echo'<!DOCTYPE html><html><head><title>Product not found — FluffSide</title>
          <style>body{font-family:Nunito,sans-serif;display:flex;align-items:center;
          justify-content:center;height:100vh;flex-direction:column;gap:16px;color:#5A483E;}
          a{color:#EF8E35;font-weight:800;}</style></head>
          <body><h2>Product not found.</h2>
-         <a href="supplies.php">← Back to Supplies</a></body></html>');
+         <a href="supplies.php">← Back to Supplies</a>    <script>
+        // 30-second inactivity logout
+        let inactivityTimer;
+        function resetTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(function() {
+                window.location.href = "logout.php?reason=inactive";
+            }, 30000);
+        }
+        ["mousemove","keydown","click","scroll","touchstart"].forEach(function(e) {
+            document.addEventListener(e, resetTimer);
+        });
+        resetTimer();
+    </script>
+</body></html>'; exit;
 }
 
 $product = $product_lookup[$product_id];
@@ -779,5 +793,19 @@ function h(string $s): string {
     if (toast) setTimeout(() => toast.remove(), 3000);
 </script>
 
+    <script>
+        // 30-second inactivity logout
+        let inactivityTimer;
+        function resetTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(function() {
+                window.location.href = 'logout.php?reason=inactive';
+            }, 30000);
+        }
+        ['mousemove','keydown','click','scroll','touchstart'].forEach(function(e) {
+            document.addEventListener(e, resetTimer);
+        });
+        resetTimer();
+    </script>
 </body>
 </html>

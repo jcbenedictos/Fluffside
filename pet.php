@@ -24,7 +24,21 @@ if ($pet_id === '' || !array_key_exists($pet_id, $pets)) {
          justify-content:center;height:100vh;flex-direction:column;gap:16px;color:#5A483E;}
          a{color:#EF8E35;font-weight:800;}</style></head>
          <body><h2> Pet not found.</h2>
-         <a href="residents.php">← Back to Residents</a></body></html>');
+         <a href="residents.php">← Back to Residents</a>    <script>
+        // 30-second inactivity logout
+        let inactivityTimer;
+        function resetTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(function() {
+                window.location.href = 'logout.php?reason=inactive';
+            }, 30000);
+        }
+        ['mousemove','keydown','click','scroll','touchstart'].forEach(function(e) {
+            document.addEventListener(e, resetTimer);
+        });
+        resetTimer();
+    </script>
+</body></html>');
 }
 
 $pet = $pets[$pet_id];
@@ -564,6 +578,20 @@ function age_class(string $age): string
         }
     </script>
 
+    <script>
+        // 30-second inactivity logout
+        let inactivityTimer;
+        function resetTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(function() {
+                window.location.href = 'logout.php?reason=inactive';
+            }, 30000);
+        }
+        ['mousemove','keydown','click','scroll','touchstart'].forEach(function(e) {
+            document.addEventListener(e, resetTimer);
+        });
+        resetTimer();
+    </script>
 </body>
 
 </html>

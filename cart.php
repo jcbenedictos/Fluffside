@@ -191,7 +191,7 @@ if (isset($products)) {
                                     <?= $quantity ?>
                                 </div>
                                 <div class="item-subtotal">
-                                    $<?= number_format($item_subtotal, 2) ?>
+                                    ₱<?= number_format($item_subtotal, 2) ?>
                                 </div>
                                 <a href="cart.php?remove=<?= $product->id ?>" class="btn-remove" title="Remove Item">
                                     <i class="fas fa-trash-alt"></i>
@@ -210,20 +210,20 @@ if (isset($products)) {
                         
                         <div class="summary-row">
                             <span>Subtotal:</span>
-                            <span>$<?= number_format($grand_total, 2) ?></span>
+                            <span>₱<?= number_format($grand_total, 2) ?></span>
                         </div>
 
                         <div class="summary-row">
                             <span>Charity Donation (10%):</span>
-                            <span style="color: var(--primary-orange);"><i class="fas fa-heart"></i> $<?= number_format($grand_total * 0.10, 2) ?></span>
+                            <span style="color: var(--primary-orange);"><i class="fas fa-heart"></i> ₱<?= number_format($grand_total * 0.10, 2) ?></span>
                         </div>
 
                         <div class="summary-total">
                             <span>Total:</span>
-                            <span style="color: var(--primary-orange);">$<?= number_format($grand_total * 1.10, 2) ?></span>
+                            <span style="color: var(--primary-orange);">₱<?= number_format($grand_total * 1.10, 2) ?></span>
                         </div>
 
-                        <a href="#" class="btn-checkout">Proceed to Checkout</a>
+                        <a href="checkout.php" class="btn-checkout">Proceed to Checkout</a>
                     </div>
                 </div>
             <?php endif; ?>
@@ -231,6 +231,19 @@ if (isset($products)) {
         </section>
 
     </div> 
-
+    <script>
+        // 30-second inactivity logout
+        let inactivityTimer;
+        function resetTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(function() {
+                window.location.href = 'logout.php?reason=inactive';
+            }, 30000);
+        }
+        ['mousemove','keydown','click','scroll','touchstart'].forEach(function(e) {
+            document.addEventListener(e, resetTimer);
+        });
+        resetTimer();
+    </script>
 </body>
 </html>

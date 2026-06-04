@@ -226,5 +226,19 @@ $is_logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true
 
     <?php include 'footer.php'; ?>
 
+    <script>
+        // 30-second inactivity logout
+        let inactivityTimer;
+        function resetTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(function() {
+                window.location.href = 'logout.php?reason=inactive';
+            }, 30000);
+        }
+        ['mousemove','keydown','click','scroll','touchstart'].forEach(function(e) {
+            document.addEventListener(e, resetTimer);
+        });
+        resetTimer();
+    </script>
 </body>
 </html>

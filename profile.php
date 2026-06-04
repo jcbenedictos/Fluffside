@@ -722,6 +722,20 @@ $highlight = isset($_GET['highlight']) && $_GET['highlight'] === '1';
         });
         <?php endif; ?>
     </script>
+    <script>
+        // 30-second inactivity logout
+        let inactivityTimer;
+        function resetTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(function() {
+                window.location.href = 'logout.php?reason=inactive';
+            }, 30000);
+        }
+        ['mousemove','keydown','click','scroll','touchstart'].forEach(function(e) {
+            document.addEventListener(e, resetTimer);
+        });
+        resetTimer();
+    </script>
 </body>
 
 </html>

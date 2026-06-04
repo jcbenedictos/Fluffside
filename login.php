@@ -179,6 +179,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="alert-box alert-success"><i class="fas fa-check-circle"></i> <?= $success_msg ?></div>
         <?php elseif(isset($_GET['msg']) && $_GET['msg'] === 'login_required'): ?>
             <div class="alert-box alert-error"><i class="fas fa-lock"></i> Please log in to access the website.</div>
+        <?php elseif(isset($_GET['msg']) && $_GET['msg'] === 'inactive'): ?>
+            <div class="alert-box alert-error"><i class="fas fa-clock"></i> You were logged out due to 30 seconds of inactivity.</div>
         <?php endif; ?>
 
         <div class="auth-wrapper">
