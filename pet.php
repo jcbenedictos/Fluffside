@@ -19,7 +19,7 @@ $pet_id = strtolower(trim($_GET['id'] ?? ''));
 // ── Guard: 404 if ID missing or not in our data ───────────────
 if ($pet_id === '' || !array_key_exists($pet_id, $pets)) {
     http_response_code(404);
-    die('<!DOCTYPE html><html><head><title>Pet not found — FluffSide</title>
+    echo '<!DOCTYPE html><html><head><title>Pet not found — FluffSide</title>
          <style>body{font-family:Nunito,sans-serif;display:flex;align-items:center;
          justify-content:center;height:100vh;flex-direction:column;gap:16px;color:#5A483E;}
          a{color:#EF8E35;font-weight:800;}</style></head>
@@ -30,15 +30,15 @@ if ($pet_id === '' || !array_key_exists($pet_id, $pets)) {
         function resetTimer() {
             clearTimeout(inactivityTimer);
             inactivityTimer = setTimeout(function() {
-                window.location.href = 'logout.php?reason=inactive';
-            }, 30000);
+                window.location.href = "logout.php?reason=inactive";
+            }, 60000);
         }
-        ['mousemove','keydown','click','scroll','touchstart'].forEach(function(e) {
+        ["mousemove","keydown","click","scroll","touchstart"].forEach(function(e) {
             document.addEventListener(e, resetTimer);
         });
         resetTimer();
     </script>
-</body></html>');
+</body></html>'; exit;
 }
 
 $pet = $pets[$pet_id];
