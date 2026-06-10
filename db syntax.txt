@@ -18,3 +18,173 @@ CREATE TABLE tbl_sessions (
     expires_at DATETIME NOT NULL,
     FOREIGN KEY (user_id) REFERENCES tbl_users(user_id) ON DELETE CASCADE
 );
+
+**STARTING DITO BAGO LAHAT TAS BAKA MAG TANONG KA KUNG BAKIT MADAMI, 
+    RECOMMENDED NI CLAUDE NA SPLIT YUNG TABLES(e.g. tbl_product_categories nakahiwalay sa tbl_products so and so forth) GAWA NUNG SA ADMIN SIDE SINCE 
+    MADAMING EME YUNG SA RESIDENTS,SUPPLY TAS FORM PA(e.g. ID nung hayop, image, trait at kung ano ano pa putangina)AT PERFORMANCE WISE MAS MABILIS ANG SPLIT, 
+    KUNG GUSTO MO IEDIT MO TAS WAG NA SPLIT PERO ISIPIN MO NALANG PAGOD KO PAG GAWA NG TABLE;-;**
+
+CREATE TABLE tbl_residents (
+    resident_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    pet_type VARCHAR(50) NOT NULL,
+    breed VARCHAR(100),
+    sex VARCHAR(10),
+    status VARCHAR(50) DEFAULT 'Available',
+    age_group VARCHAR(50),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE tbl_resident_photos (
+    photo_id INT AUTO_INCREMENT PRIMARY KEY,
+    resident_id INT NOT NULL,
+    photo_url VARCHAR(255) NOT NULL,
+    is_primary TINYINT(1) DEFAULT 0,
+    FOREIGN KEY (resident_id) REFERENCES tbl_residents(resident_id) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_resident_traits (
+    trait_id INT AUTO_INCREMENT PRIMARY KEY,
+    resident_id INT NOT NULL,
+    trait_name VARCHAR(50) NOT NULL,
+    FOREIGN KEY (resident_id) REFERENCES tbl_residents(resident_id) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_applications (
+    application_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    resident_id INT NOT NULL,
+    type VARCHAR(20) NOT NULL,
+    status VARCHAR(50) DEFAULT 'Under Review',
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES tbl_users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (resident_id) REFERENCES tbl_residents(resident_id) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_interview_schedules (
+    schedule_id INT AUTO_INCREMENT PRIMARY KEY,
+    application_id INT NOT NULL UNIQUE,
+    interview_date DATE NOT NULL,
+    interview_time TIME NOT NULL,
+    meeting_link VARCHAR(255),
+    FOREIGN KEY (application_id) REFERENCES tbl_applications(application_id) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_applicant_info (
+    info_id INT AUTO_INCREMENT PRIMARY KEY,
+    application_id INT NOT NULL UNIQUE,
+    housing_type VARCHAR(100),
+    living_with VARCHAR(255),
+    has_other_pets TINYINT(1),
+    FOREIGN KEY (application_id) REFERENCES tbl_applications(application_id) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_questionnaire_answers (
+    answer_id INT AUTO_INCREMENT PRIMARY KEY,
+    application_id INT NOT NULL UNIQUE,
+    experience_level VARCHAR(100),
+    hours_alone_per_day INT,
+    reason_for_applying TEXT,
+    FOREIGN KEY (application_id) REFERENCES tbl_applications(application_id) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_foster_extra (
+    foster_extra_id INT AUTO_INCREMENT PRIMARY KEY,
+    application_id INT NOT NULL UNIQUE,
+    foster_duration VARCHAR(100),
+    can_provide_meds TINYINT(1),
+    FOREIGN KEY (application_id) REFERENCES tbl_applications(application_id) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_alternate_contacts (
+    contact_id INT AUTO_INCREMENT PRIMARY KEY,
+    application_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    relation VARCHAR(50),
+    FOREIGN KEY (application_id) REFERENCES tbl_applications(application_id) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_home_photos (
+    photo_id INT AUTO_INCREMENT PRIMARY KEY,
+    application_id INT NOT NULL,
+    photo_url VARCHAR(255) NOT NULL,
+    description VARCHAR(100), -- E.g., 'Living Room', 'Fenced Yard'
+    FOREIGN KEY (application_id) REFERENCES tbl_applications(application_id) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_product_categories (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE tbl_products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    brand VARCHAR(100),
+    price DECIMAL(10,2) NOT NULL, -- Format: 00000000.00
+    stock_qty INT DEFAULT 0,
+    is_active TINYINT(1) DEFAULT 1,
+    description TEXT,
+    FOREIGN KEY (category_id) REFERENCES tbl_product_categories(category_id)
+);
+
+CREATE TABLE tbl_product_photos (
+    photo_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    photo_url VARCHAR(255) NOT NULL,
+    is_primary TINYINT(1) DEFAULT 0,
+    FOREIGN KEY (product_id) REFERENCES tbl_products(product_id) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_cart_items (
+    cart_item_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT DEFAULT 1,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES tbl_users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES tbl_products(product_id) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
+    status VARCHAR(50) DEFAULT 'Pending', -- Pending, Processing, Shipped, Delivered
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES tbl_users(user_id)
+);
+
+CREATE TABLE tbl_order_items (
+    order_item_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price_at_time DECIMAL(10,2) NOT NULL, -- In case product price changes later!
+    FOREIGN KEY (order_id) REFERENCES tbl_orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES tbl_products(product_id)
+);
+
+CREATE TABLE tbl_payments (
+    payment_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL UNIQUE,
+    payment_method VARCHAR(50), -- GCash, Card, Cash on Pickup
+    payment_status VARCHAR(50) DEFAULT 'Unpaid', -- Unpaid, Paid, Failed
+    transaction_id VARCHAR(100),
+    paid_at DATETIME NULL,
+    FOREIGN KEY (order_id) REFERENCES tbl_orders(order_id) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_product_reviews (
+    review_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    user_id INT NOT NULL,
+    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    review_text TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES tbl_products(product_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES tbl_users(user_id) ON DELETE CASCADE
+);

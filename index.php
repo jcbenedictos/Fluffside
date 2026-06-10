@@ -231,7 +231,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     </div>
     <?php endif; ?>
     <script>
-        // 30-second inactivity logout
         let inactivityTimer;
         function resetTimer() {
             clearTimeout(inactivityTimer);
