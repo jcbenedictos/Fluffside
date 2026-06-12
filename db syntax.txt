@@ -18,3 +18,4 @@ CREATE TABLE tbl_sessions (
     expires_at DATETIME NOT NULL,
     FOREIGN KEY (user_id) REFERENCES tbl_users(user_id) ON DELETE CASCADE
 );
+-------
