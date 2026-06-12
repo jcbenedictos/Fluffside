@@ -1,0 +1,26 @@
+[
+    {
+        "id": "MSG-001",
+        "app_id": "APP-001",
+        "user_id": 1,
+        "sender": "admin",
+        "message": "Hello! We've reviewed your adoption application for Scout and we're impressed. We'd like to schedule a quick Zoom interview with you. Are you available this week?",
+        "sent_at": "2026-05-15 10:30:00"
+    },
+    {
+        "id": "MSG-002",
+        "app_id": "APP-001",
+        "user_id": 1,
+        "sender": "user",
+        "message": "Hi! Yes, I am available Thursday or Friday afternoon. What time works for you?",
+        "sent_at": "2026-05-15 14:22:00"
+    },
+    {
+        "id": "MSG-003",
+        "app_id": "APP-001",
+        "user_id": 1,
+        "sender": "admin",
+        "message": "Friday at 3PM works great! I'll send the Zoom link to your email shortly. See you then!",
+        "sent_at": "2026-05-15 15:00:00"
+    }
+]

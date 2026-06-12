@@ -1,0 +1,26 @@
+[
+    {
+        "name": "bini",
+        "email": "bini@gmail.com",
+        "password": "$2y$10$H200zYTDTuf058.S6KoyY.nAH.lrpidzyNaNX2SzxlTKcFIhIxkDS"
+    },
+    {
+        "name": "aiah silvano",
+        "first_name": "aiah",
+        "last_name": "silvano",
+        "email": "aiah@gmail.com",
+        "phone": "095189651091",
+        "dob": "52006-02-05",
+        "password": "$2y$10$NoLrv9t5iecci5C8UuxwoOAlUsvRmWnuXbQWbaAcWHa1LAeDlZyTC",
+        "address": "sa tabi"
+    },
+    {
+        "name": "raya silvano",
+        "first_name": "raya",
+        "last_name": "silvano",
+        "email": "raya@gmail.com",
+        "phone": "09518965091",
+        "dob": "2005-05-25",
+        "password": "$2y$10$1FoLk36ahrc9xGVCOI2md..gxBu4\/tVqULo458e5hEMJvMpeJ8yYK"
+    }
+]

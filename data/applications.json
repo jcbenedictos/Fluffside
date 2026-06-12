@@ -1,0 +1,34 @@
+[
+    {
+        "id": "APP-001",
+        "user_id": 1,
+        "user_name": "Juan Dela Cruz",
+        "user_email": "juan@gmail.com",
+        "pet_id": "scout",
+        "pet_name": "SCOUT",
+        "pet_breed": "Golden Retriever",
+        "pet_image": "Assets\/Residents\/Dog\/Scout1.jpg",
+        "type": "Adoption",
+        "status": "active",
+        "current_step": 2,
+        "last_update": "We've reviewed your application and would like to schedule an interview. Please check your messages.",
+        "submitted_at": "2026-05-14",
+        "rejected": false
+    },
+    {
+        "id": "APP-002",
+        "user_id": 1,
+        "user_name": "Juan Dela Cruz",
+        "user_email": "juan@gmail.com",
+        "pet_id": "mochi",
+        "pet_name": "MOCHI",
+        "pet_breed": "Siamese",
+        "pet_image": "Assets\/Residents\/Cat\/Mochi1.jpg",
+        "type": "Foster",
+        "status": "active",
+        "current_step": 4,
+        "last_update": "Application approved! Please coordinate with us for your Meet and Greet schedule.",
+        "submitted_at": "2026-05-11",
+        "rejected": false
+    }
+]
