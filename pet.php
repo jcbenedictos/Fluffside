@@ -5,6 +5,7 @@
 // No duplicate files needed — ever.
 
 session_start();
+require_once 'db.inc.php';
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header("Location: login.php?msg=login_required");

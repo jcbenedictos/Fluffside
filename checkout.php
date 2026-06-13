@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'db.inc.php';
 require_once 'product.inc.php';
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {

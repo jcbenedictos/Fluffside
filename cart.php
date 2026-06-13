@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'db.inc.php';
 require_once 'product.inc.php';
 
 if (isset($_GET['remove'])) {
