@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CREATE DATABASE fluffside_db;
 
 CREATE TABLE tbl_users (
@@ -188,3 +189,379 @@ CREATE TABLE tbl_product_reviews (
     FOREIGN KEY (product_id) REFERENCES tbl_products(product_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES tbl_users(user_id) ON DELETE CASCADE
 );
+=======
+-- ============================================================
+-- FLUFFSIDE DATABASE SETUP
+-- ============================================================
+-- HOW TO USE:
+--   1. Open phpMyAdmin
+--   2. Click on "fluffside_db" in the left sidebar
+--   3. Go to the SQL tab
+--   4. Copy and paste this ENTIRE file and click GO
+--
+-- NOTE: Run in ORDER. Each section depends on the one before it.
+-- If you're setting up fresh, start from Step 0.
+-- ============================================================
+
+
+-- ============================================================
+-- STEP 0: CREATE DATABASE
+-- ============================================================
+-- Only run this if the database doesn't exist yet.
+-- If fluffside_db already exists, skip this line.
+
+CREATE DATABASE IF NOT EXISTS fluffside_db;
+USE fluffside_db;
+
+
+-- ============================================================
+-- STEP 1: tbl_users
+-- ============================================================
+-- Stores all registered users (both regular users and admins).
+-- role = 'Admin' gives access to the admin panel.
+-- is_active = 0 means the account is disabled.
+
+CREATE TABLE IF NOT EXISTS tbl_users (
+    user_id       INT AUTO_INCREMENT PRIMARY KEY,
+    full_name     VARCHAR(100) NOT NULL,
+    email         VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    phone         VARCHAR(20)  DEFAULT NULL,
+    dob           DATE         DEFAULT NULL,
+    address       TEXT         DEFAULT NULL,
+    profile_photo VARCHAR(255) DEFAULT NULL,
+    role          ENUM('User','Admin') NOT NULL DEFAULT 'User',
+    is_active     TINYINT(1)   NOT NULL DEFAULT 1,
+    created_at    TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- ============================================================
+-- STEP 2: tbl_sessions
+-- ============================================================
+-- Stores active login sessions for users.
+-- Linked to tbl_users. Deleted automatically when user is deleted.
+-- session_id matches PHP's session_id() value.
+
+CREATE TABLE IF NOT EXISTS tbl_sessions (
+    session_id VARCHAR(128) PRIMARY KEY,
+    user_id    INT         NOT NULL,
+    ip_address VARCHAR(45) NOT NULL,
+    expires_at DATETIME    NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES tbl_users(user_id) ON DELETE CASCADE
+);
+
+
+-- ============================================================
+-- STEP 3: tbl_pets
+-- ============================================================
+-- Stores all shelter residents (dogs, cats, rabbits, etc.).
+-- pet_id is a slug (e.g. 'scout', 'luna') used in URLs.
+-- is_available = 0 means the pet has been adopted/fostered.
+
+CREATE TABLE IF NOT EXISTS tbl_pets (
+    pet_id       VARCHAR(60)  PRIMARY KEY,
+    pet_name     VARCHAR(100) NOT NULL,
+    breed        VARCHAR(100) DEFAULT NULL,
+    animal_type  ENUM('DOG','CAT','RABBIT','HAMSTER','BIRD','OTHER') NOT NULL,
+    gender       ENUM('MALE','FEMALE') NOT NULL,
+    age_desc     VARCHAR(60)  DEFAULT NULL,   -- e.g. "12 weeks old"
+    age_group    ENUM('Young','Adult','Senior') DEFAULT 'Adult',
+    image_path   VARCHAR(255) DEFAULT NULL,
+    description  TEXT         DEFAULT NULL,
+    is_available TINYINT(1)   NOT NULL DEFAULT 1,
+    created_at   TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- ============================================================
+-- STEP 4: tbl_pet_traits
+-- ============================================================
+-- Stores individual traits per pet: personality tags, likes, dislikes.
+-- trait_type distinguishes between the three categories.
+-- Multiple rows per pet_id (one row per trait).
+
+CREATE TABLE IF NOT EXISTS tbl_pet_traits (
+    trait_id    INT AUTO_INCREMENT PRIMARY KEY,
+    pet_id      VARCHAR(60) NOT NULL,
+    trait_type  ENUM('trait','like','dislike') NOT NULL,
+    trait_value VARCHAR(100) NOT NULL,
+    FOREIGN KEY (pet_id) REFERENCES tbl_pets(pet_id) ON DELETE CASCADE
+);
+
+
+-- ============================================================
+-- STEP 5: tbl_pet_gallery
+-- ============================================================
+-- Stores additional photos for each pet (used in the pet detail page).
+-- sort_order controls display order (lower = shown first).
+
+CREATE TABLE IF NOT EXISTS tbl_pet_gallery (
+    gallery_id INT AUTO_INCREMENT PRIMARY KEY,
+    pet_id     VARCHAR(60)  NOT NULL,
+    image_path VARCHAR(255) NOT NULL,
+    sort_order INT          DEFAULT 0,
+    FOREIGN KEY (pet_id) REFERENCES tbl_pets(pet_id) ON DELETE CASCADE
+);
+
+
+-- ============================================================
+-- STEP 6: tbl_products
+-- ============================================================
+-- Stores all pet supply products available for purchase.
+-- is_active = 0 hides the product from the storefront.
+-- rating and review_count are display fields (not user-submitted).
+
+CREATE TABLE IF NOT EXISTS tbl_products (
+    product_id        INT AUTO_INCREMENT PRIMARY KEY,
+    image_path        VARCHAR(255) DEFAULT NULL,
+    title             VARCHAR(200) NOT NULL,
+    subtitle          VARCHAR(255) DEFAULT NULL,
+    description       TEXT         DEFAULT NULL,
+    full_description  TEXT         DEFAULT NULL,
+    price             DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    category          VARCHAR(60)  DEFAULT NULL,
+    pet_type          VARCHAR(60)  DEFAULT NULL,
+    brand             VARCHAR(100) DEFAULT NULL,
+    life_stage        VARCHAR(60)  DEFAULT NULL,
+    weight_size       VARCHAR(60)  DEFAULT NULL,
+    food_form         VARCHAR(60)  DEFAULT NULL,
+    storage_type      VARCHAR(60)  DEFAULT NULL,
+    origin            VARCHAR(100) DEFAULT NULL,
+    rating            DECIMAL(3,2) DEFAULT 5.00,
+    review_count      INT          DEFAULT 0,
+    is_active         TINYINT(1)   NOT NULL DEFAULT 1,
+    created_at        TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- ============================================================
+-- STEP 7: tbl_product_gallery
+-- ============================================================
+-- Stores additional images for each product (used in supply detail page).
+-- sort_order controls display order.
+
+CREATE TABLE IF NOT EXISTS tbl_product_gallery (
+    gallery_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT          NOT NULL,
+    image_path VARCHAR(255) NOT NULL,
+    sort_order INT          DEFAULT 0,
+    FOREIGN KEY (product_id) REFERENCES tbl_products(product_id) ON DELETE CASCADE
+);
+
+
+-- ============================================================
+-- STEP 8: tbl_orders
+-- ============================================================
+-- Stores completed checkout orders.
+-- order_number is auto-generated in the format: FS-YYYYMMDD-XXXX
+-- donation_amount is optional; added on top of subtotal.
+-- status tracks the fulfillment stage.
+
+CREATE TABLE IF NOT EXISTS tbl_orders (
+    order_id        INT AUTO_INCREMENT PRIMARY KEY,
+    order_number    VARCHAR(20)   NOT NULL UNIQUE,   -- e.g. FS-20260609-0001
+    user_id         INT           NOT NULL,
+    full_name       VARCHAR(100)  NOT NULL,
+    email           VARCHAR(100)  NOT NULL,
+    phone           VARCHAR(20)   NOT NULL,
+    address         TEXT          NOT NULL,
+    city            VARCHAR(100)  NOT NULL,
+    zip_code        VARCHAR(10)   NOT NULL,
+    payment_method  ENUM('Cash on Delivery','GCash','Credit / Debit Card') NOT NULL DEFAULT 'Cash on Delivery',
+    subtotal        DECIMAL(10,2) NOT NULL,
+    donation_amount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    total_amount    DECIMAL(10,2) NOT NULL,
+    status          ENUM('Pending','Processing','Shipped','Delivered','Cancelled') NOT NULL DEFAULT 'Pending',
+    notes           TEXT          DEFAULT NULL,
+    ordered_at      TIMESTAMP     DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES tbl_users(user_id) ON DELETE RESTRICT
+);
+
+
+-- ============================================================
+-- STEP 9: tbl_order_items
+-- ============================================================
+-- Stores individual line items for each order.
+-- product_title and unit_price are snapshots at time of purchase
+-- (so if a product is edited later, order history stays accurate).
+
+CREATE TABLE IF NOT EXISTS tbl_order_items (
+    item_id       INT AUTO_INCREMENT PRIMARY KEY,
+    order_id      INT          NOT NULL,
+    product_id    INT          NOT NULL,
+    product_title VARCHAR(200) NOT NULL,     -- snapshot at purchase
+    unit_price    DECIMAL(10,2) NOT NULL,    -- snapshot at purchase
+    quantity      INT          NOT NULL,
+    subtotal      DECIMAL(10,2) NOT NULL,    -- unit_price * quantity
+    FOREIGN KEY (order_id)  REFERENCES tbl_orders(order_id)     ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES tbl_products(product_id) ON DELETE RESTRICT
+);
+
+
+-- ============================================================
+-- STEP 10: tbl_applications
+-- ============================================================
+-- High-level tracking table for adoption and foster applications.
+-- app_id is manually assigned in format: APP-001, APP-002, etc.
+-- current_step tracks which stage of the process the app is in (1-6).
+-- rejected flag is separate from status for filtering purposes.
+
+CREATE TABLE IF NOT EXISTS tbl_applications (
+    app_id        VARCHAR(20)  PRIMARY KEY,       -- e.g. APP-001
+    user_id       INT          NOT NULL,
+    pet_id        VARCHAR(60)  NOT NULL,
+    app_type      ENUM('Adoption','Foster') NOT NULL,
+    status        ENUM('active','completed','rejected') NOT NULL DEFAULT 'active',
+    current_step  TINYINT      NOT NULL DEFAULT 1,   -- 1 to 6
+    last_update   TEXT         DEFAULT NULL,
+    rejected      TINYINT(1)   NOT NULL DEFAULT 0,
+    submitted_at  DATE         NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES tbl_users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (pet_id)  REFERENCES tbl_pets(pet_id)   ON DELETE CASCADE
+);
+
+
+-- ============================================================
+-- STEP 11: tbl_app_applicant
+-- ============================================================
+-- Stores the personal/household details submitted with each application.
+-- One row per application. Linked 1-to-1 with tbl_applications.
+-- Covers: personal info, contact, employment, housing, household, care plans.
+
+CREATE TABLE IF NOT EXISTS tbl_app_applicant (
+    app_id              VARCHAR(20) PRIMARY KEY,
+    -- Personal info
+    first_name          VARCHAR(60)  NOT NULL,
+    last_name           VARCHAR(60)  NOT NULL,
+    birthdate           DATE         DEFAULT NULL,
+    pronouns            VARCHAR(40)  DEFAULT NULL,       -- he/him, she/her, they/them, others
+    pronouns_other      VARCHAR(80)  DEFAULT NULL,
+    -- Contact info
+    email               VARCHAR(100) NOT NULL,
+    phone               VARCHAR(20)  NOT NULL,
+    address             TEXT         NOT NULL,
+    social_media        VARCHAR(200) DEFAULT NULL,
+    -- Employment
+    occupation          VARCHAR(100) DEFAULT NULL,
+    company             VARCHAR(150) DEFAULT NULL,
+    civil_status        VARCHAR(40)  DEFAULT NULL,       -- single, married, etc.
+    civil_status_other  VARCHAR(80)  DEFAULT NULL,
+    -- Background
+    prompt_src          VARCHAR(60)  DEFAULT NULL,       -- how they found Fluffside
+    prompt_src_other    VARCHAR(80)  DEFAULT NULL,
+    adopted_before      VARCHAR(10)  DEFAULT NULL,       -- yes / no
+    -- Alternate / emergency contact
+    alt_first_name      VARCHAR(60)  DEFAULT NULL,
+    alt_last_name       VARCHAR(60)  DEFAULT NULL,
+    alt_relationship    VARCHAR(60)  DEFAULT NULL,
+    alt_phone           VARCHAR(20)  DEFAULT NULL,
+    alt_email           VARCHAR(100) DEFAULT NULL,
+    -- Housing
+    building_type       VARCHAR(60)  DEFAULT NULL,       -- house, condo, apartment, etc.
+    building_type_other VARCHAR(80)  DEFAULT NULL,
+    do_rent             VARCHAR(10)  DEFAULT NULL,       -- yes / no
+    live_with           VARCHAR(200) DEFAULT NULL,       -- comma-separated: alone, parents, partner, etc.
+    live_with_other     VARCHAR(100) DEFAULT NULL,
+    -- Household
+    allergic            VARCHAR(10)  DEFAULT NULL,       -- yes / no
+    household_support   VARCHAR(10)  DEFAULT NULL,       -- yes / no
+    support_explain     TEXT         DEFAULT NULL,
+    other_pets          VARCHAR(10)  DEFAULT NULL,       -- yes / no
+    past_pets           VARCHAR(10)  DEFAULT NULL,       -- yes / no
+    near_road           VARCHAR(10)  DEFAULT NULL,       -- yes / no
+    -- Open-ended care plan answers (long text)
+    move_plan           TEXT         DEFAULT NULL,
+    care_plan           TEXT         DEFAULT NULL,
+    financial_plan      TEXT         DEFAULT NULL,
+    emergency_plan      TEXT         DEFAULT NULL,
+    hours_alone         TEXT         DEFAULT NULL,
+    -- File upload
+    valid_id_file       VARCHAR(255) DEFAULT NULL,
+    FOREIGN KEY (app_id) REFERENCES tbl_applications(app_id) ON DELETE CASCADE
+);
+
+
+-- ============================================================
+-- STEP 12: tbl_app_adoption
+-- ============================================================
+-- Stores adoption-specific fields: preferred interview schedule.
+-- One row per adoption application. Linked to tbl_applications.
+
+CREATE TABLE IF NOT EXISTS tbl_app_adoption (
+    app_id          VARCHAR(20) PRIMARY KEY,
+    interview_date  DATE        DEFAULT NULL,
+    interview_time  TIME        DEFAULT NULL,
+    same_month      VARCHAR(10) DEFAULT NULL,   -- yes / no
+    FOREIGN KEY (app_id) REFERENCES tbl_applications(app_id) ON DELETE CASCADE
+);
+
+
+-- ============================================================
+-- STEP 13: tbl_app_foster
+-- ============================================================
+-- Stores foster-specific fields: duration and shelter visit status.
+-- One row per foster application. Linked to tbl_applications.
+
+CREATE TABLE IF NOT EXISTS tbl_app_foster (
+    app_id           VARCHAR(20) PRIMARY KEY,
+    foster_duration  VARCHAR(60) DEFAULT NULL,   -- short-term, long-term, etc.
+    shelter_visit    VARCHAR(10) DEFAULT NULL,    -- yes / no
+    FOREIGN KEY (app_id) REFERENCES tbl_applications(app_id) ON DELETE CASCADE
+);
+
+
+-- ============================================================
+-- STEP 14: tbl_messages
+-- ============================================================
+-- Stores two-way messages between admin and users tied to an application.
+-- sender = 'admin' or 'user' to distinguish who sent each message.
+-- Displayed on both the user dashboard and admin applications page.
+
+CREATE TABLE IF NOT EXISTS tbl_messages (
+    message_id INT AUTO_INCREMENT PRIMARY KEY,
+    app_id     VARCHAR(20)          NOT NULL,
+    user_id    INT                  NOT NULL,
+    sender     ENUM('admin','user') NOT NULL,
+    message    TEXT                 NOT NULL,
+    sent_at    TIMESTAMP            DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (app_id)  REFERENCES tbl_applications(app_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES tbl_users(user_id)       ON DELETE CASCADE
+);
+
+
+-- ============================================================
+-- INDEXES
+-- ============================================================
+-- These speed up common queries used in the app.
+-- Safe to run multiple times (IF NOT EXISTS).
+
+CREATE INDEX IF NOT EXISTS idx_orders_user       ON tbl_orders(user_id);
+CREATE INDEX IF NOT EXISTS idx_orders_status     ON tbl_orders(status);
+CREATE INDEX IF NOT EXISTS idx_order_items_ord   ON tbl_order_items(order_id);
+CREATE INDEX IF NOT EXISTS idx_apps_user         ON tbl_applications(user_id);
+CREATE INDEX IF NOT EXISTS idx_msgs_app          ON tbl_messages(app_id);
+CREATE INDEX IF NOT EXISTS idx_pet_traits_pet    ON tbl_pet_traits(pet_id);
+CREATE INDEX IF NOT EXISTS idx_app_applicant_email ON tbl_app_applicant(email);
+
+
+-- ============================================================
+-- DONE!
+-- ============================================================
+-- Total: 14 tables
+--   tbl_users            - registered accounts
+--   tbl_sessions         - login sessions
+--   tbl_pets             - shelter residents
+--   tbl_pet_traits       - pet personality/likes/dislikes
+--   tbl_pet_gallery      - extra pet photos
+--   tbl_products         - supplies/store items
+--   tbl_product_gallery  - extra product photos
+--   tbl_orders           - completed orders
+--   tbl_order_items      - line items per order
+--   tbl_applications     - adoption/foster tracking
+--   tbl_app_applicant    - shared applicant form data
+--   tbl_app_adoption     - adoption-specific form fields
+--   tbl_app_foster       - foster-specific form fields
+--   tbl_messages         - admin-user messaging per application
+-- ============================================================
+>>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4

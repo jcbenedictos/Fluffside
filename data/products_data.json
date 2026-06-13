@@ -1,0 +1,1813 @@
+[
+    {
+        "id": 1,
+        "image": "Assets/Supplies/Food/dog_food1.jpg",
+        "gallery": [
+            "Assets/Supplies/Food/dog_food1.jpg",
+            "Assets/Supplies/Food/dog_food2.jpg",
+            "Assets/Supplies/Food/dog_food3.jpg"
+        ],
+        "title": "Pedigree Adult Complete Nutrition",
+        "subtitle": "Complete & Balanced Dry Dog Food for Adult Dogs",
+        "description": "A protein-rich daily dry dog food enriched with vitamins, minerals, and omega-6 fatty acids to support healthy muscles, shiny coats, and strong immunity.",
+        "full_description": "Pedigree Adult Complete Nutrition is specially formulated to provide adult dogs with complete daily nutrition for long-term health and vitality.Made with quality meat proteins, grains, essential vitamins, and minerals, this crunchy kibble supports lean muscle maintenance, healthy digestion, stronger immunity, and naturally cleaner teeth through chewing action.Omega-6 fatty acids and zinc help maintain healthy skin and a shiny coat, making it an excellent everyday meal for active adult dogs. ",
+        "weight": "2.8kg",
+        "price": 650,
+        "category": "Foods",
+        "brand": "Pedigree",
+        "pet_type": "Dog",
+        "life_stage": "Puppy",
+        "food_form": "Dry Food",
+        "flavors": [
+            "Chicken & Milk",
+            "Beef & Vegetables"
+        ],
+        "storage_type": "Room Temperature",
+        "origin": "Philippines Supplier",
+        "rating": 4.9,
+        "review_count": 128,
+        "specs": {
+            "Category": "Foods and Treats",
+            "Brand": "Pedigree",
+            "Pet Type": "Dog",
+            "Life Stage": "Puppy",
+            "Food Form": "Dry Food",
+            "Flavor": "Chicken & Milk / Beef & Vegetables",
+            "Weight": "2.8kg",
+            "Storage": "Room Temperature",
+            "Origin": "Philippines Supplier"
+        },
+        "ingredients": [
+            "Cereals",
+            "Poultry meal",
+            "Soybean products",
+            "Vitamins and minerals",
+            "Vegetable oils",
+            "Dried vegetables"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 22%",
+            "Fat (min) – 10%",
+            "Fiber (max) – 4%",
+            "Moisture (max) – 12%"
+        ],
+        "feeding_guide": [
+            "Small Puppies (up to 5kg): 60–120g/day",
+            "Medium Puppies (5–15kg): 120–220g/day",
+            "Large Puppies (15–30kg): 220–380g/day"
+        ],
+        "materials": [],
+        "features": [],
+        "use_guide": [],
+        "whats_inside": [
+            "PEDIGREE Puppy Dry Dog Food 2.8kg Bag"
+        ]
+    },
+    {
+        "id": 2,
+        "image": "Assets/Supplies/Food/hamster_food.png",
+        "gallery": [
+            "Assets/Supplies/Food/hamster_food.png",
+            "Assets/Supplies/Food/hamster_food1.png",
+            "Assets/Supplies/Food/hamster_food2.png"
+        ],
+        "title": "Oxbow Essentials Hamster & Gerbil Food",
+        "subtitle": "Balanced Timothy-Based Daily Food for Hamsters & Gerbils",
+        "description": "A fortified pellet food made with Timothy hay, oats, and barley to support digestion, immunity, and daily wellness for hamsters and gerbils.",
+        "full_description": "Oxbow Essentials Hamster & Gerbil Food provides complete nutrition using premium Timothy hay combined with wholesome grains.The uniform pellets help prevent selective eating while supporting digestive health and energy needs.Fortified with antioxidants, vitamins, and minerals, it delivers balanced daily nutrition for active small pets.",
+        "weight": "1LB",
+        "price": 540.5,
+        "category": "Foods",
+        "brand": "Oxbow",
+        "pet_type": "Hamster",
+        "life_stage": "Adult",
+        "food_form": "Dry Pellet",
+        "flavors": [
+            "Oats & Barley",
+            "Timothy Hay Blend"
+        ],
+        "storage_type": "Room Temperature",
+        "origin": "Imported by PH pet distributors",
+        "rating": 4.6,
+        "review_count": 473,
+        "specs": {
+            "Category": "Foods → Hamster & Gerbil Food",
+            "Brand": "Oxbow",
+            "Pet Type": "Hamster",
+            "Life Stage": "Adult",
+            "Food Form": "Dry Pellet",
+            "Weight": "1LB",
+            "Storage": "Room Temperature",
+            "Origin": "Imported by PH pet distributors"
+        },
+        "ingredients": [
+            "Timothy hay",
+            "Oats",
+            "Barley",
+            "Soybean hulls",
+            "Antioxidants",
+            "Vitamins and minerals"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 15%",
+            "Fat (min) – 4%",
+            "Fiber (max) – 18%",
+            "Moisture (max) – 10%"
+        ],
+        "feeding_guide": [
+            "Hamsters: 1–2 tablespoons/day",
+            "Gerbils: 2–3 tablespoons/day",
+            "Supplement with vegetables and water daily"
+        ],
+        "materials": [],
+        "features": [],
+        "use_guide": [],
+        "whats_inside": [
+            "1× Squeaky Rubber Chew Toy"
+        ]
+    },
+    {
+        "id": 3,
+        "image": "Assets/Supplies/Food/bird_food.png",
+        "gallery": [
+            "Assets/Supplies/Food/bird_food.png",
+            "Assets/Supplies/Food/bird_food1.png"
+        ],
+        "title": "Supreme Canary Mix",
+        "subtitle": "Premium Seed Blend for Canaries & Finches",
+        "description": "A nutritious seed blend made from freshly cleaned grains and seeds to support vibrant feathers, digestion, and daily vitality.",
+        "full_description": "Supreme Canary Mix is specially blended for canaries and finches using premium seeds and grains rich in protein, fiber, and natural oils.Naturally preserved for freshness, this wholesome mix promotes healthy digestion, vibrant plumage, and active daily living while remaining free from artificial colors and preservatives.",
+        "weight": "700g",
+        "price": 320,
+        "category": "Foods",
+        "brand": "Supreme",
+        "pet_type": "Bird",
+        "life_stage": "Adult",
+        "food_form": "Seed Mix",
+        "flavors": [
+            "Original Seed Blend",
+            "Honey Seed Blend"
+        ],
+        "storage_type": "Room Temperature",
+        "origin": "Local Supplier",
+        "rating": 4.7,
+        "review_count": 63,
+        "specs": {
+            "Category": "Foods → Bird Food",
+            "Brand": "Supreme",
+            "Pet Type": "Bird",
+            "Life Stage": "Adult",
+            "Food Form": "Seed Mix",
+            "Weight": "700g",
+            "Storage": "Room Temperature",
+            "Origin": "Local Supplier"
+        },
+        "ingredients": [
+            "Canary grass seed",
+            "Red millet",
+            "Flaxseed",
+            "Oats",
+            "Mixed grains"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 16%",
+            "Fat (min) – 5%",
+            "Fiber (max) – 8%",
+            "Moisture (max) – 12%"
+        ],
+        "feeding_guide": [
+            "Small Birds (up to 20g): 1–2 teaspoons/day",
+            "Medium Birds (20–50g): 2–4 teaspoons/day",
+            "Large Birds (50–100g): 4–6 teaspoons/day"
+        ],
+        "materials": [],
+        "features": [],
+        "use_guide": [],
+        "whats_inside": [
+            "1 × Supreme Canary Mix 700g Pack"
+        ]
+    },
+    {
+        "id": 4,
+        "image": "Assets/Supplies/Food/cat_food.jpg",
+        "gallery": [
+            "Assets/Supplies/Food/cat_food.jpg",
+            "Assets/Supplies/Food/cat_food1.jpg",
+            "Assets/Supplies/Food/cat_food2.jpg"
+        ],
+        "title": "Whiskas 1+ Complete Nutrition",
+        "subtitle": "Crunchy Complete Dry Cat Food for Adult Cats",
+        "description": "A delicious and balanced dry cat food with crunchy pockets and essential nutrients that support healthy coats and strong immunity.",
+        "full_description": "Whiskas 1+ Complete Nutrition is designed for adult cats aged one year and above.This complete daily diet combines crunchy kibble with flavorful pockets filled with tasty centers cats enjoy.Rich in protein, omega-6 fatty acids, zinc, and essential vitamins, it supports healthy skin, shiny coats, digestion, and immune health while satisfying your cat’s natural craving for crunchy textures.",
+        "weight": "7kg",
+        "price": 1650,
+        "category": "Foods",
+        "brand": "Whiskas",
+        "pet_type": "Cat",
+        "life_stage": "Adult",
+        "food_form": "Dry Food",
+        "flavors": [
+            "Ocean Fish",
+            "Tuna & Salmon"
+        ],
+        "storage_type": "Room Temperature",
+        "origin": "Imported through Philippine distributors",
+        "rating": 0.9800000000000001,
+        "review_count": 2011,
+        "specs": {
+            "Category": "Food",
+            "Brand": "Whiskas",
+            "Pet Type": "Cat",
+            "Life Stage": "Adult",
+            "Weight": "7kg",
+            "Storage": "Room Temperature",
+            "Origin": "Imported through Philippine distributors"
+        },
+        "ingredients": [
+            "Fish meal",
+            "Poultry meal",
+            "Corn gluten",
+            "Rice",
+            "Animal fats",
+            "Vitamins and minerals",
+            "Omega fatty acids",
+            "Taurine"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 30%",
+            "Fat (min) – 12%",
+            "Fiber (max) – 5%",
+            "Moisture (max) – 10%"
+        ],
+        "feeding_guide": [
+            "Small Cats (2–4kg): 35–60g/day",
+            "Medium Cats (4–6kg): 60–85g/day",
+            "Large Cats (6–8kg): 90–120g/day"
+        ],
+        "materials": [],
+        "features": [],
+        "use_guide": [],
+        "whats_inside": [
+            "1× Whiskas 1+ Complete Nutrition"
+        ]
+    },
+    {
+        "id": 5,
+        "image": "Assets/Supplies/Food/rabbit_food.png",
+        "gallery": [
+            "Assets/Supplies/Food/rabbit_food.png",
+            "Assets/Supplies/Food/rabbit_food1.png",
+            "Assets/Supplies/Food/rabbit_food2.png"
+        ],
+        "title": "Mazuri Timothy-Based Rabbit Diet",
+        "subtitle": "High-Fiber Timothy Hay Pellet Food for Rabbits",
+        "description": "A premium Timothy hay-based rabbit pellet fortified with probiotics and natural nutrients for healthy digestion and long-term wellness.",
+        "full_description": "Mazuri Timothy-Based Rabbit Diet is formulated to support rabbits at every life stage with high-fiber nutrition and digestive support.Made using premium Timothy hay, this uniform pellet helps prevent selective feeding while promoting healthy chewing habits.Enhanced with probiotics, flaxseed, and natural vitamin E, it supports digestive balance, coat condition, and overall vitality without artificial additives.",
+        "weight": "1.5LB",
+        "price": 620,
+        "category": "Foods",
+        "brand": "Mazuri",
+        "pet_type": "Rabbit",
+        "life_stage": "Adult",
+        "food_form": "Dry Pellet",
+        "flavors": [
+            "Timothy Hay Blend",
+            "Garden Herb Blend"
+        ],
+        "storage_type": "Room Temperature",
+        "origin": "Imported via Philippine suppliers",
+        "rating": 0.9800000000000001,
+        "review_count": 2011,
+        "specs": {
+            "Category": "Food",
+            "Brand": "Mazuri",
+            "Pet Type": "Rabbit",
+            "Life Stage": "Adult",
+            "Weight": "1.5LB",
+            "Storage": "Room Temperature",
+            "Origin": "Imported via Philippine suppliers"
+        },
+        "ingredients": [
+            "Timothy hay",
+            "Soybean hulls",
+            "Flaxseed",
+            "Wheat middlings",
+            "Probiotics",
+            "Vitamin E",
+            "Chelated minerals"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 14%",
+            "Fat (min) – 2%",
+            "Fiber (max) – 22%",
+            "Moisture (max) – 12%"
+        ],
+        "feeding_guide": [
+            "Small Rabbits (2–4kg): 35–60g/day",
+            "Medium Rabbits (4–6kg): 60–85g/day",
+            "Large Rabbits (6–8kg): 90–120g/day"
+        ],
+        "materials": [],
+        "features": [],
+        "use_guide": [],
+        "whats_inside": [
+            "1× Mazuri Timothy-Based Rabbit Diet 1.5LB Bag"
+        ]
+    },
+    {
+        "id": 6,
+        "image": "Assets/Supplies/Treats/dog_treat.png",
+        "gallery": [
+            "Assets/Supplies/Treats/dog_treat.png",
+            "Assets/Supplies/Treats/dog_treat1.png"
+        ],
+        "title": "Pedigree Schmackos Stix Grilled Liver Flavor",
+        "subtitle": "Soft & Chewy Grilled Liver Dog Treats",
+        "description": "A savory soft chew dog treat packed with meaty flavor, perfect for training rewards, bonding moments, and daily pampering.",
+        "full_description": "Pedigree Schmackos Stix Grilled Liver Flavor delivers an irresistibly meaty taste and soft chewy texture that dogs love.These easy-to-break strips are ideal for training sessions or quick rewards throughout the day.Fortified with omega-6 fatty acids and vitamin E, they help support healthy skin, shiny coats, and natural immune defenses while keeping every bite delicious and satisfying.",
+        "weight": "70g",
+        "price": 115,
+        "category": "Treats",
+        "brand": "Pedigree",
+        "pet_type": "Dog",
+        "life_stage": "Adult",
+        "food_form": "Soft Chewy Treat",
+        "flavors": [
+            "Grilled Liver",
+            "Beef BBQ"
+        ],
+        "storage_type": "Room Temperature",
+        "origin": "Imported via Philippine suppliers",
+        "rating": 0.9800000000000001,
+        "review_count": 2011,
+        "specs": {
+            "Category": "Treats",
+            "Brand": "Pedigree",
+            "Pet Type": "Dog",
+            "Life Stage": "Adult",
+            "Weight": "70g",
+            "Storage": "Room Temperature",
+            "Origin": "Imported via Philippine suppliers"
+        },
+        "ingredients": [
+            "Meat and animal derivatives",
+            "Cereals",
+            "Glycerin",
+            "Animal fats",
+            "Vitamins and minerals",
+            "Omega-6 fatty acids",
+            "Flavoring agents"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 14%",
+            "Fat (min) – 2%",
+            "Fiber (max) – 22%",
+            "Moisture (max) – 12%"
+        ],
+        "feeding_guide": [
+            "Small Dogs (2–4kg): 35–60g/day",
+            "Medium Dogs (4–6kg): 60–85g/day",
+            "Large Dogs (6–8kg): 90–120g/day"
+        ],
+        "materials": [],
+        "features": [],
+        "use_guide": [],
+        "whats_inside": [
+            "1× Pedigree Schmackos Stix Grilled Liver Flavor 70g Bag"
+        ]
+    },
+    {
+        "id": 7,
+        "image": "Assets/Supplies/Treats/cat_treat.png",
+        "gallery": [
+            "Assets/Supplies/Treats/cat_treat.png",
+            "Assets/Supplies/Treats/cat_treat1.png",
+            "Assets/Supplies/Treats/cat_treat2.png"
+        ],
+        "title": "Inaba Churu Bites",
+        "subtitle": "Creamy Filled Chicken & Tuna Cat Treats",
+        "description": "Dual-textured bite-sized cat treats with a soft baked exterior and creamy Churu filling made from real chicken and tuna.",
+        "full_description": "Inaba Churu Bites deliver a delicious combination of real chicken and tuna in a creamy filling, surrounded by a soft baked exterior that cats love.These bite-sized treats are perfect for training sessions or as a tasty reward throughout the day.Fortified with omega-6 fatty acids and vitamin E, they help support healthy skin, shiny coats, and natural immune defenses while keeping every bite delicious and satisfying.",
+        "weight": "70g",
+        "price": 115,
+        "category": "Treats",
+        "brand": "Inaba",
+        "pet_type": "Cat",
+        "life_stage": "Adult",
+        "food_form": "Soft Chewy Treat",
+        "flavors": [
+            "Chicken & Tuna",
+            "Tuna with Salmon"
+        ],
+        "storage_type": "Room Temperature",
+        "origin": "Imported via Philippine suppliers",
+        "rating": 0.9800000000000001,
+        "review_count": 2011,
+        "specs": {
+            "Category": "Treats",
+            "Brand": "Inaba",
+            "Pet Type": "Cat",
+            "Life Stage": "Adult",
+            "Weight": "70g",
+            "Storage": "Room Temperature",
+            "Origin": "Imported via Philippine suppliers"
+        },
+        "ingredients": [
+            "Farm-raised Chicken",
+            "Tuna",
+            "Tapioca Starch",
+            "Vitamin E",
+            "Green tea extract",
+            "Omega-6 fatty acids",
+            "Flavoring agents"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 14%",
+            "Fat (min) – 2%",
+            "Fiber (max) – 22%",
+            "Moisture (max) – 12%"
+        ],
+        "feeding_guide": [
+            "Small Cats (2–4kg): 35–60g/day",
+            "Medium Cats (4–6kg): 60–85g/day",
+            "Large Cats (6–8kg): 90–120g/day"
+        ],
+        "materials": [],
+        "features": [],
+        "use_guide": [],
+        "whats_inside": [
+            "1× Inaba Churu Bites Chicken & Tuna 70g Bag"
+        ]
+    },
+    {
+        "id": 8,
+        "image": "Assets/Supplies/Treats/rabbit_treat.png",
+        "gallery": [
+            "Assets/Supplies/Treats/rabbit_treat.png",
+            "Assets/Supplies/Treats/rabbit_treat1.png"
+        ],
+        "title": "No Furries Delights Original Nature’s Bites",
+        "subtitle": "A handmade assortment of wholesome crunchy treats crafted for rabbits, hamsters, guinea pigs, chinchillas, and gerbils.",
+        "description": "Handcrafted treats made using organic, human-grade ingredients.",
+        "full_description": "No Furries Delights Original Nature’s Bites is a colorful variety pack of handcrafted treats made using organic, human-grade ingredients.Featuring naturally flavorful blends like pumpkin cilantro, strawberry, papaya, and mixed berries, these treats encourage healthy chewing and natural foraging behaviors. Free from added sugars, preservatives, and artificial ingredients, they are safely portioned for small pets.",
+        "weight": "50g",
+        "price": 180,
+        "category": "Treats",
+        "brand": "No Furries Delights",
+        "pet_type": "Rabbit",
+        "life_stage": "Adult",
+        "food_form": "Crunchy Baked Treat",
+        "flavors": [
+            "Pumpkin Cilantro",
+            "Strawberry Berry Mix"
+        ],
+        "storage_type": "Room Temperature",
+        "origin": "Imported via Philippine suppliers",
+        "rating": 0.9800000000000001,
+        "review_count": 2011,
+        "specs": {
+            "Category": "Treats",
+            "Brand": "No Furries Delights",
+            "Pet Type": [
+                "Rabbit",
+                "Hamster"
+            ],
+            "Life Stage": "Adult",
+            "Weight": "70g",
+            "Storage": "Room Temperature",
+            "Origin": "Imported via Philippine suppliers"
+        },
+        "ingredients": [
+            "Farm-raised Chicken",
+            "Tuna",
+            "Tapioca Starch",
+            "Vitamin E",
+            "Green tea extract",
+            "Omega-6 fatty acids",
+            "Flavoring agents"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 14%",
+            "Fat (min) – 2%",
+            "Fiber (max) – 22%",
+            "Moisture (max) – 12%"
+        ],
+        "feeding_guide": [
+            "Small Cats (2–4kg): 35–60g/day",
+            "Medium Cats (4–6kg): 60–85g/day",
+            "Large Cats (6–8kg): 90–120g/day"
+        ],
+        "materials": [],
+        "features": [],
+        "use_guide": [],
+        "whats_inside": [
+            "1× Inaba Churu Bites Chicken & Tuna 70g Bag"
+        ]
+    },
+    {
+        "id": 9,
+        "image": "Assets/Supplies/Treats/hamster_treat.png",
+        "gallery": [
+            "Assets/Supplies/Treats/hamster_treat.png",
+            "Assets/Supplies/Treats/hamster_treat1.png",
+            "Assets/Supplies/Treats/hamster_treat2.png"
+        ],
+        "title": "Vitakraft Drops with Yogurt",
+        "subtitle": "Creamy Yogurt Treat Drops for Hamsters & Small Pets",
+        "description": "Delicious yogurt-based bite-sized treats made for hamsters and small pets with a crunchy chewable texture.",
+        "full_description": "Vitakraft Drops with Yogurt are creamy, smooth treats specially made for hamsters and small rodents. Crafted with real yogurt and whey protein, these treats provide a tasty reward while encouraging natural chewing behavior.Their hard-baked texture supports dental activity and makes them ideal for bonding, training, or occasional snacking.",
+        "weight": "50g",
+        "price": 150,
+        "category": "Treats",
+        "brand": "Vitakrafts",
+        "pet_type": "Hamster",
+        "life_stage": "Adult",
+        "food_form": "Yogurt Drops",
+        "flavors": [
+            "Yogurt Original,",
+            "Strawberry Yogurt"
+        ],
+        "storage_type": "Room Temperature",
+        "origin": "Imported via Philippine suppliers",
+        "rating": 0.9800000000000001,
+        "review_count": 2011,
+        "specs": {
+            "Category": "Treats",
+            "Brand": "Vitakrafts",
+            "Pet Type": "Hamster",
+            "Life Stage": "Adult",
+            "Weight": "50g",
+            "Storage": "Room Temperature",
+            "Origin": "Imported via Philippine suppliers"
+        },
+        "ingredients": [
+            "Yogurt powder",
+            "Whey protein",
+            "Vegetable oils",
+            "Vitamin E",
+            "Milk derivatives",
+            "Natural flavorings"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 6%",
+            "Fat (min) – 18%",
+            "Fiber (max) – 1%",
+            "Moisture (max) – 8%"
+        ],
+        "feeding_guide": [
+            "Hamsters: 1–2 drops/day",
+            "Gerbils: 2–3 drops/day",
+            "Supplement with regular food and water"
+        ],
+        "materials": [],
+        "features": [],
+        "use_guide": [],
+        "whats_inside": [
+            "1× Assorted Yogurt Treat Drops"
+        ]
+    },
+    {
+        "id": 10,
+        "image": "Assets/Supplies/Treats/bird_treat.png",
+        "gallery": [
+            "Assets/Supplies/Treats/bird_treat.png",
+            "Assets/Supplies/Treats/bird_treat1.png"
+        ],
+        "title": "No Furries Delights Berrylicious Bites",
+        "subtitle": "Berry-Infused Crunchy Treats for Small Pets & Birds",
+        "description": "Crunchy antioxidant-rich berry treats specially crafted for rabbits, hamsters, guinea pigs, lovebirds, and small birds.",
+        "full_description": "No Furries Delights Berrylicious Bites combines wholesome berry flavors with crunchy textures pets love.Designed to support natural chewing and foraging behaviors, these plant-based treats are packed with antioxidants while remaining free from artificial colors, preservatives, and added sugars.Their mini-sized portions make them ideal for daily rewarding without excessive sugar intake.",
+        "weight": "50g",
+        "price": 195,
+        "category": "Treats",
+        "brand": "No Furries Delights",
+        "pet_type": "Bird",
+        "life_stage": "Adult",
+        "food_form": "Crunchy Mini Treats",
+        "flavors": [
+            "Mixed Berry",
+            "Blueberry Strawberry"
+        ],
+        "storage_type": "Room Temperature",
+        "origin": "Imported via Philippine suppliers",
+        "rating": 0.9800000000000001,
+        "review_count": 2011,
+        "specs": {
+            "Category": "Treats",
+            "Brand": "No Furries Delights",
+            "Pet Type": "Bird",
+            "Life Stage": "Adult",
+            "Weight": "50g",
+            "Storage": "Room Temperature",
+            "Origin": "Imported via Philippine suppliers"
+        },
+        "ingredients": [
+            "Oats",
+            "Blueberries",
+            "Strawberries",
+            "Papaya",
+            "Timothy hay",
+            "Plant fiber"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 11%",
+            "Fat (min) – 2%",
+            "Fiber (max) – 15%",
+            "Moisture (max) – 10%"
+        ],
+        "feeding_guide": [
+            "Small Birds (up to 20g): 1–2 mini treats/day",
+            "Medium Birds (20–50g): 2–4 mini treats/day",
+            "Large Birds (50–100g): 4–6 mini treats/day"
+        ],
+        "materials": [],
+        "features": [],
+        "use_guide": [],
+        "whats_inside": [
+            "1× Assorted Berry Crunch Treat Pieces"
+        ]
+    },
+    {
+        "id": 11,
+        "image": "Assets/Supplies/Toys/toy1.jpg",
+        "gallery": [
+            "Assets/Supplies/Toys/toy1.jpg"
+        ],
+        "title": "7-Piece Small Dog Toy Set",
+        "subtitle": "Fun & Engaging Toys for Small Dogs",
+        "description": "A set of 7 engaging toys designed for small dogs, perfect for play and mental stimulation.",
+        "full_description": "The 7-Piece Small Dog Toy Set includes a variety of textures and shapes to keep your small dog entertained and mentally stimulated.Made from safe, non-toxic materials, these toys are built to withstand the playful nature of small dogs.Ideal for daily playtime and training exercises.",
+        "weight": "450g Set",
+        "price": 399,
+        "category": "Toys",
+        "brand": "PawPlay Essentials",
+        "pet_type": "Dog",
+        "life_stage": "All",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "",
+        "origin": "Imported via Philippine suppliers",
+        "rating": 0.9800000000000001,
+        "review_count": 2011,
+        "specs": {
+            "Category": "Toys",
+            "Brand": "PawPlay Essentials",
+            "Pet Type": "Dog",
+            "Life Stage": "All",
+            "Weight": "450g Set",
+            "Origin": "Imported via Philippine suppliers"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "Cotton roper",
+            "Plush fabric",
+            "Natural rubber",
+            "Polyester stuffing",
+            "Non-toxic squeakers"
+        ],
+        "features": [
+            "Helps reduce boredom and anxiety",
+            "Supports healthy chewing behavior",
+            "Gentle on puppy teeth and gums",
+            "Great for fetch and tug games",
+            "Lightweight and easy to clean"
+        ],
+        "use_guide": [
+            "Recommended for supervised play",
+            "Suitable for small breeds under 10kg",
+            "Wash plush toys weekly for hygiene"
+        ],
+        "whats_inside": [
+            "2 × Rope Tug Toys",
+            "2 × Plush Squeaky Toys",
+            "2 × Rubber Chew Toys",
+            "1 × Interactive Ball Toy",
+            "1 × Training Ring Toy"
+        ]
+    },
+    {
+        "id": 12,
+        "image": "Assets/Supplies/Toys/toy2.jpg",
+        "gallery": [
+            "Assets/Supplies/Toys/toy2.jpg"
+        ],
+        "title": "Niteangel Small Animal Activity Toy Balls",
+        "subtitle": "Natural Woven Grass Chew Balls for Rabbits & Small Pets",
+        "description": "Handwoven natural grass balls designed to encourage chewing, rolling, and healthy enrichment activities for rabbits and small animals.",
+        "full_description": "Niteangel Small Animal Activity Toy Balls provide natural entertainment and dental enrichment for rabbits, hamsters, and other small pets.Made from pet-safe woven grass materials, these lightweight chew toys help satisfy natural chewing instincts while encouraging active play and exploration.Their organic texture also helps reduce boredom and stress inside cages or habitats.",
+        "weight": "120g Pack",
+        "price": 250,
+        "category": "Toys",
+        "brand": "Niteangel",
+        "pet_type": "Rabbit",
+        "life_stage": "Adult",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "",
+        "origin": "Imported via Philippine suppliers",
+        "rating": 0.9800000000000001,
+        "review_count": 2011,
+        "specs": {
+            "Category": "Toys",
+            "Brand": "Niteangel",
+            "Pet Type": "Rabbit",
+            "Life Stage": "Adult",
+            "Weight": "120g Pack",
+            "Storage": "",
+            "Origin": "Imported via Philippine suppliers"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "Natural woven grass",
+            "Timothy hay fibere",
+            "Pet-safe plant materials"
+        ],
+        "features": [
+            "Encourages natural chewing behavior",
+            "Helps support dental health",
+            "Lightweight and safe for tossing",
+            "Reduces boredom and stress"
+        ],
+        "use_guide": [
+            "Place inside cage or playpen",
+            "Replace when heavily chewed",
+            "Safe for supervised nibbling"
+        ],
+        "whats_inside": [
+            "6 × Woven Grass Activity Balls"
+        ]
+    },
+    {
+        "id": 13,
+        "image": "Assets/Supplies/Toys/toy3.jpg",
+        "gallery": [
+            "Assets/Supplies/Toys/toy3.jpg"
+        ],
+        "title": "Prevue Pet Products Naturals Rope Ladder",
+        "subtitle": "Natural Wood & Rope Climbing Ladder for Birds",
+        "description": "A hanging wooden ladder and rope bridge designed to keep birds active, entertained, and mentally stimulated.",
+        "full_description": "Prevue Pet Products Naturals Rope Ladder combines natural wood branches and durable rope materials to create a fun climbing environment for birds.Perfect for lovebirds, finches, cockatiels, and small parrots, it encourages exercise, balance, and natural exploration instincts while adding enrichment to cages and aviaries.",
+        "weight": "300g",
+        "price": 345,
+        "category": "Toys",
+        "brand": "Prevue Pet Products",
+        "pet_type": "Bird",
+        "life_stage": "Adult",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "",
+        "origin": "Imported via Philippine suppliers",
+        "rating": 0.9800000000000001,
+        "review_count": 2011,
+        "specs": {
+            "Category": "Toys",
+            "Brand": "Prevue Pet Products",
+            "Pet Type": "Bird",
+            "Life Stage": "Adult",
+            "Weight": "300g",
+            "Storage": "",
+            "Origin": "Imported via Philippine suppliers"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "Natural wood branches",
+            "Cotton rope",
+            "Stainless steel hooks"
+        ],
+        "features": [
+            "Encourages climbing and exercise",
+            "Supports mental stimulation",
+            "Cage-friendly hanging design",
+            "Safe natural textures for beaks and claws"
+        ],
+        "use_guide": [
+            "Secure tightly inside cage",
+            "Suitable for small to medium birds",
+            "Clean monthly using bird-safe disinfectant"
+        ],
+        "whats_inside": [
+            "1 × Wooden Rope Ladder Bridge",
+            "2 × Hanging Hooks"
+        ]
+    },
+    {
+        "id": 14,
+        "image": "Assets/Supplies/Toys/toy4.jpg",
+        "gallery": [
+            "Assets/Supplies/Toys/toy4.jpg"
+        ],
+        "title": "Silent Exercise Running Wheel",
+        "subtitle": "Quiet Spinning Exercise Wheel for Hamsters & Small Rodents",
+        "description": "A smooth and silent running wheel designed to keep hamsters active, healthy, and entertained without noisy squeaking.",
+        "full_description": "The Silent Exercise Running Wheel provides hamsters and small rodents with a safe and fun way to stay physically active indoors.Featuring a smooth spinning mechanism and quiet bearings, it minimizes noise while encouraging natural running behavior.Its stable base and textured running surface help improve comfort, exercise, and overall well-being for energetic small pets.",
+        "weight": "350g",
+        "price": 280,
+        "category": "Toys",
+        "brand": "TinyTrail Pets",
+        "pet_type": "Hamster",
+        "life_stage": "Adult",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "",
+        "origin": "Imported via Philippine suppliers",
+        "rating": 0.9800000000000001,
+        "review_count": 2011,
+        "specs": {
+            "Category": "Toys",
+            "Brand": "TinyTrail Pets",
+            "Pet Type": "Hamster",
+            "Life Stage": "Adult",
+            "Weight": "350g",
+            "Storage": "",
+            "Origin": "Imported via Philippine suppliers"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "BPA-free plastic",
+            "Silent metal bearings",
+            "Non-slip running track"
+        ],
+        "features": [
+            "Ultra-quiet spinning design",
+            "Encourages healthy daily exercise",
+            "Stable anti-tip base",
+            "Easy to clean and maintain"
+        ],
+        "use_guide": [
+            "Place on flat cage surface",
+            "Recommended for dwarf hamsters and gerbils",
+            "Wipe clean weekly"
+        ],
+        "whats_inside": [
+            "1× Silent Running Wheel",
+            "1× Stable Base Stand"
+        ]
+    },
+    {
+        "id": 15,
+        "image": "Assets/Supplies/Accessories/accessories.jpg",
+        "gallery": [
+            "Assets/Supplies/Accessories/accessories.jpg"
+        ],
+        "title": "Heavy-Duty Nylon Pet Leash",
+        "subtitle": "Durable and Comfortable Leash for Small Pets",
+        "description": "A sturdy and reliable leash designed for small pets, providing secure control during walks and outdoor activities.",
+        "full_description": "The Heavy-Duty Nylon Pet Leash offers a strong and comfortable grip for your pet, ensuring a safe and enjoyable experience.Made from high-quality nylon material, it is resistant to wear and tear while being gentle on your pet's skin.Its stable base and textured running surface help improve comfort, exercise, and overall well-being for energetic small pets.",
+        "weight": "180g",
+        "price": 249,
+        "category": "Accessories",
+        "brand": "PawTrail Essentials",
+        "pet_type": "Dog & Cat",
+        "life_stage": "Adult",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "",
+        "origin": "Imported via Philippine suppliers",
+        "rating": 0.9800000000000001,
+        "review_count": 2011,
+        "specs": {
+            "Category": "Accessories",
+            "Brand": "PawTrail Essentials",
+            "Pet Type": "Dog & Cat",
+            "Life Stage": "Adult",
+            "Weight": "180g",
+            "Storage": "",
+            "Origin": "Imported via Philippine suppliers"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "Reinforced woven nylon",
+            "Stainless steel swivel clasp",
+            "Soft foam grip handle",
+            "Durable stitching reinforcement"
+        ],
+        "features": [
+            "Strong pull-resistant construction",
+            "Comfortable anti-slip handle grip",
+            "Rust-resistant metal hook",
+            "Lightweight and easy to carry",
+            "Suitable for daily walks and training"
+        ],
+        "use_guide": [
+            "Attach securely to collar or harness",
+            "Recommended for supervised outdoor use",
+            "Hand wash and air dry when dirty",
+            "Check clasp regularly for wear and tear"
+        ],
+        "whats_inside": [
+            "1× Heavy-Duty Nylon Pet Leash",
+            "1× Safety Care Instruction Tag"
+        ]
+    },
+    {
+        "id": 16,
+        "image": "Assets/Supplies/Beds/bed1.jpg",
+        "gallery": [
+            "Assets/Supplies/Beds/bed1.jpg"
+        ],
+        "title": "Soft Plush Sleeping Cushion Bed for Cats & Small Dogs",
+        "subtitle": "Durable and Comfortable Bed for Small Pets",
+        "description": "A sturdy and reliable bed designed for small cats and dogs, providing a cozy and comfortable resting place.",
+        "full_description": "The Soft Plush Sleeping Cushion Bed offers a plush and supportive surface for your pet, ensuring a restful night's sleep.Made from high-quality plush material, it is soft to the touch and provides excellent cushioning.Its stable base and textured running surface help improve comfort, exercise, and overall well-being for energetic small pets.",
+        "weight": "650g",
+        "price": 499,
+        "category": "Bed",
+        "brand": "CozyPaws",
+        "pet_type": "Dog & Cat",
+        "life_stage": "All",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "",
+        "origin": "Imported via Philippine suppliers",
+        "rating": 0.9800000000000001,
+        "review_count": 2011,
+        "specs": {
+            "Category": "Bed",
+            "Brand": "CozyPaws",
+            "Pet Type": "Dog & Cat",
+            "Life Stage": "All",
+            "Weight": "650g",
+            "Storage": "",
+            "Origin": "Imported via Philippine suppliers"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "Plush fabric",
+            "PP cotton filling",
+            "Soft foam grip handle",
+            "Soft polyester cushion"
+        ],
+        "features": [
+            "Soft and cozy sleeping surface",
+            "Includes matching mini pillow",
+            "Lightweight and portable",
+            "Comfortable for daily naps"
+        ],
+        "use_guide": [
+            "Hand wash recommended",
+            "Air dry completely before reuse",
+            "Keep away from sharp objects"
+        ],
+        "whats_inside": [
+            "1× Pink Cushion Bed",
+            "1× Matching Pillow"
+        ]
+    },
+    {
+        "id": 17,
+        "image": "Assets/Supplies/Beds/bed2.jpg",
+        "gallery": [
+            "Assets/Supplies/Beds/bed2.jpg"
+        ],
+        "title": "Washable Bed",
+        "subtitle": "Machine-Washable Soft Pet Bed for Everyday Comfort",
+        "description": "A soft and easy-to-clean pet bed designed for daily sleeping comfort with removable washable cushioning.",
+        "full_description": "The Washable Bed provides pets with a comfortable resting space while offering easy maintenance for pet owners.Designed using soft fabric and cushioned padding, it helps create a cozy sleeping area for cats and dogs.Its washable design makes cleaning simple and convenient, helping maintain hygiene and freshness even with daily use.",
+        "weight": "800g",
+        "price": 650,
+        "category": "Bed",
+        "brand": "PetNest Essentials",
+        "pet_type": "Dog & Cat",
+        "life_stage": "Young, Adult & Senior",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "Room temperature",
+        "origin": "Philippine pet supplier",
+        "rating": 4.7,
+        "review_count": 602,
+        "specs": {
+            "Category": "Bed",
+            "Brand": "PetNest Essentials",
+            "Pet Type": "Dog & Cat",
+            "Life Stage": "Young, Adult & Senior",
+            "Weight": "800g",
+            "Storage": "Room temperature",
+            "Origin": "Philippine pet supplier"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "Soft fabric cover",
+            "PP cotton filling",
+            "Non-slip base lining"
+        ],
+        "features": [
+            "Machine-washable design",
+            "Thick soft cushioning",
+            "Comfortable raised edges",
+            "Lightweight and durable"
+        ],
+        "use_guide": [
+            "Remove loose fur before washing",
+            "Machine wash on gentle cycle",
+            "Air dry recommended"
+        ],
+        "whats_inside": [
+            "1× Washable Pet Bed"
+        ]
+    },
+    {
+        "id": 18,
+        "image": "Assets/Supplies/Beds/bed3.jpg",
+        "gallery": [
+            "Assets/Supplies/Beds/bed3.jpg"
+        ],
+        "title": "Round Bed Sleeping Sofa",
+        "subtitle": "Round Plush Sofa-Style Bed for Pets",
+        "description": "A round sofa-inspired pet bed with soft raised edges that provide warmth, comfort, and security during sleep.",
+        "full_description": "The Round Bed Sleeping Sofa is designed to give pets a calming and comfortable sleeping experience.Its circular shape and raised cushioned sides help support natural curling positions while creating a sense of safety and warmth.Made with soft plush fabric and thick padding, it is ideal for cats and dogs who enjoy cozy lounging spaces.",
+        "weight": "900g",
+        "price": 799,
+        "category": "Bed",
+        "brand": "SnuggleTails",
+        "pet_type": "Dog & Cat",
+        "life_stage": "Young, Adult & Senior",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "Room temperature",
+        "origin": "Imported through PH pet distributors",
+        "rating": 4.9,
+        "review_count": 744,
+        "specs": {
+            "Category": "Bed",
+            "Brand": "SnuggleTails",
+            "Pet Type": "Dog & Cat",
+            "Life Stage": "Young, Adult & Senior",
+            "Weight": "900g",
+            "Storage": "Room temperature",
+            "Origin": "Imported through PH pet distributors"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "Plush faux fur fabric",
+            "PP cotton filling",
+            "Anti-slip bottom fabric"
+        ],
+        "features": [
+            "Raised edges for head support",
+            "Soft calming plush texture",
+            "Anti-slip bottom layer",
+            "Ideal for curling and lounging"
+        ],
+        "use_guide": [
+            "Spot clean when necessary",
+            "Hand wash recommended",
+            "Dry fully before use"
+        ],
+        "whats_inside": [
+            "1× Round Bed Sleeping Sofa"
+        ]
+    },
+    {
+        "id": 19,
+        "image": "Assets/Supplies/Health/shampoo1.jpg",
+        "gallery": [
+            "Assets/Supplies/Health/shampoo1.jpg"
+        ],
+        "title": "Earthbath Fragrance-Free Oatmeal & Aloe Pet Shampoo",
+        "subtitle": "Gentle Oatmeal & Aloe Shampoo for Sensitive Skin Pets",
+        "description": "A soap-free oatmeal shampoo specially made to gently clean, soothe, and moisturize sensitive skin for cats and dogs.",
+        "full_description": "Earthbath Fragrance-Free Oatmeal & Aloe Pet Shampoo is formulated for pets with dry, itchy, or sensitive skin.Made with natural oatmeal and aloe vera, this ultra-gentle shampoo helps relieve irritation while moisturizing the coat and skin during bath time.Its soap-free formula cleans effectively without stripping natural oils, making it suitable for regular use on both cats and dogs.",
+        "weight": "473mL",
+        "price": 895,
+        "category": "Health",
+        "brand": "Earthbath",
+        "pet_type": "Dog & Cat",
+        "life_stage": "Puppy, Kitten, Adult & Senior",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "Room temperature",
+        "origin": "USA imported through PH pet suppliers",
+        "rating": 4.9,
+        "review_count": 1126,
+        "specs": {
+            "Category": "Health",
+            "Brand": "Earthbath",
+            "Pet Type": "Dog & Cat",
+            "Life Stage": "Puppy, Kitten, Adult & Senior",
+            "Weight": "473mL",
+            "Storage": "Room temperature",
+            "Origin": "USA imported through PH pet suppliers"
+        },
+        "ingredients": [
+            "Purified water",
+            "Colloidal oatmeal",
+            "Organic aloe vera",
+            "Coconut-based cleansers",
+            "Vitamin E",
+            "Natural preservatives"
+        ],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [],
+        "features": [
+            "Soap-free gentle cleansing",
+            "Helps soothe dry itchy skin",
+            "Safe for sensitive pets",
+            "Moisturizes coat and skin",
+            "Suitable for regular bathing"
+        ],
+        "use_guide": [
+            "Wet pet’s coat thoroughly",
+            "Apply shampoo evenly and massage gently",
+            "Rinse completely with clean water",
+            "Avoid contact with eyes"
+        ],
+        "whats_inside": [
+            "1× Earthbath Fragrance-Free Oatmeal & Aloe Pet Shampoo Bottle"
+        ]
+    },
+    {
+        "id": 20,
+        "image": "Assets/Supplies/Health/vitamin.jpg",
+        "gallery": [
+            "Assets/Supplies/Health/vitamin.jpg"
+        ],
+        "title": "Virbac Nutri-Plus Gel",
+        "subtitle": "High-Calorie Nutritional Supplement Gel for Dogs",
+        "description": "A vitamin-rich energy supplement gel designed to support puppies, active dogs, and pets recovering from illness or surgery.",
+        "full_description": "Virbac Nutri-Plus Gel is a highly palatable nutritional supplement packed with essential vitamins, minerals, fats, and carbohydrates to provide immediate energy support for dogs.Commonly used for growing puppies, highly active pets, underweight dogs, or recovering animals, this easy-to-administer gel helps maintain healthy weight, energy levels, and overall vitality.",
+        "weight": "120g",
+        "price": 850,
+        "category": "Health",
+        "brand": "Virbac",
+        "pet_type": "Dog",
+        "life_stage": "Puppy, Adult & Senior",
+        "food_form": "",
+        "flavors": [
+            "Malt Flavor",
+            "Liver Flavor"
+        ],
+        "storage_type": "Room temperature",
+        "origin": "Imported through PH veterinary suppliers",
+        "rating": 4.9,
+        "review_count": 638,
+        "specs": {
+            "Category": "Health",
+            "Brand": "Virbac",
+            "Pet Type": "Dog",
+            "Life Stage": "Puppy, Adult & Senior",
+            "Weight": "120g",
+            "Storage": "Room temperature",
+            "Origin": "Imported through PH veterinary suppliers"
+        },
+        "ingredients": [
+            "Vitamins A, D3, E",
+            "Calcium",
+            "Iron",
+            "Magnesium",
+            "Fish oil",
+            "Easily digestible fats",
+            "Carbohydrates"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 5%",
+            "Fat (min) – 35%",
+            "Fiber (max) – 1%",
+            "Moisture (max) – 15%"
+        ],
+        "feeding_guide": [
+            "Puppies: 1 teaspoon daily",
+            "Adult Dogs: 1–2 teaspoons daily",
+            "Recovery Support: Follow veterinarian guidance"
+        ],
+        "materials": [],
+        "features": [
+            "High-calorie nutritional support",
+            "Palatable energy gel",
+            "Supports recovery and weight maintenance",
+            "Suitable for puppies and active dogs"
+        ],
+        "use_guide": [
+            "Use directly or offered with a syringe",
+            "Follow feeding guidance for weight and activity",
+            "Store at room temperature"
+        ],
+        "whats_inside": [
+            "1× Virbac Nutri-Plus Gel Tube"
+        ]
+    },
+    {
+        "id": 21,
+        "image": "Assets/Supplies/Health/vitamin1.jpg",
+        "gallery": [
+            "Assets/Supplies/Health/vitamin1.jpg"
+        ],
+        "title": "GimCat Multi-Vitamin Paste",
+        "subtitle": "Immune Support Vitamin Paste for Cats",
+        "description": "A tasty multivitamin paste enriched with taurine and essential nutrients to support immunity, coat health, and overall wellness.",
+        "full_description": "GimCat Multi-Vitamin Paste contains a balanced blend of 12 essential vitamins, beta-glucan, healthy oils, and taurine to help support a cat’s immune system and daily vitality.Its smooth, appetizing texture makes feeding easy while promoting healthy vision, heart function, skin, and a glossy coat.",
+        "weight": "50g",
+        "price": 420,
+        "category": "Health",
+        "brand": "GimCat",
+        "pet_type": "Cat",
+        "life_stage": "Kitten, Adult & Senior",
+        "food_form": "",
+        "flavors": [
+            "Cheese Flavor",
+            "Malt Flavor"
+        ],
+        "storage_type": "Room temperature",
+        "origin": "Germany imported through PH pet stores",
+        "rating": 4.8,
+        "review_count": 914,
+        "specs": {
+            "Category": "Health",
+            "Brand": "GimCat",
+            "Pet Type": "Cat",
+            "Life Stage": "Kitten, Adult & Senior",
+            "Weight": "50g",
+            "Storage": "Room temperature",
+            "Origin": "Germany imported through PH pet stores"
+        },
+        "ingredients": [
+            "Taurine",
+            "Vitamin complex",
+            "Beta-glucan",
+            "Fish oils",
+            "Milk derivatives",
+            "Yeast extracts"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 6%",
+            "Fat (min) – 30%",
+            "Fiber (max) – 2%",
+            "Moisture (max) – 12%"
+        ],
+        "feeding_guide": [
+            "Kittens: 3–4cm paste daily",
+            "Adult Cats: 5–6cm paste daily",
+            "Can be served directly or mixed with food"
+        ],
+        "materials": [],
+        "features": [
+            "Immune support formula",
+            "Taurine-enriched for eye and heart health",
+            "Smooth, appetizing paste",
+            "Supports coat and overall wellness"
+        ],
+        "use_guide": [
+            "Serve directly from the tube",
+            "Mix into food for picky eaters",
+            "Use daily as directed"
+        ],
+        "whats_inside": [
+            "1× GimCat Multi-Vitamin Paste Tube"
+        ]
+    },
+    {
+        "id": 22,
+        "image": "Assets/Supplies/Health/vitamin2.jpg",
+        "gallery": [
+            "Assets/Supplies/Health/vitamin2.jpg"
+        ],
+        "title": "Oxbow Natural Science Multi-Vitamin",
+        "subtitle": "High-Fiber Vitamin Supplement Tabs for Rabbits & Small Herbivores",
+        "description": "Veterinarian-formulated Timothy hay supplement tabs that support overall health and daily wellness for rabbits and small herbivores.",
+        "full_description": "Oxbow Natural Science Multi-Vitamin is a premium hay-based supplement made to support rabbits and other herbivorous small animals.Formulated using Timothy hay and stabilized vitamins, these easy-to-feed supplement tabs help maintain balanced nutrition while avoiding artificial preservatives or hidden sugars that may upset sensitive digestive systems.",
+        "weight": "120g",
+        "price": 560,
+        "category": "Health",
+        "brand": "Oxbow",
+        "pet_type": "Rabbit & Small Herbivores",
+        "life_stage": "Young, Adult & Senior",
+        "food_form": "",
+        "flavors": [
+            "Timothy Hay Blend",
+            "Garden Veggie Blend"
+        ],
+        "storage_type": "Room temperature",
+        "origin": "Imported through PH pet distributors",
+        "rating": 4.9,
+        "review_count": 488,
+        "specs": {
+            "Category": "Health",
+            "Brand": "Oxbow",
+            "Pet Type": "Rabbit & Small Herbivores",
+            "Life Stage": "Young, Adult & Senior",
+            "Weight": "120g",
+            "Storage": "Room temperature",
+            "Origin": "Imported through PH pet distributors"
+        },
+        "ingredients": [
+            "Timothy hay",
+            "Stabilized vitamins",
+            "Barley flour",
+            "Oat groats",
+            "Flaxseed"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 12%",
+            "Fat (min) – 4%",
+            "Fiber (max) – 20%",
+            "Moisture (max) – 10%"
+        ],
+        "feeding_guide": [
+            "Rabbits: 1 tab daily per 2kg body weight",
+            "Guinea Pigs: ½ tab daily",
+            "Always provide fresh hay and water"
+        ],
+        "materials": [],
+        "features": [
+            "Hay-based vitamin supplement",
+            "Formulated for herbivores",
+            "Supports digestion and daily nutrition",
+            "No artificial preservatives"
+        ],
+        "use_guide": [
+            "Feed as directed by weight",
+            "Offer with fresh hay and water",
+            "Store in a cool, dry place"
+        ],
+        "whats_inside": [
+            "60 × Oxbow Supplement Tabs"
+        ]
+    },
+    {
+        "id": 23,
+        "image": "Assets/Supplies/Health/vitamin3.jpg",
+        "gallery": [
+            "Assets/Supplies/Health/vitamin3.jpg"
+        ],
+        "title": "Oasis Vita-Drops for Hamsters",
+        "subtitle": "Liquid Multivitamin Supplement for Hamsters",
+        "description": "A concentrated liquid multivitamin formulated to support eye health, coat condition, and daily vitality in hamsters and small rodents.",
+        "full_description": "Oasis Vita-Drops for Hamsters is a high-potency liquid vitamin supplement specially designed for the nutritional needs of hamsters and pocket pets.Easy to mix into drinking water or apply onto food, it provides essential daily vitamins to help maintain healthy metabolism, vibrant coats, and overall wellness.",
+        "weight": "57mL",
+        "price": 320,
+        "category": "Health",
+        "brand": "Oasis",
+        "pet_type": "Hamster & Small Rodents",
+        "life_stage": "Young, Adult & Senior",
+        "food_form": "",
+        "flavors": [
+            "Original",
+            "Fruit Blend"
+        ],
+        "storage_type": "Room temperature",
+        "origin": "Imported via PH pet suppliers",
+        "rating": 4.7,
+        "review_count": 271,
+        "specs": {
+            "Category": "Health",
+            "Brand": "Oasis",
+            "Pet Type": "Hamster & Small Rodents",
+            "Life Stage": "Young, Adult & Senior",
+            "Weight": "57mL",
+            "Storage": "Room temperature",
+            "Origin": "Imported via PH pet suppliers"
+        },
+        "ingredients": [
+            "Vitamins A, D3, E",
+            "Vitamin B complex",
+            "Calcium",
+            "Amino acids",
+            "Purified water"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 0%",
+            "Fat (min) – 0%",
+            "Fiber (max) – 0%",
+            "Moisture (max) – 95%"
+        ],
+        "feeding_guide": [
+            "Add 2–3 drops to water daily",
+            "Replace drinking water every 24 hours",
+            "Shake well before use"
+        ],
+        "materials": [],
+        "features": [
+            "Liquid multivitamin formula",
+            "Supports coat and eye health",
+            "Easy to add to drinking water or food",
+            "Ideal for hamsters and small rodents"
+        ],
+        "use_guide": [
+            "Add drops to water or food",
+            "Use daily for best results",
+            "Keep bottle tightly closed when not in use"
+        ],
+        "whats_inside": [
+            "1× Oasis Vita-Drops Bottle"
+        ]
+    },
+    {
+        "id": 24,
+        "image": "Assets/Supplies/Health/vitamin4.jpg",
+        "gallery": [
+            "Assets/Supplies/Health/vitamin4.jpg"
+        ],
+        "title": "Nekton S Multi-Vitamin for Birds",
+        "subtitle": "Water-Soluble Multivitamin Powder for Birds",
+        "description": "A trusted multivitamin powder with amino acids and trace minerals to support feather health, metabolism, and overall wellness in birds.",
+        "full_description": "Nekton S Multi-Vitamin for Birds is a premium water-soluble supplement designed for caged birds including lovebirds, finches, and parrots.Enriched with amino acids, trace elements, and essential vitamins, it helps prevent nutritional deficiencies while promoting strong plumage, healthy metabolism, and daily vitality.",
+        "weight": "35g",
+        "price": 580,
+        "category": "Health",
+        "brand": "Nekton",
+        "pet_type": "Bird",
+        "life_stage": "Young, Adult & Senior",
+        "food_form": "",
+        "flavors": [
+            "Original Formula",
+            "Honey Blend"
+        ],
+        "storage_type": "Room temperature",
+        "origin": "Germany imported through PH bird suppliers",
+        "rating": 4.8,
+        "review_count": 346,
+        "specs": {
+            "Category": "Health",
+            "Brand": "Nekton",
+            "Pet Type": "Bird",
+            "Life Stage": "Young, Adult & Senior",
+            "Weight": "35g",
+            "Storage": "Room temperature",
+            "Origin": "Germany imported through PH bird suppliers"
+        },
+        "ingredients": [
+            "Amino acids",
+            "Trace minerals",
+            "Vitamins A, D3, E",
+            "Calcium",
+            "Magnesium"
+        ],
+        "guaranteed_analysis": [
+            "Protein (min) – 8%",
+            "Fat (min) – 1%",
+            "Fiber (max) – 0%",
+            "Moisture (max) – 6%"
+        ],
+        "feeding_guide": [
+            "Mix small scoop into drinking water daily",
+            "Replace water every 24 hours",
+            "Store tightly sealed after use"
+        ],
+        "materials": [],
+        "features": [
+            "Water-soluble vitamin powder",
+            "Supports feather health and metabolism",
+            "Easy to mix with drinking water",
+            "Designed for birds and small aviary pets"
+        ],
+        "use_guide": [
+            "Mix into water daily",
+            "Replace water every 24 hours",
+            "Keep container sealed and dry"
+        ],
+        "whats_inside": [
+            "1× Nekton-S Multi-Vitamin Powder Container"
+        ]
+    },
+    {
+        "id": 25,
+        "image": "Assets/Supplies/Travel/travel1.jpg",
+        "gallery": [
+            "Assets/Supplies/Travel/travel1.jpg"
+        ],
+        "title": "Multi-Level Small Animal Hamster Cage",
+        "subtitle": "Spacious Multi-Level Habitat for Hamsters & Small Pets",
+        "description": "A roomy wire habitat with platforms, ramps, and a hideout area designed for active small pets to explore, climb, and rest comfortably.",
+        "full_description": "The Multi-Level Small Animal Hamster Cage provides an engaging living environment for hamsters and other small pets.Featuring elevated platforms, connecting ramps, and a cozy hideout house, it encourages natural climbing, exploration, and exercise behaviors while still providing a secure resting area.Its wire ventilation design helps maintain airflow and visibility for everyday pet care.",
+        "weight": "2.8kg",
+        "price": 1850,
+        "category": "Travel",
+        "brand": "TinyTrail Habitats",
+        "pet_type": "Hamster",
+        "life_stage": "Young & Adult",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "Room temperature",
+        "origin": "Philippine pet supplier",
+        "rating": 4.8,
+        "review_count": 512,
+        "specs": {
+            "Category": "Travel",
+            "Brand": "TinyTrail Habitats",
+            "Pet Type": "Hamster & Small Rodents",
+            "Life Stage": "Young & Adult",
+            "Weight": "2.8kg",
+            "Storage": "Room temperature",
+            "Origin": "Philippine pet supplier"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "Powder-coated wire",
+            "BPA-free plastic base",
+            "Plastic ramps and platforms"
+        ],
+        "features": [
+            "Multi-level climbing design",
+            "Includes hideout shelter",
+            "Good airflow and visibility",
+            "Easy-access front doors"
+        ],
+        "use_guide": [
+            "Clean habitat weekly",
+            "Secure ramps before use",
+            "Place bedding on base layer"
+        ],
+        "whats_inside": [
+            "1 × Wire Cage",
+            "2 × Platforms",
+            "2 × Ramps",
+            "1 × Hideout House"
+        ]
+    },
+    {
+        "id": 26,
+        "image": "Assets/Supplies/Travel/travel2.jpg",
+        "gallery": [
+            "Assets/Supplies/Travel/travel2.jpg"
+        ],
+        "title": "Heavy-Duty Hard Shell Pet Carrier",
+        "subtitle": "Secure Hard Shell Travel Carrier for Pets",
+        "description": "A durable ventilated travel crate designed for safely transporting dogs, cats, and small pets during trips or vet visits.",
+        "full_description": "The Heavy-Duty Hard Shell Pet Carrier offers secure and comfortable pet transportation with its sturdy shell construction and ventilated design.Featuring a strong wire door, top carry handle, and airflow openings, it helps pets stay safe and comfortable while traveling.Ideal for vet visits, road trips, or short-distance transport.",
+        "weight": "2.3kg",
+        "price": 1650,
+        "category": "Travel",
+        "brand": "SafePaws Travel",
+        "pet_type": "Dog & Cat",
+        "life_stage": "Young, Adult & Senior",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "Room temperature",
+        "origin": "Philippine pet supplier",
+        "rating": 4.9,
+        "review_count": 833,
+        "specs": {
+            "Category": "Travel",
+            "Brand": "SafePaws Travel",
+            "Pet Type": "Dog, Cat & Small Pets",
+            "Life Stage": "Young, Adult & Senior",
+            "Weight": "2.3kg",
+            "Storage": "Room temperature",
+            "Origin": "Philippine pet supplier"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "Durable hard plastic shell",
+            "Steel wire door",
+            "Ventilation slots",
+            "Carry handle"
+        ],
+        "features": [
+            "Secure locking door",
+            "Ventilated airflow design",
+            "Durable travel construction",
+            "Comfortable for short trips"
+        ],
+        "use_guide": [
+            "Place soft mat inside carrier",
+            "Ensure proper latch locking",
+            "Clean after travel use"
+        ],
+        "whats_inside": [
+            "1 × Hard Shell Pet Carrier"
+        ]
+    },
+    {
+        "id": 27,
+        "image": "Assets/Supplies/Travel/travel3.jpg",
+        "gallery": [
+            "Assets/Supplies/Travel/travel3.jpg"
+        ],
+        "title": "Extra-Large Small Animal Habitat Crate",
+        "subtitle": "Wide Spacious Habitat Crate for Rabbits & Guinea Pigs",
+        "description": "A low-profile wire habitat with ramps and platforms that provides rabbits and guinea pigs with extra room for movement and comfort.",
+        "full_description": "The Extra-Large Small Animal Habitat Crate is designed to provide rabbits and guinea pigs with a spacious environment for resting, stretching, and movement.Its wide floor area and elevated platform help create a more enriching habitat while maintaining proper airflow and accessibility for feeding and cleaning.",
+        "weight": "4.5kg",
+        "price": 2950,
+        "category": "Travel",
+        "brand": "CozyCritter Homes",
+        "pet_type": "Rabbit",
+        "life_stage": "Young, Adult & Senior",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "Room temperature",
+        "origin": "Imported through PH distributors",
+        "rating": 4.8,
+        "review_count": 406,
+        "specs": {
+            "Category": "Travel",
+            "Brand": "CozyCritter Homes",
+            "Pet Type": "Rabbit & Guinea Pig",
+            "Life Stage": "Young, Adult & Senior",
+            "Weight": "4.5kg",
+            "Storage": "Room temperature",
+            "Origin": "Imported through PH distributors"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "Powder-coated metal wire",
+            "Plastic tray base",
+            "Ramp and platform accessories"
+        ],
+        "features": [
+            "Wide low-profile layout",
+            "Elevated resting platform",
+            "Good ventilation design",
+            "Easy-access doors for cleaning"
+        ],
+        "use_guide": [
+            "Place absorbent bedding on base",
+            "Spot-clean daily",
+            "Secure ramp attachments regularly"
+        ],
+        "whats_inside": [
+            "1 × Habitat Crate",
+            "1 × Elevated Platform",
+            "1 × Ramp"
+        ]
+    },
+    {
+        "id": 28,
+        "image": "Assets/Supplies/Travel/travel4.jpg",
+        "gallery": [
+            "Assets/Supplies/Travel/travel4.jpg"
+        ],
+        "title": "Classic Dome Top Metal Bird Cage",
+        "subtitle": "Traditional Hanging Bird Cage for Small Birds",
+        "description": "A dome-top metal bird cage with hanging loop and spacious interior for lovebirds, finches, and other small birds.",
+        "full_description": "The Classic Dome Top Metal Bird Cage combines traditional design with practical functionality for small pet birds.Its rounded dome top provides additional vertical space for climbing and movement while the hanging loop allows flexible placement indoors.The ventilated wire design supports airflow and visibility for comfortable bird housing.",
+        "weight": "2kg",
+        "price": 1250,
+        "category": "Travel",
+        "brand": "FeatherNest",
+        "pet_type": "Bird",
+        "life_stage": "Young, Adult & Senior",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "Room temperature",
+        "origin": "Philippine pet supplier",
+        "rating": 4.7,
+        "review_count": 355,
+        "specs": {
+            "Category": "Travel",
+            "Brand": "FeatherNest",
+            "Pet Type": "Bird",
+            "Life Stage": "Young, Adult & Senior",
+            "Weight": "2kg",
+            "Storage": "Room temperature",
+            "Origin": "Philippine pet supplier"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "Powder-coated metal wire",
+            "Plastic tray base",
+            "Metal hanging hook"
+        ],
+        "features": [
+            "Dome-top spacious design",
+            "Hanging loop for placement",
+            "Removable bottom tray",
+            "Easy cage access doors"
+        ],
+        "use_guide": [
+            "Clean tray regularly",
+            "Position away from direct sunlight",
+            "Provide perches and food bowls"
+        ],
+        "whats_inside": [
+            "1 × Dome Top Bird Cage",
+            "2 × Plastic Feed Cups",
+            "1 × Wooden Perch"
+        ]
+    },
+    {
+        "id": 29,
+        "image": "Assets/Supplies/Travel/bag1.jpg",
+        "gallery": [
+            "Assets/Supplies/Travel/bag1.jpg"
+        ],
+        "title": "Astronaut Bubble Pet Carrier Backpack",
+        "subtitle": "Transparent Bubble Backpack Carrier for Cats & Small Dogs",
+        "description": "A stylish hands-free travel backpack featuring a clear viewing window and ventilation holes for comfortable pet travel.",
+        "full_description": "The Astronaut Bubble Pet Carrier Backpack combines comfort, safety, and modern style for traveling with cats and small dogs.Its transparent panoramic window allows pets to observe their surroundings while multiple ventilation holes help maintain airflow during travel.Adjustable shoulder straps and lightweight materials make carrying easier for everyday outings or vet visits.",
+        "weight": "1.2kg",
+        "price": 1450,
+        "category": "Travel",
+        "brand": "PetVoyage",
+        "pet_type": "Dog & Cat",
+        "life_stage": "Young, Adult & Senior",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "Room temperature",
+        "origin": "Imported through PH pet distributors",
+        "rating": 4.8,
+        "review_count": 1092,
+        "specs": {
+            "Category": "Travel",
+            "Brand": "PetVoyage",
+            "Pet Type": "Cat & Small Dog",
+            "Life Stage": "Young, Adult & Senior",
+            "Weight": "1.2kg",
+            "Storage": "Room temperature",
+            "Origin": "Imported through PH pet distributors"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "Hard transparent acrylic window",
+            "Oxford fabric",
+            "Mesh ventilation panels",
+            "Adjustable shoulder straps"
+        ],
+        "features": [
+            "Panoramic bubble viewing window",
+            "Hands-free backpack design",
+            "Breathable ventilation holes",
+            "Lightweight and portable"
+        ],
+        "use_guide": [
+            "Do not overload carrier",
+            "Allow pets to adjust gradually",
+            "Wipe acrylic window regularly"
+        ],
+        "whats_inside": [
+            "1 × Bubble Pet Carrier Backpack"
+        ]
+    },
+    {
+        "id": 30,
+        "image": "Assets/Supplies/Travel/bag2.jpg",
+        "gallery": [
+            "Assets/Supplies/Travel/bag2.jpg"
+        ],
+        "title": "Soft-Sided Mesh Pet Travel Duffle",
+        "subtitle": "Airline-Approved Soft Pet Carrier Duffle",
+        "description": "A lightweight fabric pet carrier with breathable mesh windows and comfortable straps for portable pet transport.",
+        "full_description": "The Soft-Sided Mesh Pet Travel Duffle is designed for convenient and comfortable pet transportation during travel or vet visits.Made with breathable mesh panels for airflow and visibility, it features both shoulder straps and carry handles for flexible carrying options.Its lightweight collapsible design also allows easier storage when not in use.",
+        "weight": "950g",
+        "price": 1180,
+        "category": "Travel",
+        "brand": "CozyCarry Pets",
+        "pet_type": "Dog & Cat",
+        "life_stage": "Young, Adult & Senior",
+        "food_form": "",
+        "flavors": [],
+        "storage_type": "Room temperature",
+        "origin": "Philippine pet supplier",
+        "rating": 4.7,
+        "review_count": 621,
+        "specs": {
+            "Category": "Travel",
+            "Brand": "CozyCarry Pets",
+            "Pet Type": "Cat & Small Dog",
+            "Life Stage": "Young, Adult & Senior",
+            "Weight": "950g",
+            "Storage": "Room temperature",
+            "Origin": "Philippine pet supplier"
+        },
+        "ingredients": [],
+        "guaranteed_analysis": [],
+        "feeding_guide": [],
+        "materials": [
+            "Oxford fabric",
+            "Breathable mesh panels",
+            "Zipper closures",
+            "Shoulder strap padding"
+        ],
+        "features": [
+            "Airline-approved size",
+            "Lightweight collapsible structure",
+            "Breathable mesh ventilation",
+            "Portable carry handles and strap"
+        ],
+        "use_guide": [
+            "Place soft mat inside for comfort",
+            "Ensure zippers are fully closed",
+            "Hand wash fabric when necessary"
+        ],
+        "whats_inside": [
+            "1 × Soft-Sided Mesh Travel Duffle",
+            "1 × Adjustable Shoulder Strap"
+        ]
+    }
+]

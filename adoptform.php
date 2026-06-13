@@ -1,6 +1,9 @@
 <?php
 session_start();
+<<<<<<< HEAD
 require_once 'db.inc.php';
+=======
+>>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
 
 date_default_timezone_set('Asia/Manila');
 
@@ -9,7 +12,15 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     exit;
 }
 
+<<<<<<< HEAD
 require_once 'pets.inc.php';
+=======
+require_once 'db.inc.php';
+require_once 'db_helper.inc.php';
+$_all_pets = get_all_pets();
+$pets = [];
+foreach ($_all_pets as $_p) { $pets[$_p['id']] = $_p; }
+>>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
 $pet_id = strtolower(trim($_GET['pet'] ?? 'scout'));
 $selected_pet = $pets[$pet_id] ?? $pets['scout'];
 
@@ -150,6 +161,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         $success = true;
+<<<<<<< HEAD
+=======
+        // ── Save application to data store ──
+        require_once 'db_helper.inc.php';
+        $new_app = [
+            'id'           => '',  // assigned by save_application
+            'user_id'      => (int)$_SESSION['user_id'],
+            'user_name'    => trim(($_POST['first_name'] ?? '') . ' ' . ($_POST['last_name'] ?? '')),
+            'user_email'   => $_SESSION['email'] ?? '',
+            'pet_id'       => $selected_pet['id'],
+            'pet_name'     => $selected_pet['name'],
+            'pet_breed'    => $selected_pet['breed'],
+            'pet_image'    => $selected_pet['image'],
+            'type'         => 'Adoption',
+            'status'       => 'active',
+            'current_step' => 1,
+            'last_update'  => 'Your adoption application has been received! We will review it shortly.',
+            'submitted_at' => date('Y-m-d'),
+            'rejected'     => false,
+        ];
+        save_application($new_app);
+
+        // ── Get the newly created app_id and save full form details ──
+        // save_application() generates the ID — re-fetch the latest one for this user+pet
+        global $pdo;
+        $stmt = $pdo->prepare("SELECT app_id FROM tbl_applications WHERE user_id = ? AND pet_id = ? ORDER BY submitted_at DESC LIMIT 1");
+        $stmt->execute([(int)$_SESSION['user_id'], $selected_pet['id']]);
+        $saved_app_id = $stmt->fetchColumn();
+
+        if ($saved_app_id) {
+            save_app_applicant($saved_app_id, $_POST);
+            save_app_adoption_details($saved_app_id, $_POST);
+        }
+>>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
     }
 }
 ?>
