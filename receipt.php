@@ -143,7 +143,7 @@ if (!$order || (int)$order['user_id'] !== (int)$_SESSION['user_id']) {
 <!-- Action bar (hidden on print) -->
 <div class="action-bar">
     <div class="left">
-        <a href="javascript:history.back()" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+        <a href="index.php" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
         <span style="color:var(--border);">|</span>
         <span style="font-size:13px;font-weight:800;color:var(--text-light);">Order Receipt</span>
     </div>

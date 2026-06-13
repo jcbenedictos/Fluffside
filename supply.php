@@ -4,25 +4,12 @@
 // No dupe need
 
 session_start();
-<<<<<<< HEAD
-require_once 'db.inc.php';
-=======
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header("Location: login.php?msg=login_required");
     exit;
 }
 
-<<<<<<< HEAD
-require_once 'product.inc.php';
-
-// ── Grab the product ID from the URL ─────────────────────────
-$product_id = (int)($_GET['id'] ?? 0);
-
-// ── Guard: 404 if not found ───────────────────────────────────
-if ($product_id === 0 || !isset($product_lookup[$product_id])) {
-=======
 require_once 'db.inc.php';
 require_once 'db_helper.inc.php';
 
@@ -32,7 +19,6 @@ $product    = $product_id ? get_product_by_id($product_id) : null;
 
 // ── Guard: 404 if not found ───────────────────────────────────
 if (!$product) {
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
     http_response_code(404);
     echo'<!DOCTYPE html><html><head><title>Product not found — FluffSide</title>
          <style>body{font-family:Nunito,sans-serif;display:flex;align-items:center;
@@ -56,26 +42,13 @@ if (!$product) {
 </body></html>'; exit;
 }
 
-<<<<<<< HEAD
-$product = $product_lookup[$product_id];
-=======
 // $product already loaded via get_product_by_id() above
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
 
 // ── Add to cart (POST from THIS page) ────────────────────────
 if (!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     $qty = max(1, (int)($_POST['quantity'] ?? 1));
-<<<<<<< HEAD
-    if (isset($_SESSION['cart'][$product->id])) {
-        $_SESSION['cart'][$product->id] += $qty;
-    } else {
-        $_SESSION['cart'][$product->id] = $qty;
-    }
-    // Redirect back to same page (PRG pattern)
-    header("Location: supply.php?id={$product->id}&added=1");
-=======
     if (isset($_SESSION['cart'][$product['id']])) {
         $_SESSION['cart'][$product['id']] += $qty;
     } else {
@@ -83,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     }
     // Redirect back to same page (PRG pattern)
     header("Location: supply.php?id={$product['id']}&added=1");
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
     exit;
 }
 
@@ -99,11 +71,7 @@ function h(string $s): string {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title><?= h($product->title) ?> — FluffSide</title>
-=======
     <title><?= h($product['title']) ?> — FluffSide</title>
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -591,30 +559,17 @@ function h(string $s): string {
 
         <!-- ── LEFT: Gallery ── -->
         <div class="gallery">
-<<<<<<< HEAD
-            <img src="<?= h($product->gallery[0] ?? $product->image) ?>"
-                 alt="<?= h($product->title) ?>"
-=======
             <img src="<?= h($product['gallery'][0] ?? $product['image']) ?>"
                  alt="<?= h($product['title']) ?>"
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                  class="gallery-main"
                  id="mainPhoto"
                  onerror="this.src='placeholder.jpg';">
 
-<<<<<<< HEAD
-            <?php if (count($product->gallery) > 1): ?>
-                <div class="gallery-thumbs">
-                    <?php foreach ($product->gallery as $i => $img): ?>
-                        <img src="<?= h($img) ?>"
-                             alt="<?= h($product->title) ?> photo <?= $i + 1 ?>"
-=======
             <?php if (count($product['gallery']) > 1): ?>
                 <div class="gallery-thumbs">
                     <?php foreach ($product['gallery'] as $i => $img): ?>
                         <img src="<?= h($img) ?>"
                              alt="<?= h($product['title']) ?> photo <?= $i + 1 ?>"
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                              class="gallery-thumb <?= $i === 0 ? 'active' : '' ?>"
                              onclick="switchPhoto(this, '<?= h($img) ?>')"
                              onerror="this.style.display='none';">
@@ -627,17 +582,6 @@ function h(string $s): string {
         <div class="product-info-panel">
 
             <!-- Subtitle / tagline -->
-<<<<<<< HEAD
-            <p class="product-subtitle-line"><?= h($product->subtitle) ?></p>
-
-            <!-- Product name -->
-            <h1 class="product-name"><?= h($product->title) ?></h1>
-
-            <!-- Star rating -->
-            <div class="rating-row">
-                <span class="stars"><?= str_repeat('★', (int)floor($product->rating)) ?></span>
-                <span class="rating-text"><?= number_format($product->rating, 1) ?></span>
-=======
             <p class="product-subtitle-line"><?= h($product['subtitle']) ?></p>
 
             <!-- Product name -->
@@ -647,26 +591,12 @@ function h(string $s): string {
             <div class="rating-row">
                 <span class="stars"><?= str_repeat('★', (int)floor($product['rating'])) ?></span>
                 <span class="rating-text"><?= number_format($product['rating'], 1) ?></span>
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                 <a href="#reviews" class="reviews-link">Rates &amp; Reviews</a>
             </div>
 
             <hr class="info-divider">
 
             <!-- Size -->
-<<<<<<< HEAD
-            <p class="size-label">SIZE: <span><?= h(strtoupper($product->weight)) ?></span></p>
-
-            <!-- Short description -->
-            <p class="short-desc"><?= h($product->description) ?></p>
-
-            <!-- Flavors (only shown if product has flavors) -->
-            <?php if (!empty($product->flavors)): ?>
-                <div class="flavor-section">
-                    <span class="flavor-label">Flavor</span>
-                    <div class="flavor-chips">
-                        <?php foreach ($product->flavors as $i => $flavor): ?>
-=======
             <p class="size-label">SIZE: <span><?= h(strtoupper($product['weight'])) ?></span></p>
 
             <!-- Short description -->
@@ -678,7 +608,6 @@ function h(string $s): string {
                     <span class="flavor-label">Flavor</span>
                     <div class="flavor-chips">
                         <?php foreach ($product['flavors'] as $i => $flavor): ?>
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                             <div class="flavor-chip <?= $i === 0 ? 'active' : '' ?>"
                                  onclick="selectFlavor(this)">
                                 <?= h($flavor) ?>
@@ -689,17 +618,10 @@ function h(string $s): string {
             <?php endif; ?>
 
             <!-- Price -->
-<<<<<<< HEAD
-            <div class="product-price"><?= $product->getFormattedPrice() ?></div>
-
-            <!-- Quantity + Add to Cart form -->
-            <form method="POST" action="supply.php?id=<?= $product->id ?>">
-=======
             <div class="product-price">₱<?= number_format($product['price'], 2) ?></div>
 
             <!-- Quantity + Add to Cart form -->
             <form method="POST" action="supply.php?id=<?= $product['id'] ?>">
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                 <div class="qty-label">Quantity</div>
                 <div class="qty-cart-row">
                     <div class="qty-control">
@@ -731,19 +653,11 @@ function h(string $s): string {
     <div class="product-bottom">
 
         <!-- Specs table -->
-<<<<<<< HEAD
-        <?php if (!empty($product->specs)): ?>
-            <div class="specs-box">
-                <div class="specs-header">Product Specifications</div>
-                <table class="specs-table">
-                    <?php foreach ($product->specs as $key => $val): ?>
-=======
         <?php if (!empty($product['specs'])): ?>
             <div class="specs-box">
                 <div class="specs-header">Product Specifications</div>
                 <table class="specs-table">
                     <?php foreach ($product['specs'] as $key => $val): ?>
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                         <tr>
                             <td><?= h($key) ?></td>
                             <td><?= h($val) ?></td>
@@ -761,11 +675,7 @@ function h(string $s): string {
                 <!-- Main description paragraphs -->
                 <?php
                 // Split full_description by ". " for bullet-style rendering when it contains bullets (·)
-<<<<<<< HEAD
-                $sentences = explode('. ', trim($product->full_description));
-=======
                 $sentences = explode('. ', trim($product['full_description']));
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                 $first = array_shift($sentences);
                 ?>
                 <p><strong><?= h($first) ?></strong><?= count($sentences) ? '.' : '' ?></p>
@@ -779,119 +689,70 @@ function h(string $s): string {
                 <?php endif; ?>
 
                 <!-- High-Quality Ingredients -->
-<<<<<<< HEAD
-                <?php if (!empty($product->ingredients)): ?>
-                    <p class="desc-section-title">High-Quality Ingredients</p>
-                    <ul class="desc-list">
-                        <?php foreach ($product->ingredients as $item): ?>
-=======
                 <?php if (!empty($product['ingredients'])): ?>
                     <p class="desc-section-title">High-Quality Ingredients</p>
                     <ul class="desc-list">
                         <?php foreach ($product['ingredients'] as $item): ?>
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                             <li><?= h($item) ?></li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
 
                 <!-- Guaranteed Analysis -->
-<<<<<<< HEAD
-                <?php if (!empty($product->guaranteed_analysis)): ?>
-                    <p class="desc-section-title">Guaranteed Analysis</p>
-                    <ul class="desc-list">
-                        <?php foreach ($product->guaranteed_analysis as $item): ?>
-=======
                 <?php if (!empty($product['guaranteed_analysis'])): ?>
                     <p class="desc-section-title">Guaranteed Analysis</p>
                     <ul class="desc-list">
                         <?php foreach ($product['guaranteed_analysis'] as $item): ?>
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                             <li><?= h($item) ?></li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
 
                 <!-- Feeding Guide -->
-<<<<<<< HEAD
-                <?php if (!empty($product->feeding_guide)): ?>
-                    <p class="desc-section-title">Daily Feeding Guide</p>
-                    <ul class="desc-list">
-                        <?php foreach ($product->feeding_guide as $item): ?>
-=======
                 <?php if (!empty($product['feeding_guide'])): ?>
                     <p class="desc-section-title">Daily Feeding Guide</p>
                     <ul class="desc-list">
                         <?php foreach ($product['feeding_guide'] as $item): ?>
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                             <li><?= h($item) ?></li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
 
                 <!-- Materials -->
-<<<<<<< HEAD
-                <?php if (!empty($product->materials)): ?>
-                    <p class="desc-section-title">Materials</p>
-                    <ul class="desc-list">
-                        <?php foreach ($product->materials as $item): ?>
-=======
                 <?php if (!empty($product['materials'])): ?>
                     <p class="desc-section-title">Materials</p>
                     <ul class="desc-list">
                         <?php foreach ($product['materials'] as $item): ?>
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                             <li><?= h($item) ?></li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
 
                 <!-- Features -->
-<<<<<<< HEAD
-                <?php if (!empty($product->features)): ?>
-                    <p class="desc-section-title">Features</p>
-                    <ul class="desc-list">
-                        <?php foreach ($product->features as $item): ?>
-=======
                 <?php if (!empty($product['features'])): ?>
                     <p class="desc-section-title">Features</p>
                     <ul class="desc-list">
                         <?php foreach ($product['features'] as $item): ?>
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                             <li><?= h($item) ?></li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
 
                 <!-- Use Guide -->
-<<<<<<< HEAD
-                <?php if (!empty($product->use_guide)): ?>
-                    <p class="desc-section-title">Use Guide</p>
-                    <ul class="desc-list">
-                        <?php foreach ($product->use_guide as $item): ?>
-=======
                 <?php if (!empty($product['use_guide'])): ?>
                     <p class="desc-section-title">Use Guide</p>
                     <ul class="desc-list">
                         <?php foreach ($product['use_guide'] as $item): ?>
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                             <li><?= h($item) ?></li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
 
                 <!-- What's in the Package -->
-<<<<<<< HEAD
-                <?php if (!empty($product->whats_inside)): ?>
-                    <p class="desc-section-title">What's Inside the Package</p>
-                    <ul class="desc-list">
-                        <?php foreach ($product->whats_inside as $item): ?>
-=======
                 <?php if (!empty($product['whats_inside'])): ?>
                     <p class="desc-section-title">What's Inside the Package</p>
                     <ul class="desc-list">
                         <?php foreach ($product['whats_inside'] as $item): ?>
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                             <li><?= h($item) ?></li>
                         <?php endforeach; ?>
                     </ul>

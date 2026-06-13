@@ -1,22 +1,14 @@
 <?php
 session_start();
-<<<<<<< HEAD
-require_once 'db.inc.php';
-=======
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header("Location: login.php?msg=login_required");
     exit;
 }
 
-<<<<<<< HEAD
-require_once 'product.inc.php';
-=======
 require_once 'db.inc.php';
 require_once 'db_helper.inc.php';
 $products = get_all_products();
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
 
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
@@ -43,55 +35,35 @@ $filtered = $products;
 
 if ($search_query !== '') {
     $filtered = array_filter($products, function ($p) use ($search_query) {
-<<<<<<< HEAD
-        return stripos($p->title,       $search_query) !== false
-            || stripos($p->description, $search_query) !== false
-            || stripos($p->brand,       $search_query) !== false
-            || stripos($p->pet_type,    $search_query) !== false;
-=======
         return stripos($p['title'],       $search_query) !== false
             || stripos($p['description'], $search_query) !== false
             || stripos($p['brand'],       $search_query) !== false
             || stripos($p['pet_type'],    $search_query) !== false;
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
     });
 }
 
 // ── Category filter ───────────────────────────────────────────
 $filter_category = $_GET['category'] ?? '';
 if ($filter_category !== '') {
-<<<<<<< HEAD
-    $filtered = array_filter($filtered, fn($p) => $p->category === $filter_category);
-=======
     $filtered = array_filter($filtered, fn($p) => $p['category'] === $filter_category);
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
 }
 
 // ── Sort ──────────────────────────────────────────────────────
 $sort = $_GET['sort'] ?? 'featured';
 $filtered = array_values($filtered);
 if ($sort === 'price_asc') {
-<<<<<<< HEAD
-    usort($filtered, fn($a, $b) => $a->price <=> $b->price);
-} elseif ($sort === 'price_desc') {
-    usort($filtered, fn($a, $b) => $b->price <=> $a->price);
-=======
     usort($filtered, fn($a, $b) => $a['price'] <=> $b['price']);
 } elseif ($sort === 'price_desc') {
     usort($filtered, fn($a, $b) => $b['price'] <=> $a['price']);
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
 }
 
 // ── Category counts for sidebar ───────────────────────────────
 $all_categories = ['Foods', 'Treats', 'Accessories', 'Bed', 'Toys', 'Health', 'Travel'];
 
-<<<<<<< HEAD
-=======
 function product_category_count(array $products, string $cat): int {
     return count(array_filter($products, fn($p) => ($p['category'] ?? '') === $cat));
 }
 
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
 function h(string $s): string {
     return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 }
@@ -660,13 +632,8 @@ function h(string $s): string {
 
                                 <!-- Image -->
                                 <div class="product-img-box">
-<<<<<<< HEAD
-                                    <img src="<?= h($product->image) ?>"
-                                         alt="<?= h($product->title) ?>"
-=======
                                     <img src="<?= h($product['image']) ?>"
                                          alt="<?= h($product['title']) ?>"
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                                          class="product-img"
                                          onerror="this.src='placeholder.jpg'; this.style.opacity='.25';">
                                 </div>
@@ -675,29 +642,6 @@ function h(string $s): string {
                                 <div class="product-info">
 
                                     <div class="product-meta">
-<<<<<<< HEAD
-                                        <span class="tag-category"><?= h($product->category) ?></span>
-                                        <span class="tag-pet-type"><?= h($product->pet_type) ?></span>
-                                    </div>
-
-                                    <h3 class="product-title"><?= h($product->title) ?></h3>
-                                    <p class="product-subtitle"><?= h($product->subtitle) ?></p>
-
-                                    <div class="product-rating">
-                                        <span><?= str_repeat('★', (int)floor($product->rating)) ?></span>
-                                        <span><?= number_format($product->rating, 1) ?></span>
-                                        <span class="review-count">(<?= $product->review_count ?> reviews)</span>
-                                    </div>
-
-                                    <p class="product-desc"><?= h($product->description) ?></p>
-
-                                    <div class="price-action-row">
-                                        <span class="product-price"><?= $product->getFormattedPrice() ?></span>
-
-                                        <div class="card-btns">
-                                            <!-- VIEW → individual product page -->
-                                            <a href="supply.php?id=<?= $product->id ?>" class="btn-view">VIEW</a>
-=======
                                         <span class="tag-category"><?= h($product['category']) ?></span>
                                         <span class="tag-pet-type"><?= h($product['pet_type']) ?></span>
                                     </div>
@@ -719,17 +663,12 @@ function h(string $s): string {
                                         <div class="card-btns">
                                             <!-- VIEW → individual product page -->
                                             <a href="supply.php?id=<?= $product['id'] ?>" class="btn-view">VIEW</a>
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
 
                                             <!-- Add to cart (your friend's logic, untouched) -->
                                             <form method="POST" action="supplies.php" style="margin:0;">
                                                 <?php if ($search_query):   ?><input type="hidden" name="search"   value="<?= h($search_query) ?>"><?php endif; ?>
                                                 <?php if ($filter_category):?><input type="hidden" name="category" value="<?= h($filter_category) ?>"><?php endif; ?>
-<<<<<<< HEAD
-                                                <input type="hidden" name="product_id" value="<?= $product->id ?>">
-=======
                                                 <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
                                                 <button type="submit" name="add_to_cart" class="btn-add-cart" title="Add to Cart">
                                                     <i class="fas fa-plus"></i>
                                                 </button>

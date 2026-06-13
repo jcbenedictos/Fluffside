@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 CREATE DATABASE fluffside_db;
 
 CREATE TABLE tbl_users (
@@ -189,7 +188,6 @@ CREATE TABLE tbl_product_reviews (
     FOREIGN KEY (product_id) REFERENCES tbl_products(product_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES tbl_users(user_id) ON DELETE CASCADE
 );
-=======
 -- ============================================================
 -- FLUFFSIDE DATABASE SETUP
 -- ============================================================
@@ -564,4 +562,3 @@ CREATE INDEX IF NOT EXISTS idx_app_applicant_email ON tbl_app_applicant(email);
 --   tbl_app_foster       - foster-specific form fields
 --   tbl_messages         - admin-user messaging per application
 -- ============================================================
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4

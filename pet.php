@@ -5,24 +5,16 @@
 // No duplicate files needed — ever.
 
 session_start();
-<<<<<<< HEAD
-require_once 'db.inc.php';
-=======
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header("Location: login.php?msg=login_required");
     exit;
 }
 
-<<<<<<< HEAD
-require_once 'pets.inc.php';
-=======
 require_once 'db.inc.php'; require_once 'db_helper.inc.php';
 $_pets_arr = get_all_pets();
 $pets = [];
 foreach ($_pets_arr as $p) { $pets[$p['id']] = $p; }
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
 
 // ── Grab the pet ID from the URL ──────────────────────────────
 $pet_id = strtolower(trim($_GET['id'] ?? ''));

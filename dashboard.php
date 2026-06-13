@@ -1,244 +1,3 @@
-<<<<<<< HEAD
-<?php 
-session_start();
-require_once 'db.inc.php';
-
-$is_logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
-
-
- if (!$is_logged_in) {
-     header("Location: login.php?msg=login_required");
-     exit; 
- }
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Applications - Dashboard | FluffSide</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="dashboardstyle.css">
-</head>
-<body>
-
-    <div class="container">
-       <!-- ════ HEADER ════ -->
-        <?php include 'header.php'; ?> 
-
-        <div class="dash-header-section">
-            <h1>My Applications</h1>
-            <p>Track your adoption and foster applications in real time.</p>
-        </div>
-
-        <main class="dashboard-layout">
-            
-            <div class="dash-main">
-                
-                <div class="dash-tabs">
-                    <button class="tab-btn active">Active Applications</button>
-                    <button class="tab-btn">Past Applications</button>
-                    <button class="tab-btn">Messages</button>
-                </div>
-
-                <div class="app-card">
-                    <div class="app-card-top">
-                        <div class="app-pet-info">
-                            <img src="scout.jpg" alt="Scout" class="app-pet-img" onerror="this.src='placeholder.jpg';">
-                            <div class="app-pet-details">
-                                <h2>SCOUT</h2>
-                                <p>Golden Retriever</p>
-                                <span class="tag-type tag-adoption">ADOPTION</span>
-                            </div>
-                        </div>
-                        <div class="app-status-area">
-                            <div class="status-badge status-review">Under Review</div>
-                            <div class="submit-date">
-                                Submitted on
-                                <strong>May 14, 2026</strong>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stepper-container">
-                        <div class="step completed">
-                            <div class="step-icon"><i class="fas fa-check"></i></div>
-                            <span class="step-label">Application<br>Submitted</span>
-                        </div>
-                        <div class="step-line line-green"></div>
-                        
-                        <div class="step completed">
-                            <div class="step-icon"><i class="fas fa-check"></i></div>
-                            <span class="step-label">Reviewed</span>
-                        </div>
-                        <div class="step-line line-green"></div>
-                        
-                        <div class="step action-yellow">
-                            <div class="step-icon"><i class="fas fa-clock"></i></div>
-                            <span class="step-label">Online<br>Interview</span>
-                        </div>
-                        <div class="step-line"></div> <!-- Gray line -->
-                        
-                        <div class="step">
-                            <div class="step-icon"></div>
-                            <span class="step-label">Application<br>Approval</span>
-                        </div>
-                        <div class="step-line"></div>
-                        
-                        <div class="step">
-                            <div class="step-icon"></div>
-                            <span class="step-label">Meet and<br>Greet</span>
-                        </div>
-                        <div class="step-line"></div>
-                        
-                        <div class="step">
-                            <div class="step-icon"></div>
-                            <span class="step-label">Take Home</span>
-                        </div>
-                    </div>
-
-                    <div class="app-card-bottom">
-                        <div class="update-msg">
-                            <strong>Last Update:</strong> We've reviewed your application and would like to schedule an interview, please check your messages and coordinate with us.
-                        </div>
-                        <button class="btn-cancel">Cancel</button>
-                    </div>
-                </div>
-
-                <div class="app-card">
-                    <div class="app-card-top">
-                        <div class="app-pet-info">
-                            <img src="#" alt="#" class="app-pet-img" onerror="this.src='placeholder.jpg';">
-                            <div class="app-pet-details">
-                                <h2>BENNY</h2>
-                                <p>Persian Cat</p>
-                                <span class="tag-type tag-foster">FOSTER</span>
-                            </div>
-                        </div>
-                        <div class="app-status-area">
-                            <div class="status-badge status-approved">Approved</div>
-                            <div class="submit-date">
-                                Submitted on
-                                <strong>May 11, 2026</strong>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stepper-container">
-                        <div class="step completed">
-                            <div class="step-icon"><i class="fas fa-check"></i></div>
-                            <span class="step-label">Application<br>Submitted</span>
-                        </div>
-                        <div class="step-line line-green"></div>
-                        
-                        <div class="step completed">
-                            <div class="step-icon"><i class="fas fa-check"></i></div>
-                            <span class="step-label">Reviewed</span>
-                        </div>
-                        <div class="step-line line-green"></div>
-                        
-                        <div class="step completed">
-                            <div class="step-icon"><i class="fas fa-check"></i></div>
-                            <span class="step-label">Online<br>Interview</span>
-                        </div>
-                        <div class="step-line line-green"></div>
-                        
-                        <div class="step completed">
-                            <div class="step-icon"><i class="fas fa-check"></i></div>
-                            <span class="step-label">Application<br>Approved</span>
-                        </div>
-                        <div class="step-line line-green"></div>
-                        
-                        <div class="step action-green">
-                            <div class="step-icon"><i class="fas fa-exclamation"></i></div>
-                            <span class="step-label">Meet and<br>Greet</span>
-                        </div>
-                        <div class="step-line"></div>
-                        
-                        <div class="step">
-                            <div class="step-icon"></div>
-                            <span class="step-label">Take Home</span>
-                        </div>
-                    </div>
-
-                    <div class="app-card-bottom">
-                        <div class="update-msg">
-                            <strong>Last Update:</strong> We've reviewed your application and would like to schedule an interview, please check your messages and coordinate with us.
-                        </div>
-                        <button class="btn-cancel" disabled>Cancel</button> <!-- Disabled Cancel Button -->
-                    </div>
-                </div>
-
-            </div>
-
-            <aside class="dash-sidebar">
-
-                <div class="side-card">
-                    <h3>Application Summary</h3>
-                    
-                    <div class="summary-list">
-                        <div class="summary-item">
-                            <div class="sum-icon icon-orange"><i class="fas fa-file-alt"></i></div>
-                            <div class="sum-text">
-                                <h4>2</h4>
-                                <p>Active Applications</p>
-                            </div>
-                        </div>
-
-                        <div class="summary-item">
-                            <div class="sum-icon icon-yellow"></div>
-                            <div class="sum-text">
-                                <h4>1</h4>
-                                <p>Approved</p>
-                            </div>
-                        </div>
-
-                        <div class="summary-item">
-                            <div class="sum-icon icon-green"></div>
-                            <div class="sum-text">
-                                <h4>1</h4>
-                                <p>In Progress</p>
-                            </div>
-                        </div>
-
-                        <div class="summary-item">
-                            <div class="sum-icon icon-red"><i class="fas fa-times"></i></div>
-                            <div class="sum-text">
-                                <h4>2</h4>
-                                <p>Withdrawn/ Declined</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="side-card">
-                    <h3>Quick Links</h3>
-                    
-                    <div class="quick-links-list">
-                        <a href="residents.php" class="btn-quick-link">Browse Available Residents</a>
-                        <a href="supplies.php" class="btn-quick-link">Check Out Pet Supplies</a>
-                        <a href="help.php" class="btn-quick-link">Help Center</a>
-                    </div>
-                </div>
-
-            </aside>
-        </main>
-    </div>
-
-    <?php include 'footer.php'; ?>
-
-    <script>
-        // 30-second inactivity logout
-        let inactivityTimer;
-        function resetTimer() {
-            clearTimeout(inactivityTimer);
-            inactivityTimer = setTimeout(function() {
-                window.location.href = 'logout.php?reason=inactive';
-            }, 30000);
-        }
-        ['mousemove','keydown','click','scroll','touchstart'].forEach(function(e) {
-=======
 <?php
 session_start();
 require_once 'db.inc.php';
@@ -258,6 +17,7 @@ if (($_SESSION['role'] ?? 'User') === 'Admin') {
 
 $user_id   = (int)$_SESSION['user_id'];
 $user_name = trim($_SESSION['first_name'] . ' ' . $_SESSION['last_name']);
+$first_name = trim($_SESSION['first_name'] ?? '');
 
 // ── POST: user sends a message ─────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'send_message') {
@@ -282,25 +42,26 @@ $rejected_count  = count(array_filter($all_apps, fn($a) => $a['rejected']));
 $completed_count = count(array_filter($all_apps, fn($a) => $a['status'] === 'completed'));
 
 // Active tab from query string
-$active_tab  = $_GET['tab'] ?? 'active';
+$active_tab      = $_GET['tab'] ?? 'active';
 $selected_app_id = $_GET['app'] ?? (count($all_apps) ? $all_apps[0]['id'] : null);
 $selected_app    = $selected_app_id ? get_application_by_id($selected_app_id) : null;
-// Validate selected app belongs to user
 if ($selected_app && (int)$selected_app['user_id'] !== $user_id) {
     $selected_app = null;
 }
 $chat_msgs = $selected_app ? get_messages_by_app($selected_app['id']) : [];
 
-$steps_label = ['', 'Application Submitted', 'Under Review', 'Interview / Zoom', 'Approved', 'Meet & Greet', 'Take Home'];
+$steps_label = ['', 'Submitted', 'Under Review', 'Interview', 'Approved', 'Meet & Greet', 'Take Home'];
 $steps_icon  = ['', 'fa-file-alt', 'fa-search', 'fa-video', 'fa-check-circle', 'fa-handshake', 'fa-home'];
 
 // Orders
 $user_orders = get_orders_by_user($user_id);
 $order_count = count($user_orders);
+
+$hour = (int)date('H');
+$greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good evening');
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -309,273 +70,307 @@ $order_count = count($user_orders);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-orange: #EF8E35;
-            --primary-hover: #D67A26;
-            --bg-light: #FDFBF5;
-            --text-dark: #5A483E;
-            --text-light: #8E8279;
-            --accent-yellow: #F6D884;
-            --accent-green: #E1E8B8;
-            --white: #FFFFFF;
-            --border: #EAE3D9;
-            --status-green: #9BB374;
-            --status-red: #C0392B;
-            --status-red-bg: #FADBD8;
+            --orange:       #EF8E35;
+            --orange-hover: #D67A26;
+            --orange-soft:  #FEF3E8;
+            --orange-mid:   #FDDCB5;
+            --brown-dark:   #3E2C23;
+            --brown-mid:    #5A483E;
+            --brown-light:  #8E8279;
+            --cream:        #FDFBF5;
+            --cream-dark:   #F3EDE3;
+            --border:       #E8DDD3;
+            --white:        #FFFFFF;
+            --green:        #7DAF5A;
+            --green-soft:   #EBF5E1;
+            --red:          #C0392B;
+            --red-soft:     #FCEAEA;
+            --blue-soft:    #E3F0FF;
+            --blue:         #2471A3;
+            --purple-soft:  #F0EAF8;
+            --purple:       #7D3C98;
+            --yellow-soft:  #FEF9E7;
+            --yellow:       #B7950B;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Nunito', sans-serif;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: var(--bg-light);
-            color: var(--text-dark);
+            font-family: 'Nunito', sans-serif;
+            background: var(--cream);
+            color: var(--brown-mid);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* ── Page header ── */
-        .dash-banner {
-            background: linear-gradient(135deg, #5A483E 0%, #7A6258 100%);
-            color: var(--white);
-            padding: 36px 5% 32px;
+        /* ── HERO STRIP ───────────────────────────────── */
+        .db-hero {
+            background: var(--brown-dark);
+            padding: 32px 5% 0;
+            position: relative;
+            overflow: hidden;
         }
 
-        .dash-banner h1 {
-            font-size: 28px;
-            font-weight: 900;
-            margin-bottom: 6px;
+        .db-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 80% at 90% 110%, rgba(239,142,53,.25) 0%, transparent 65%),
+                radial-gradient(ellipse 40% 60% at 10% -20%, rgba(239,142,53,.12) 0%, transparent 60%);
+            pointer-events: none;
         }
 
-        .dash-banner p {
-            font-size: 14px;
-            font-weight: 600;
-            opacity: 0.75;
-        }
-
-        /* ── Stat bar ── */
-        .stat-bar {
-            background: var(--white);
-            border-bottom: 1px solid var(--border);
-            padding: 0 5%;
+        .db-hero-inner {
             display: flex;
-            gap: 0;
-        }
-
-        .stat-item {
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-right: 1px solid var(--border);
-            font-weight: 700;
-        }
-
-        .stat-item:first-child {
-            padding-left: 0;
-        }
-
-        .stat-num {
-            font-size: 22px;
-            font-weight: 900;
-            color: var(--primary-orange);
-        }
-
-        .stat-lbl {
-            font-size: 12px;
-            color: var(--text-light);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-        }
-
-        /* ── Layout ── */
-        .dash-layout {
-            display: grid;
-            grid-template-columns: 1fr 340px;
+            align-items: flex-end;
+            justify-content: space-between;
             gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .db-hero-text {
+            padding-bottom: 28px;
+        }
+
+        .db-eyebrow {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 10px;
+        }
+
+        .db-hero-text h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 8px;
+        }
+
+        .db-hero-text h1 span {
+            color: var(--orange);
+        }
+
+        .db-hero-text p {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,.55);
+            max-width: 400px;
+        }
+
+        /* ── STAT CARDS inside hero ── */
+        .db-stats {
+            display: flex;
+            gap: 10px;
+            padding-bottom: 28px;
+            flex-shrink: 0;
+        }
+
+        .db-stat {
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 14px;
+            padding: 16px 20px;
+            text-align: center;
+            min-width: 80px;
+            backdrop-filter: blur(6px);
+            transition: background .2s;
+        }
+
+        .db-stat:hover {
+            background: rgba(255,255,255,.13);
+        }
+
+        .db-stat-num {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--orange);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .db-stat-lbl {
+            font-size: 10px;
+            font-weight: 800;
+            color: rgba(255,255,255,.45);
+            text-transform: uppercase;
+            letter-spacing: .8px;
+        }
+
+        /* ── TAB RAIL (attached to hero bottom) ── */
+        .db-tab-rail {
+            background: var(--brown-dark);
+            padding: 0 5%;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            display: flex;
+            gap: 2px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .db-tab {
+            padding: 14px 18px;
+            font-size: 12.5px;
+            font-weight: 800;
+            color: rgba(255,255,255,.45);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            border-bottom: 3px solid transparent;
+            transition: color .15s, border-color .15s;
+            white-space: nowrap;
+        }
+
+        .db-tab:hover {
+            color: rgba(255,255,255,.8);
+        }
+
+        .db-tab.active {
+            color: var(--orange);
+            border-bottom-color: var(--orange);
+        }
+
+        .db-tab-count {
+            background: rgba(239,142,53,.2);
+            color: var(--orange);
+            font-size: 10px;
+            font-weight: 900;
+            padding: 1px 7px;
+            border-radius: 20px;
+        }
+
+        .db-tab.active .db-tab-count {
+            background: var(--orange);
+            color: var(--white);
+        }
+
+        /* ── MAIN LAYOUT ── */
+        .db-body {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 28px;
             padding: 30px 5% 80px;
             align-items: start;
         }
 
-        /* ── Tabs ── */
-        .dash-tabs {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            padding: 9px 20px;
-            border-radius: 20px;
-            border: 1.5px solid var(--border);
-            background: var(--white);
-            font-size: 13px;
-            font-weight: 800;
-            cursor: pointer;
-            color: var(--text-dark);
-            text-decoration: none;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-        }
-
-        .tab-btn:hover {
-            border-color: var(--primary-orange);
-            color: var(--primary-orange);
-        }
-
-        .tab-btn.active {
-            background: var(--primary-orange);
-            color: var(--white);
-            border-color: var(--primary-orange);
-        }
-
-        /* ── App card ── */
+        /* ── APPLICATION CARD ── */
         .app-card {
             background: var(--white);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 18px;
+            overflow: hidden;
             margin-bottom: 16px;
-            transition: box-shadow 0.2s;
+            transition: box-shadow .2s, transform .15s;
         }
 
         .app-card:hover {
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+            box-shadow: 0 6px 28px rgba(62,44,35,.09);
+            transform: translateY(-1px);
         }
 
-        .app-card.rejected {
-            border-color: var(--status-red);
-            background: #FEF9F9;
-        }
+        .app-card.is-rejected { border-left: 4px solid var(--red); }
+        .app-card.is-completed { border-left: 4px solid var(--green); }
+        .app-card.is-active { border-left: 4px solid var(--orange); }
 
-        .app-card.completed {
-            border-color: var(--status-green);
-            background: #F6FAF0;
-        }
-
-        .app-top {
+        .app-card-top {
             display: flex;
-            justify-content: space-between;
+            gap: 18px;
             align-items: flex-start;
-            margin-bottom: 20px;
+            padding: 22px 22px 16px;
         }
 
-        .app-pet {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-        }
-
-        .app-pet img {
-            width: 72px;
-            height: 72px;
-            border-radius: 12px;
+        .app-pet-thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: 14px;
             object-fit: cover;
-            border: 2px solid var(--border);
+            flex-shrink: 0;
+            border: 2px solid var(--cream-dark);
         }
 
-        .app-pet h3 {
-            font-size: 18px;
+        .app-pet-info { flex: 1; min-width: 0; }
+
+        .app-pet-info h3 {
+            font-size: 17px;
             font-weight: 900;
+            color: var(--brown-dark);
             margin-bottom: 2px;
         }
 
-        .app-pet p {
-            font-size: 13px;
-            color: var(--text-light);
+        .app-pet-info .breed {
+            font-size: 12px;
             font-weight: 600;
-            margin-bottom: 6px;
+            color: var(--brown-light);
+            margin-bottom: 8px;
         }
 
-        .app-tag {
-            display: inline-block;
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
             padding: 3px 10px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 800;
             text-transform: uppercase;
+            letter-spacing: .3px;
         }
 
-        .tag-adopt {
-            background: #E3F2FD;
-            color: #1565C0;
-        }
-
-        .tag-foster {
-            background: #F3E5F5;
-            color: #6A1B9A;
-        }
+        .pill-adopt   { background: var(--blue-soft);   color: var(--blue); }
+        .pill-foster  { background: var(--purple-soft);  color: var(--purple); }
+        .pill-active  { background: var(--orange-soft);  color: var(--orange-hover); }
+        .pill-done    { background: var(--green-soft);   color: var(--green); }
+        .pill-rejected{ background: var(--red-soft);     color: var(--red); }
 
         .app-meta {
             text-align: right;
-        }
-
-        .app-badge {
-            display: inline-block;
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-
-        .badge-active {
-            background: #E6F4EA;
-            color: #27AE60;
-        }
-
-        .badge-rejected {
-            background: var(--status-red-bg);
-            color: var(--status-red);
-        }
-
-        .badge-done {
-            background: #E8EAF6;
-            color: #3949AB;
-        }
-
-        .badge-pending {
-            background: #FEF9E7;
-            color: #B7950B;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
         }
 
         .app-date {
-            font-size: 12px;
-            color: var(--text-light);
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--brown-light);
         }
 
-        /* ── Stepper ── */
-        .stepper-wrap {
-            background: var(--bg-light);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
+        .app-id {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--border);
+            letter-spacing: .5px;
         }
 
-        .stepper {
+        /* ── STEPPER ── */
+        .stepper-area {
+            padding: 0 22px 16px;
+        }
+
+        .stepper-track {
             display: flex;
             align-items: flex-start;
             position: relative;
+            padding: 18px 0 8px;
         }
 
-        .stepper::before {
+        .stepper-track::before {
             content: '';
             position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
+            top: 38px;
+            left: calc(100% / 12);
+            right: calc(100% / 12);
             height: 2px;
             background: var(--border);
-            z-index: 0;
         }
 
         .step {
@@ -583,805 +378,1016 @@ $order_count = count($user_orders);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
             position: relative;
-            z-index: 1;
         }
 
-        .step-circle {
-            width: 40px;
-            height: 40px;
+        .step-dot {
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            border: 2px solid var(--border);
-            background: var(--white);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 13px;
-            color: var(--text-light);
-            transition: all 0.3s;
+            border: 2px solid var(--border);
+            background: var(--white);
+            color: var(--border);
+            position: relative;
+            z-index: 1;
+            transition: all .25s;
         }
 
-        .step.done .step-circle {
-            background: var(--status-green);
-            border-color: var(--status-green);
+        .step.done .step-dot {
+            background: var(--green);
+            border-color: var(--green);
             color: var(--white);
         }
 
-        .step.current .step-circle {
+        .step.current .step-dot {
             background: var(--white);
-            border-color: var(--primary-orange);
-            color: var(--primary-orange);
-            box-shadow: 0 0 0 4px rgba(239, 142, 53, 0.15);
+            border-color: var(--orange);
+            color: var(--orange);
+            box-shadow: 0 0 0 5px rgba(239,142,53,.15);
         }
 
-        .step.cut .step-circle {
-            background: var(--status-red-bg);
-            border-color: var(--status-red);
-            color: var(--status-red);
+        .step.cut .step-dot {
+            background: var(--red-soft);
+            border-color: var(--red);
+            color: var(--red);
         }
 
-        .step-name {
-            font-size: 9.5px;
+        .step-lbl {
+            font-size: 9px;
             font-weight: 800;
-            text-align: center;
-            color: var(--text-light);
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-            max-width: 62px;
+            letter-spacing: .3px;
+            color: var(--border);
+            text-align: center;
+            max-width: 58px;
+            line-height: 1.3;
         }
 
-        .step.done .step-name {
-            color: var(--status-green);
+        .step.done .step-lbl    { color: var(--green); }
+        .step.current .step-lbl { color: var(--orange); }
+        .step.cut .step-lbl     { color: var(--red); }
+
+        /* Progress bar under stepper */
+        .progress-bar-wrap {
+            height: 4px;
+            background: var(--cream-dark);
+            border-radius: 99px;
+            overflow: hidden;
+            margin-top: 4px;
         }
 
-        .step.current .step-name {
-            color: var(--primary-orange);
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--orange) 0%, #F6B56B 100%);
+            border-radius: 99px;
+            transition: width .4s ease;
         }
 
-        .step.cut .step-name {
-            color: var(--status-red);
-        }
-
-        /* Rejected banner across stepper */
-        .rejected-banner {
-            background: var(--status-red-bg);
-            border: 1px solid var(--status-red);
-            border-radius: 8px;
-            padding: 10px 16px;
+        /* ── APP FOOTER ── */
+        .app-card-foot {
+            padding: 14px 22px;
+            background: var(--cream);
+            border-top: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--status-red);
-            margin-top: 14px;
-        }
-
-        /* ── App bottom ── */
-        .app-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 12px;
             flex-wrap: wrap;
-            gap: 10px;
         }
 
-        .update-msg {
-            background: var(--bg-light);
-            border-left: 3px solid var(--primary-orange);
-            padding: 10px 14px;
-            border-radius: 0 8px 8px 0;
-            font-size: 13px;
-            font-weight: 600;
+        .update-chip {
             flex: 1;
             min-width: 0;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--brown-mid);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .update-msg strong {
-            font-weight: 800;
-        }
+        .update-chip strong { font-weight: 900; color: var(--brown-dark); }
 
-        .btn-msg {
-            background: var(--primary-orange);
-            color: var(--white);
-            border: none;
-            padding: 9px 18px;
+        .btn-sm {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
             border-radius: 8px;
             font-size: 12px;
             font-weight: 800;
-            cursor: pointer;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
+            transition: background .15s;
+            border: none;
+            cursor: pointer;
             white-space: nowrap;
-            transition: background 0.2s;
         }
 
-        .btn-msg:hover {
-            background: var(--primary-hover);
+        .btn-primary {
+            background: var(--orange);
+            color: var(--white);
         }
 
-        /* ── Empty state ── */
-        .empty-state {
+        .btn-primary:hover { background: var(--orange-hover); }
+
+        .btn-ghost {
+            background: var(--white);
+            color: var(--brown-mid);
+            border: 1.5px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .rejected-note {
+            margin: 0 22px 16px;
+            background: var(--red-soft);
+            border: 1px solid rgba(192,57,43,.2);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--red);
+            line-height: 1.5;
+        }
+
+        .rejected-note i { margin-top: 2px; flex-shrink: 0; }
+
+        /* ── EMPTY STATE ── */
+        .empty-card {
             background: var(--white);
             border: 1.5px dashed var(--border);
-            border-radius: 16px;
-            padding: 48px;
+            border-radius: 18px;
+            padding: 56px 32px;
             text-align: center;
         }
 
-        .empty-state i {
-            font-size: 40px;
-            color: var(--accent-yellow);
-            margin-bottom: 14px;
-            display: block;
+        .empty-icon-wrap {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--orange-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 26px;
+            color: var(--orange);
         }
 
-        .empty-state h3 {
-            font-size: 18px;
+        .empty-card h3 {
+            font-size: 17px;
             font-weight: 900;
-            margin-bottom: 8px;
+            color: var(--brown-dark);
+            margin-bottom: 6px;
         }
 
-        .empty-state p {
+        .empty-card p {
             font-size: 13px;
-            color: var(--text-light);
             font-weight: 600;
-            margin-bottom: 20px;
+            color: var(--brown-light);
+            margin-bottom: 22px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .btn-orange {
-            background: var(--primary-orange);
-            color: var(--white);
-            padding: 11px 22px;
-            border-radius: 9px;
-            font-size: 13px;
-            font-weight: 800;
-            text-decoration: none;
-            display: inline-block;
-            transition: background 0.2s;
-        }
-
-        .btn-orange:hover {
-            background: var(--primary-hover);
-        }
-
-        /* ── Messages tab ── */
-        .msg-layout {
+        /* ── MESSAGES ── */
+        .msg-wrap {
             display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 16px;
-            min-height: 480px;
+            grid-template-columns: 250px 1fr;
+            gap: 14px;
+            min-height: 500px;
         }
 
-        .msg-sidebar {
+        .conv-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .msg-app-item {
+        .conv-item {
             background: var(--white);
             border: 1.5px solid var(--border);
-            border-radius: 10px;
-            padding: 12px 14px;
-            cursor: pointer;
-            text-decoration: none;
+            border-radius: 12px;
+            padding: 13px 15px;
             display: block;
-            transition: all 0.2s;
+            text-decoration: none;
+            transition: all .15s;
         }
 
-        .msg-app-item:hover {
-            border-color: var(--primary-orange);
+        .conv-item:hover { border-color: var(--orange); }
+
+        .conv-item.active {
+            border-color: var(--orange);
+            background: var(--orange-soft);
         }
 
-        .msg-app-item.active {
-            border-color: var(--primary-orange);
-            background: #FFF8F1;
-        }
-
-        .msg-app-item h4 {
-            font-size: 13px;
-            font-weight: 900;
+        .conv-item-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-bottom: 2px;
         }
 
-        .msg-app-item p {
-            font-size: 11px;
-            color: var(--text-light);
-            font-weight: 600;
+        .conv-item-name {
+            font-size: 13px;
+            font-weight: 900;
+            color: var(--brown-dark);
         }
 
-        .msg-app-item .unread-dot {
-            display: inline-block;
+        .unread-dot {
             width: 7px;
             height: 7px;
             border-radius: 50%;
-            background: var(--primary-orange);
-            margin-left: 6px;
-            vertical-align: middle;
+            background: var(--orange);
+            flex-shrink: 0;
         }
 
-        .msg-pane {
+        .conv-item-sub {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--brown-light);
+            margin-bottom: 5px;
+        }
+
+        .conv-item-preview {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--brown-light);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            opacity: .8;
+        }
+
+        /* Chat pane */
+        .chat-pane {
             background: var(--white);
             border: 1px solid var(--border);
-            border-radius: 14px;
+            border-radius: 16px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
         }
 
-        .msg-pane-header {
+        .chat-pane-head {
             padding: 14px 18px;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            background: var(--cream);
         }
 
-        .msg-pane-header img {
-            width: 38px;
-            height: 38px;
-            border-radius: 8px;
+        .chat-pane-head img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             object-fit: cover;
         }
 
-        .msg-pane-header h4 {
+        .chat-pane-head-text h4 {
             font-size: 14px;
             font-weight: 900;
-            margin-bottom: 1px;
+            color: var(--brown-dark);
         }
 
-        .msg-pane-header p {
+        .chat-pane-head-text p {
             font-size: 11px;
-            color: var(--text-light);
             font-weight: 600;
+            color: var(--brown-light);
         }
 
         .chat-log {
             flex: 1;
-            padding: 16px;
+            padding: 18px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            background: #F7F4EE;
-            min-height: 300px;
+            gap: 14px;
+            background: #F9F6F1;
+            min-height: 280px;
             max-height: 360px;
         }
 
-        .bubble {
-            display: flex;
-            flex-direction: column;
-            max-width: 70%;
-        }
+        .bubble { display: flex; flex-direction: column; max-width: 72%; }
+        .bubble.from-admin { align-self: flex-start; }
+        .bubble.from-user  { align-self: flex-end; }
 
-        .bubble.admin {
-            align-self: flex-start;
-        }
-
-        .bubble.user {
-            align-self: flex-end;
-        }
-
-        .bubble-content {
-            padding: 10px 14px;
-            border-radius: 12px;
+        .bubble-body {
+            padding: 11px 15px;
+            border-radius: 14px;
             font-size: 13px;
             font-weight: 600;
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
-        .bubble.admin .bubble-content {
+        .bubble.from-admin .bubble-body {
             background: var(--white);
-            color: var(--text-dark);
-            border-bottom-left-radius: 3px;
+            color: var(--brown-mid);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 1px 4px rgba(0,0,0,.06);
         }
 
-        .bubble.user .bubble-content {
-            background: var(--primary-orange);
+        .bubble.from-user .bubble-body {
+            background: var(--orange);
             color: var(--white);
-            border-bottom-right-radius: 3px;
+            border-bottom-right-radius: 4px;
         }
 
-        .bubble-meta {
+        .bubble-time {
             font-size: 10px;
-            color: var(--text-light);
             font-weight: 700;
-            margin-top: 3px;
+            color: var(--brown-light);
+            margin-top: 4px;
+            opacity: .75;
         }
 
-        .bubble.user .bubble-meta {
-            text-align: right;
-        }
+        .bubble.from-user .bubble-time { text-align: right; }
 
-        .chat-input-area {
+        .chat-input-row {
             padding: 14px 16px;
             border-top: 1px solid var(--border);
             display: flex;
             gap: 10px;
+            background: var(--white);
         }
 
-        .chat-input-area input {
+        .chat-input-row input {
             flex: 1;
-            padding: 10px 14px;
+            padding: 10px 15px;
             border: 1.5px solid var(--border);
-            border-radius: 8px;
+            border-radius: 9px;
             font-size: 13px;
             font-family: 'Nunito', sans-serif;
             font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .chat-input-area input:focus {
+            color: var(--brown-mid);
+            background: var(--cream);
             outline: none;
-            border-color: var(--primary-orange);
+            transition: border-color .15s;
         }
 
-        .no-msgs {
+        .chat-input-row input:focus { border-color: var(--orange); background: var(--white); }
+
+        .chat-closed {
+            padding: 14px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--brown-light);
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-empty {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--brown-light);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 40px;
+            background: #F9F6F1;
+        }
+
+        .chat-empty i { font-size: 32px; opacity: .25; }
+
+        /* ── ORDERS ── */
+        .order-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: box-shadow .2s;
+        }
+
+        .order-card:hover { box-shadow: 0 4px 18px rgba(62,44,35,.08); }
+
+        .order-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--orange-soft);
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            gap: 8px;
-            color: var(--text-light);
-            font-weight: 700;
-            font-size: 13px;
-            background: #F7F4EE;
+            font-size: 18px;
+            color: var(--orange);
+            flex-shrink: 0;
         }
 
-        .no-msgs i {
-            font-size: 28px;
-            opacity: 0.3;
-        }
+        .order-info { flex: 1; min-width: 0; }
 
-        /* ── Sidebar ── */
-        .side-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 16px;
-        }
-
-        .side-card h3 {
+        .order-num {
             font-size: 15px;
             font-weight: 900;
+            color: var(--brown-dark);
+            margin-bottom: 2px;
+        }
+
+        .order-sub {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--brown-light);
+        }
+
+        .order-right { text-align: right; flex-shrink: 0; }
+
+        .order-amount {
+            font-size: 17px;
+            font-weight: 900;
+            color: var(--orange);
+            margin-bottom: 5px;
+        }
+
+        /* ── SIDEBAR ── */
+        .side-section {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 14px;
+        }
+
+        .side-section-title {
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--brown-light);
             margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
         }
 
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
+        .side-section-title i { color: var(--orange); }
+
+        /* Summary numbers */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
 
-        .summary-row:last-child {
-            border-bottom: none;
+        .summary-cell {
+            background: var(--cream);
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
         }
 
-        .summary-label {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-light);
-        }
-
-        .summary-val {
-            font-size: 16px;
+        .summary-cell .s-num {
+            font-size: 22px;
             font-weight: 900;
-            color: var(--text-dark);
+            line-height: 1;
+            margin-bottom: 3px;
         }
 
-        .summary-val.orange {
-            color: var(--primary-orange);
+        .summary-cell .s-lbl {
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            color: var(--brown-light);
         }
 
-        .summary-val.green {
-            color: var(--status-green);
-        }
+        .s-orange { color: var(--orange); }
+        .s-green  { color: var(--green); }
+        .s-red    { color: var(--red); }
+        .s-dark   { color: var(--brown-dark); }
 
-        .summary-val.red {
-            color: var(--status-red);
-        }
-
-        .quick-link {
-            display: block;
-            padding: 11px 16px;
-            border: 1.5px solid var(--border);
-            border-radius: 9px;
+        /* Quick links */
+        .qlink {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 11px 14px;
+            border-radius: 10px;
             text-decoration: none;
             font-size: 13px;
             font-weight: 800;
-            color: var(--text-dark);
+            color: var(--brown-mid);
+            border: 1.5px solid var(--border);
             margin-bottom: 8px;
-            transition: all 0.2s;
+            transition: all .15s;
+        }
+
+        .qlink:last-child { margin-bottom: 0; }
+
+        .qlink i {
+            width: 20px;
+            text-align: center;
+            color: var(--orange);
+        }
+
+        .qlink:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+            background: var(--orange-soft);
+        }
+
+        /* Tip card */
+        .tip-card {
+            background: linear-gradient(135deg, #FFF8EC 0%, #FFF0D6 100%);
+            border: 1.5px solid var(--orange-mid);
+            border-radius: 14px;
+            padding: 18px 20px;
+        }
+
+        .tip-card-title {
+            font-size: 12px;
+            font-weight: 900;
+            color: var(--orange-hover);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 9px;
+            gap: 6px;
         }
 
-        .quick-link:hover {
-            border-color: var(--primary-orange);
-            color: var(--primary-orange);
-            background: var(--bg-light);
+        .tip-card p {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--brown-mid);
+            line-height: 1.65;
         }
 
-        .quick-link:last-child {
-            margin-bottom: 0;
+        /* ── Profile bar ── */
+        .profile-strip {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            margin-bottom: 14px;
         }
+
+        .profile-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: var(--orange-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--orange);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-strip-info { flex: 1; min-width: 0; }
+
+        .profile-strip-name {
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--brown-dark);
+            margin-bottom: 1px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .profile-strip-sub {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--brown-light);
+        }
+
+        .profile-strip a {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--orange);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .profile-strip a:hover { text-decoration: underline; }
     </style>
 </head>
-
 <body>
     <?php include 'header.php'; ?>
 
-    <!-- Banner -->
-    <div class="dash-banner">
-        <h1>My Dashboard</h1>
-        <p>Track your applications, check status updates, and message the Fluffside team.</p>
-    </div>
-
-    <!-- Stat bar -->
-    <div class="stat-bar">
-        <div class="stat-item">
-            <div>
-                <div class="stat-num"><?= $active_count ?></div>
-                <div class="stat-lbl">Active</div>
+    <!-- ── HERO ── -->
+    <div class="db-hero">
+        <div class="db-hero-inner">
+            <div class="db-hero-text">
+                <div class="db-eyebrow"><?= htmlspecialchars($greeting) ?></div>
+                <h1><?= htmlspecialchars($first_name ?: $user_name) ?></h1>
+                <p>Here's everything happening with your applications and orders.</p>
             </div>
-        </div>
-        <div class="stat-item">
-            <div>
-                <div class="stat-num"><?= $approved_count ?></div>
-                <div class="stat-lbl">Approved</div>
-            </div>
-        </div>
-        <div class="stat-item">
-            <div>
-                <div class="stat-num"><?= $completed_count ?></div>
-                <div class="stat-lbl">Completed</div>
-            </div>
-        </div>
-        <div class="stat-item">
-            <div>
-                <div class="stat-num"><?= $rejected_count ?></div>
-                <div class="stat-lbl">Declined</div>
-            </div>
-        </div>
-        <div class="stat-item">
-            <div>
-                <div class="stat-num"><?= $order_count ?></div>
-                <div class="stat-lbl">Orders</div>
+            <div class="db-stats">
+                <div class="db-stat">
+                    <div class="db-stat-num"><?= $active_count ?></div>
+                    <div class="db-stat-lbl">Active</div>
+                </div>
+                <div class="db-stat">
+                    <div class="db-stat-num"><?= $approved_count ?></div>
+                    <div class="db-stat-lbl">Approved</div>
+                </div>
+                <div class="db-stat">
+                    <div class="db-stat-num"><?= $completed_count ?></div>
+                    <div class="db-stat-lbl">Done</div>
+                </div>
+                <div class="db-stat">
+                    <div class="db-stat-num"><?= $order_count ?></div>
+                    <div class="db-stat-lbl">Orders</div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Main layout -->
-    <div class="dash-layout">
-        <!-- Left column -->
+    <!-- ── TAB RAIL ── -->
+    <div class="db-tab-rail">
+        <a href="?tab=active"   class="db-tab <?= $active_tab === 'active'   ? 'active' : '' ?>">
+            <i class="fas fa-file-alt"></i> Active
+            <span class="db-tab-count"><?= count($active) ?></span>
+        </a>
+        <a href="?tab=past"     class="db-tab <?= $active_tab === 'past'     ? 'active' : '' ?>">
+            <i class="fas fa-history"></i> Past
+            <span class="db-tab-count"><?= count($past) ?></span>
+        </a>
+        <a href="?tab=messages" class="db-tab <?= $active_tab === 'messages' ? 'active' : '' ?>">
+            <i class="fas fa-comments"></i> Messages
+        </a>
+        <a href="?tab=orders"   class="db-tab <?= $active_tab === 'orders'   ? 'active' : '' ?>">
+            <i class="fas fa-shopping-bag"></i> Orders
+            <span class="db-tab-count"><?= $order_count ?></span>
+        </a>
+    </div>
+
+    <!-- ── BODY ── -->
+    <div class="db-body">
+        <!-- Main column -->
         <div>
-            <!-- Tabs -->
-            <div class="dash-tabs">
-                <a href="?tab=active" class="tab-btn <?= $active_tab === 'active'   ? 'active' : '' ?>"><i class="fas fa-file-alt"></i> Active (<?= count($active) ?>)</a>
-                <a href="?tab=past" class="tab-btn <?= $active_tab === 'past'     ? 'active' : '' ?>"><i class="fas fa-history"></i> Past (<?= count($past) ?>)</a>
-                <a href="?tab=messages" class="tab-btn <?= $active_tab === 'messages' ? 'active' : '' ?>"><i class="fas fa-comments"></i> Messages</a>
-                <a href="?tab=orders" class="tab-btn <?= $active_tab === 'orders'   ? 'active' : '' ?>"><i class="fas fa-shopping-bag"></i> Orders (<?= $order_count ?>)</a>
-            </div>
 
-            <?php
-            // ── ACTIVE TAB ─────────────────────────────────────────
-            if ($active_tab === 'active'):
-                if (empty($active)): ?>
-                    <div class="empty-state">
-                        <i class="fas fa-paw"></i>
-                        <h3>No active applications yet</h3>
-                        <p>Browse our residents and submit an adoption or foster application to get started.</p>
-                        <a href="residents.php" class="btn-orange">Browse Residents</a>
-                    </div>
-                    <?php else:
-                    foreach ($active as $app):
-                        $step = (int)$app['current_step'];
-                    ?>
-                        <div class="app-card">
-                            <div class="app-top">
-                                <div class="app-pet">
-                                    <img src="<?= htmlspecialchars($app['pet_image']) ?>" alt="<?= htmlspecialchars($app['pet_name']) ?>"
-                                        onerror="this.src='https://placehold.co/72x72/EAE3D9/8E8279?text=?'">
-                                    <div>
-                                        <h3><?= htmlspecialchars($app['pet_name']) ?></h3>
-                                        <p><?= htmlspecialchars($app['pet_breed']) ?></p>
-                                        <span class="app-tag <?= $app['type'] === 'Adoption' ? 'tag-adopt' : 'tag-foster' ?>"><?= htmlspecialchars($app['type']) ?></span>
-                                    </div>
-                                </div>
-                                <div class="app-meta">
-                                    <span class="app-badge badge-active">Active</span><br>
-                                    <span class="app-date">Submitted <?= htmlspecialchars($app['submitted_at']) ?></span>
-                                </div>
-                            </div>
-
-                            <!-- Stepper -->
-                            <div class="stepper-wrap">
-                                <div class="stepper">
-                                    <?php foreach ($steps_label as $i => $label):
-                                        if ($i === 0) continue;
-                                        $cls = $i < $step ? 'done' : ($i === $step ? 'current' : '');
-                                    ?>
-                                        <div class="step <?= $cls ?>">
-                                            <div class="step-circle">
-                                                <?php if ($i < $step): ?>
-                                                    <i class="fas fa-check"></i>
-                                                <?php else: ?>
-                                                    <i class="fas <?= $steps_icon[$i] ?>"></i>
-                                                <?php endif; ?>
-                                            </div>
-                                            <div class="step-name"><?= $label ?></div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-
-                            <div class="app-bottom">
-                                <div class="update-msg">
-                                    <strong>Last Update:</strong> <?= htmlspecialchars($app['last_update'] ?? 'Your application is being processed.') ?>
-                                </div>
-                                <a href="?tab=messages&app=<?= urlencode($app['id']) ?>" class="btn-msg">
-                                    <i class="fas fa-comments"></i> Message Us
-                                </a>
-                            </div>
+        <?php
+        // ── ACTIVE ──────────────────────────────────────────────
+        if ($active_tab === 'active'):
+            if (empty($active)): ?>
+                <div class="empty-card">
+                    <div class="empty-icon-wrap"><i class="fas fa-paw"></i></div>
+                    <h3>No active applications yet</h3>
+                    <p>Browse our residents and start an adoption or foster application.</p>
+                    <a href="residents.php" class="btn-sm btn-primary" style="margin:0 auto;">Browse Residents</a>
+                </div>
+            <?php else:
+                foreach ($active as $app):
+                    $step = (int)$app['current_step'];
+                    $pct  = round(($step / 6) * 100);
+            ?>
+                <div class="app-card is-active">
+                    <div class="app-card-top">
+                        <img class="app-pet-thumb"
+                             src="<?= htmlspecialchars($app['pet_image']) ?>"
+                             alt="<?= htmlspecialchars($app['pet_name']) ?>"
+                             onerror="this.src='https://placehold.co/80x80/F3EDE3/8E8279?text=?'">
+                        <div class="app-pet-info">
+                            <h3><?= htmlspecialchars($app['pet_name']) ?></h3>
+                            <div class="breed"><?= htmlspecialchars($app['pet_breed']) ?></div>
+                            <span class="pill <?= $app['type'] === 'Adoption' ? 'pill-adopt' : 'pill-foster' ?>">
+                                <i class="fas <?= $app['type'] === 'Adoption' ? 'fa-heart' : 'fa-home' ?>"></i>
+                                <?= htmlspecialchars($app['type']) ?>
+                            </span>
                         </div>
-                    <?php
-                    endforeach;
-                endif;
-
-            // ── PAST TAB ───────────────────────────────────────────
-            elseif ($active_tab === 'past'):
-                if (empty($past)): ?>
-                    <div class="empty-state">
-                        <i class="fas fa-history"></i>
-                        <h3>No past applications</h3>
-                        <p>Completed and declined applications will appear here.</p>
-                    </div>
-                    <?php else:
-                    foreach ($past as $app):
-                        $step = (int)$app['current_step'];
-                        $is_rejected = (bool)$app['rejected'];
-                    ?>
-                        <div class="app-card <?= $is_rejected ? 'rejected' : 'completed' ?>">
-                            <div class="app-top">
-                                <div class="app-pet">
-                                    <img src="<?= htmlspecialchars($app['pet_image']) ?>" alt="<?= htmlspecialchars($app['pet_name']) ?>"
-                                        onerror="this.src='https://placehold.co/72x72/EAE3D9/8E8279?text=?'">
-                                    <div>
-                                        <h3><?= htmlspecialchars($app['pet_name']) ?></h3>
-                                        <p><?= htmlspecialchars($app['pet_breed']) ?></p>
-                                        <span class="app-tag <?= $app['type'] === 'Adoption' ? 'tag-adopt' : 'tag-foster' ?>"><?= htmlspecialchars($app['type']) ?></span>
-                                    </div>
-                                </div>
-                                <div class="app-meta">
-                                    <span class="app-badge <?= $is_rejected ? 'badge-rejected' : 'badge-done' ?>"><?= $is_rejected ? 'Declined' : 'Completed' ?></span><br>
-                                    <span class="app-date">Submitted <?= htmlspecialchars($app['submitted_at']) ?></span>
-                                </div>
-                            </div>
-
-                            <!-- Stepper: shows how far it got -->
-                            <div class="stepper-wrap">
-                                <div class="stepper">
-                                    <?php foreach ($steps_label as $i => $label):
-                                        if ($i === 0) continue;
-                                        if ($is_rejected && $i > $step) {
-                                            $cls = 'cut';
-                                        } elseif ($i <= $step) {
-                                            $cls = 'done';
-                                        } else {
-                                            $cls = '';
-                                        }
-                                    ?>
-                                        <div class="step <?= $cls ?>">
-                                            <div class="step-circle">
-                                                <?php if ($cls === 'done'): ?>
-                                                    <i class="fas fa-check"></i>
-                                                <?php elseif ($cls === 'cut'): ?>
-                                                    <i class="fas fa-times"></i>
-                                                <?php else: ?>
-                                                    <i class="fas <?= $steps_icon[$i] ?>"></i>
-                                                <?php endif; ?>
-                                            </div>
-                                            <div class="step-name"><?= $label ?></div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                                <?php if ($is_rejected): ?>
-                                    <div class="rejected-banner">
-                                        <i class="fas fa-info-circle"></i>
-                                        <?= htmlspecialchars($app['last_update'] ?? 'This application was not approved.') ?>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-
-                            <?php if (!$is_rejected): ?>
-                                <div class="app-bottom">
-                                    <div class="update-msg"><strong>Last Update:</strong> <?= htmlspecialchars($app['last_update'] ?? '') ?></div>
-                                </div>
-                            <?php endif; ?>
+                        <div class="app-meta">
+                            <span class="pill pill-active">Active</span>
+                            <div class="app-date">Submitted <?= htmlspecialchars($app['submitted_at']) ?></div>
+                            <div class="app-id"><?= htmlspecialchars($app['id']) ?></div>
                         </div>
-                    <?php
-                    endforeach;
-                endif;
-
-            // ── MESSAGES TAB ──────────────────────────────────────
-            elseif ($active_tab === 'messages'):
-                if (empty($all_apps)): ?>
-                    <div class="empty-state">
-                        <i class="fas fa-comments"></i>
-                        <h3>No conversations yet</h3>
-                        <p>Once you submit an application, you can message the Fluffside team here.</p>
-                        <a href="residents.php" class="btn-orange">Browse Residents</a>
                     </div>
-                <?php else: ?>
-                    <div class="msg-layout">
-                        <!-- Conversation list -->
-                        <div class="msg-sidebar">
-                            <?php foreach ($all_apps as $a):
-                                $app_msgs = get_messages_by_app($a['id']);
-                                $last_msg = end($app_msgs);
-                                // Unread = last message is from admin and tab is open to a different app
-                                $has_new  = $last_msg && $last_msg['sender'] === 'admin' && $a['id'] !== ($selected_app['id'] ?? '');
+
+                    <!-- Stepper -->
+                    <div class="stepper-area">
+                        <div class="stepper-track">
+                            <?php foreach ($steps_label as $i => $label):
+                                if ($i === 0) continue;
+                                $cls = $i < $step ? 'done' : ($i === $step ? 'current' : '');
                             ?>
-                                <a href="?tab=messages&app=<?= urlencode($a['id']) ?>"
-                                    class="msg-app-item <?= (($selected_app['id'] ?? '') === $a['id']) ? 'active' : '' ?>">
-                                    <h4><?= htmlspecialchars($a['pet_name']) ?>
-                                        <?php if ($has_new): ?><span class="unread-dot"></span><?php endif; ?>
-                                    </h4>
-                                    <p><?= htmlspecialchars($a['type']) ?> &bull; <?= htmlspecialchars($a['id']) ?></p>
-                                    <?php if ($last_msg): ?>
-                                        <p style="margin-top:4px;font-size:10px;color:var(--text-light);">
-                                            <?= htmlspecialchars(substr($last_msg['message'], 0, 45)) ?>...
-                                        </p>
-                                    <?php endif; ?>
-                                </a>
+                                <div class="step <?= $cls ?>">
+                                    <div class="step-dot">
+                                        <?php if ($i < $step): ?>
+                                            <i class="fas fa-check"></i>
+                                        <?php else: ?>
+                                            <i class="fas <?= $steps_icon[$i] ?>"></i>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="step-lbl"><?= $label ?></div>
+                                </div>
                             <?php endforeach; ?>
                         </div>
-
-                        <!-- Chat pane -->
-                        <div class="msg-pane">
-                            <?php if ($selected_app): ?>
-                                <div class="msg-pane-header">
-                                    <img src="<?= htmlspecialchars($selected_app['pet_image']) ?>" alt=""
-                                        onerror="this.src='https://placehold.co/38x38/EAE3D9/8E8279?text=?'">
-                                    <div>
-                                        <h4><?= htmlspecialchars($selected_app['pet_name']) ?></h4>
-                                        <p><?= htmlspecialchars($selected_app['type']) ?> Application &bull; <?= htmlspecialchars($selected_app['id']) ?></p>
-                                    </div>
-                                </div>
-
-                                <div class="chat-log" id="chatLog">
-                                    <?php if (empty($chat_msgs)): ?>
-                                        <div style="text-align:center;color:var(--text-light);font-weight:700;font-size:13px;padding:20px 0;">
-                                            No messages yet. Say hello to the Fluffside team!
-                                        </div>
-                                    <?php else: ?>
-                                        <?php foreach ($chat_msgs as $m): ?>
-                                            <div class="bubble <?= $m['sender'] === 'admin' ? 'admin' : 'user' ?>">
-                                                <div class="bubble-content"><?= nl2br(htmlspecialchars($m['message'])) ?></div>
-                                                <div class="bubble-meta">
-                                                    <?= $m['sender'] === 'admin' ? 'FluffSide Team' : 'You' ?>
-                                                    &bull; <?= htmlspecialchars(date('M j, g:i A', strtotime($m['sent_at']))) ?>
-                                                </div>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </div>
-
-                                <?php if (!$selected_app['rejected'] && $selected_app['status'] !== 'completed'): ?>
-                                    <div class="chat-input-area">
-                                        <form method="POST" style="display:flex;gap:10px;flex:1;">
-                                            <input type="hidden" name="action" value="send_message">
-                                            <input type="hidden" name="app_id" value="<?= htmlspecialchars($selected_app['id']) ?>">
-                                            <input type="text" name="message" placeholder="Type a message..." required autocomplete="off">
-                                            <button type="submit" class="btn-msg"><i class="fas fa-paper-plane"></i></button>
-                                        </form>
-                                    </div>
-                                <?php else: ?>
-                                    <div style="padding:12px 16px;text-align:center;font-size:12px;color:var(--text-light);font-weight:700;border-top:1px solid var(--border);">
-                                        This conversation is closed.
-                                    </div>
-                                <?php endif; ?>
-                            <?php else: ?>
-                                <div class="no-msgs"><i class="fas fa-comments"></i><span>Select an application to view messages</span></div>
-                            <?php endif; ?>
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar-fill" style="width:<?= $pct ?>%"></div>
                         </div>
                     </div>
-                <?php endif; ?>
-                <?php
 
-            // ── ORDERS TAB ────────────────────────────────────────
-            elseif ($active_tab === 'orders'):
-                if (empty($user_orders)): ?>
-                    <div class="empty-state">
-                        <i class="fas fa-shopping-bag"></i>
-                        <h3>No orders yet</h3>
-                        <p>Browse our pet supplies and place your first order!</p>
-                        <a href="supplies.php" class="btn-orange">Shop Now</a>
+                    <div class="app-card-foot">
+                        <div class="update-chip">
+                            <strong>Update: </strong><?= htmlspecialchars($app['last_update'] ?? 'Your application is being processed.') ?>
+                        </div>
+                        <a href="?tab=messages&app=<?= urlencode($app['id']) ?>" class="btn-sm btn-primary">
+                            <i class="fas fa-comments"></i> Message Us
+                        </a>
                     </div>
-                <?php else: ?>
-                    <div style="display:flex;flex-direction:column;gap:14px;">
-                        <?php foreach ($user_orders as $ord):
-                            $status_colors = [
-                                'Pending'    => ['bg' => '#FEF9E7', 'color' => '#B7950B'],
-                                'Processing' => ['bg' => '#EAF2FF', 'color' => '#1A5276'],
-                                'Shipped'    => ['bg' => '#E8F8F5', 'color' => '#148F77'],
-                                'Delivered'  => ['bg' => '#E6F4EA', 'color' => '#1E8449'],
-                                'Cancelled'  => ['bg' => '#FADBD8', 'color' => '#C0392B'],
-                            ];
-                            $sc = $status_colors[$ord['status']] ?? ['bg' => '#F0F0F0', 'color' => '#888'];
-                        ?>
-                            <div class="app-card" style="padding:20px 24px;">
-                                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
-                                    <div>
-                                        <div style="font-size:17px;font-weight:900;margin-bottom:3px;"><?= htmlspecialchars($ord['order_number']) ?></div>
-                                        <div style="font-size:12px;color:var(--text-light);font-weight:600;">
-                                            <?= htmlspecialchars(date('F j, Y g:i A', strtotime($ord['ordered_at']))) ?>
-                                            &bull; <?= htmlspecialchars($ord['payment_method']) ?>
-                                        </div>
+                </div>
+            <?php endforeach; endif;
+
+        // ── PAST ────────────────────────────────────────────────
+        elseif ($active_tab === 'past'):
+            if (empty($past)): ?>
+                <div class="empty-card">
+                    <div class="empty-icon-wrap"><i class="fas fa-history"></i></div>
+                    <h3>No past applications</h3>
+                    <p>Completed and declined applications will show up here.</p>
+                </div>
+            <?php else:
+                foreach ($past as $app):
+                    $step = (int)$app['current_step'];
+                    $is_rej = (bool)$app['rejected'];
+                    $pct = round(($step / 6) * 100);
+            ?>
+                <div class="app-card <?= $is_rej ? 'is-rejected' : 'is-completed' ?>">
+                    <div class="app-card-top">
+                        <img class="app-pet-thumb"
+                             src="<?= htmlspecialchars($app['pet_image']) ?>"
+                             alt="<?= htmlspecialchars($app['pet_name']) ?>"
+                             onerror="this.src='https://placehold.co/80x80/F3EDE3/8E8279?text=?'">
+                        <div class="app-pet-info">
+                            <h3><?= htmlspecialchars($app['pet_name']) ?></h3>
+                            <div class="breed"><?= htmlspecialchars($app['pet_breed']) ?></div>
+                            <span class="pill <?= $app['type'] === 'Adoption' ? 'pill-adopt' : 'pill-foster' ?>">
+                                <i class="fas <?= $app['type'] === 'Adoption' ? 'fa-heart' : 'fa-home' ?>"></i>
+                                <?= htmlspecialchars($app['type']) ?>
+                            </span>
+                        </div>
+                        <div class="app-meta">
+                            <span class="pill <?= $is_rej ? 'pill-rejected' : 'pill-done' ?>">
+                                <?= $is_rej ? 'Declined' : 'Completed' ?>
+                            </span>
+                            <div class="app-date">Submitted <?= htmlspecialchars($app['submitted_at']) ?></div>
+                            <div class="app-id"><?= htmlspecialchars($app['id']) ?></div>
+                        </div>
+                    </div>
+
+                    <div class="stepper-area">
+                        <div class="stepper-track">
+                            <?php foreach ($steps_label as $i => $label):
+                                if ($i === 0) continue;
+                                if ($is_rej && $i > $step) $cls = 'cut';
+                                elseif ($i <= $step)        $cls = 'done';
+                                else                        $cls = '';
+                            ?>
+                                <div class="step <?= $cls ?>">
+                                    <div class="step-dot">
+                                        <?php if ($cls === 'done'): ?>
+                                            <i class="fas fa-check"></i>
+                                        <?php elseif ($cls === 'cut'): ?>
+                                            <i class="fas fa-times"></i>
+                                        <?php else: ?>
+                                            <i class="fas <?= $steps_icon[$i] ?>"></i>
+                                        <?php endif; ?>
                                     </div>
-                                    <div style="text-align:right;">
-                                        <span style="display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:800;text-transform:uppercase;background:<?= $sc['bg'] ?>;color:<?= $sc['color'] ?>;">
-                                            <?= htmlspecialchars($ord['status']) ?>
-                                        </span>
-                                    </div>
+                                    <div class="step-lbl"><?= $label ?></div>
                                 </div>
-                                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-                                    <div style="font-size:13px;font-weight:700;color:var(--text-light);">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        <?= htmlspecialchars($ord['city']) ?>
-                                    </div>
-                                    <div style="display:flex;align-items:center;gap:16px;">
-                                        <span style="font-size:18px;font-weight:900;color:var(--primary-orange);">
-                                            &#8369;<?= number_format((float)$ord['total_amount'], 2) ?>
-                                        </span>
-                                        <a href="receipt.php?order_id=<?= (int)$ord['order_id'] ?>" class="btn-msg" style="background:#9BB374;">
-                                            <i class="fas fa-receipt"></i> View Receipt
-                                        </a>
-                                    </div>
-                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar-fill" style="width:<?= $pct ?>%;background:<?= $is_rej ? 'var(--red)' : 'var(--green)' ?>;"></div>
+                        </div>
+                    </div>
+
+                    <?php if ($is_rej): ?>
+                        <div class="rejected-note">
+                            <i class="fas fa-info-circle"></i>
+                            <span><?= htmlspecialchars($app['last_update'] ?? 'This application was not approved.') ?></span>
+                        </div>
+                    <?php else: ?>
+                        <div class="app-card-foot">
+                            <div class="update-chip">
+                                <strong>Last Update: </strong><?= htmlspecialchars($app['last_update'] ?? '') ?>
                             </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; endif;
+
+        // ── MESSAGES ────────────────────────────────────────────
+        elseif ($active_tab === 'messages'):
+            if (empty($all_apps)): ?>
+                <div class="empty-card">
+                    <div class="empty-icon-wrap"><i class="fas fa-comments"></i></div>
+                    <h3>No conversations yet</h3>
+                    <p>Submit an application to start messaging the FluffSide team.</p>
+                    <a href="residents.php" class="btn-sm btn-primary" style="margin:0 auto;">Browse Residents</a>
+                </div>
+            <?php else: ?>
+                <div class="msg-wrap">
+                    <!-- Conversation list -->
+                    <div class="conv-list">
+                        <?php foreach ($all_apps as $a):
+                            $app_msgs = get_messages_by_app($a['id']);
+                            $last_msg = end($app_msgs);
+                            $has_new  = $last_msg && $last_msg['sender'] === 'admin' && $a['id'] !== ($selected_app['id'] ?? '');
+                        ?>
+                            <a href="?tab=messages&app=<?= urlencode($a['id']) ?>"
+                               class="conv-item <?= (($selected_app['id'] ?? '') === $a['id']) ? 'active' : '' ?>">
+                                <div class="conv-item-head">
+                                    <span class="conv-item-name"><?= htmlspecialchars($a['pet_name']) ?></span>
+                                    <?php if ($has_new): ?><span class="unread-dot"></span><?php endif; ?>
+                                </div>
+                                <div class="conv-item-sub"><?= htmlspecialchars($a['type']) ?> &bull; <?= htmlspecialchars($a['id']) ?></div>
+                                <?php if ($last_msg): ?>
+                                    <div class="conv-item-preview"><?= htmlspecialchars(substr($last_msg['message'], 0, 50)) ?></div>
+                                <?php endif; ?>
+                            </a>
                         <?php endforeach; ?>
                     </div>
-            <?php endif;
-            endif; ?>
-        </div>
 
-        <!-- Sidebar -->
-        <aside>
-            <div class="side-card">
-                <h3><i class="fas fa-chart-bar" style="color:var(--primary-orange)"></i> My Summary</h3>
-                <div class="summary-row"><span class="summary-label">Active</span><span class="summary-val orange"><?= $active_count ?></span></div>
-                <div class="summary-row"><span class="summary-label">Approved</span><span class="summary-val green"><?= $approved_count ?></span></div>
-                <div class="summary-row"><span class="summary-label">Completed</span><span class="summary-val"><?= $completed_count ?></span></div>
-                <div class="summary-row"><span class="summary-label">Declined</span><span class="summary-val red"><?= $rejected_count ?></span></div>
-            </div>
+                    <!-- Chat pane -->
+                    <div class="chat-pane">
+                        <?php if ($selected_app): ?>
+                            <div class="chat-pane-head">
+                                <img src="<?= htmlspecialchars($selected_app['pet_image']) ?>"
+                                     alt=""
+                                     onerror="this.src='https://placehold.co/40x40/F3EDE3/8E8279?text=?'">
+                                <div class="chat-pane-head-text">
+                                    <h4><?= htmlspecialchars($selected_app['pet_name']) ?></h4>
+                                    <p><?= htmlspecialchars($selected_app['type']) ?> &bull; <?= htmlspecialchars($selected_app['id']) ?></p>
+                                </div>
+                            </div>
 
-            <div class="side-card">
-                <h3><i class="fas fa-link" style="color:var(--primary-orange)"></i> Quick Links</h3>
-                <a href="residents.php" class="quick-link"><i class="fas fa-paw"></i> Browse Residents</a>
-                <a href="supplies.php" class="quick-link"><i class="fas fa-box-open"></i> Pet Supplies</a>
-                <a href="help.php" class="quick-link"><i class="fas fa-question-circle"></i> Help Center</a>
-            </div>
+                            <div class="chat-log" id="chatLog">
+                                <?php if (empty($chat_msgs)): ?>
+                                    <div style="text-align:center;color:var(--brown-light);font-size:13px;font-weight:700;padding:24px 0;">
+                                        No messages yet — say hello to the FluffSide team!
+                                    </div>
+                                <?php else:
+                                    foreach ($chat_msgs as $m): ?>
+                                        <div class="bubble <?= $m['sender'] === 'admin' ? 'from-admin' : 'from-user' ?>">
+                                            <div class="bubble-body"><?= nl2br(htmlspecialchars($m['message'])) ?></div>
+                                            <div class="bubble-time">
+                                                <?= $m['sender'] === 'admin' ? 'FluffSide Team' : 'You' ?>
+                                                &bull; <?= htmlspecialchars(date('M j, g:i A', strtotime($m['sent_at']))) ?>
+                                            </div>
+                                        </div>
+                                    <?php endforeach;
+                                endif; ?>
+                            </div>
 
-            <?php if ($active_count > 0): ?>
-                <div class="side-card" style="border:1.5px solid var(--accent-yellow); background:#FFFDF0;">
-                    <h3><i class="fas fa-lightbulb" style="color:#D4AC0D"></i> Tip</h3>
-                    <p style="font-size:13px;font-weight:600;color:var(--text-dark);line-height:1.6;">
-                        Keep an eye on your <strong>Messages</strong> tab &mdash; the Fluffside team may reach out to schedule your interview or confirm a zoom meeting!
-                    </p>
+                            <?php if (!$selected_app['rejected'] && $selected_app['status'] !== 'completed'): ?>
+                                <div class="chat-input-row">
+                                    <form method="POST" style="display:flex;gap:10px;flex:1;">
+                                        <input type="hidden" name="action" value="send_message">
+                                        <input type="hidden" name="app_id" value="<?= htmlspecialchars($selected_app['id']) ?>">
+                                        <input type="text" name="message" placeholder="Type a message…" required autocomplete="off">
+                                        <button type="submit" class="btn-sm btn-primary"><i class="fas fa-paper-plane"></i></button>
+                                    </form>
+                                </div>
+                            <?php else: ?>
+                                <div class="chat-closed">This conversation is closed.</div>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <div class="chat-empty">
+                                <i class="fas fa-comments"></i>
+                                <span>Select a conversation to view messages</span>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
+            <?php endif;
+
+        // ── ORDERS ──────────────────────────────────────────────
+        elseif ($active_tab === 'orders'):
+            if (empty($user_orders)): ?>
+                <div class="empty-card">
+                    <div class="empty-icon-wrap"><i class="fas fa-shopping-bag"></i></div>
+                    <h3>No orders yet</h3>
+                    <p>Browse our pet supplies and place your first order!</p>
+                    <a href="supplies.php" class="btn-sm btn-primary" style="margin:0 auto;">Shop Now</a>
+                </div>
+            <?php else:
+                $status_styles = [
+                    'Pending'    => ['bg'=>'var(--yellow-soft)', 'color'=>'var(--yellow)'],
+                    'Processing' => ['bg'=>'var(--blue-soft)',   'color'=>'var(--blue)'],
+                    'Shipped'    => ['bg'=>'#E8F8F5',            'color'=>'#148F77'],
+                    'Delivered'  => ['bg'=>'var(--green-soft)',  'color'=>'var(--green)'],
+                    'Cancelled'  => ['bg'=>'var(--red-soft)',    'color'=>'var(--red)'],
+                ];
+                foreach ($user_orders as $ord):
+                    $sc = $status_styles[$ord['status']] ?? ['bg'=>'#F0F0F0','color'=>'#888'];
+            ?>
+                <div class="order-card">
+                    <div class="order-icon"><i class="fas fa-box"></i></div>
+                    <div class="order-info">
+                        <div class="order-num"><?= htmlspecialchars($ord['order_number']) ?></div>
+                        <div class="order-sub">
+                            <?= htmlspecialchars(date('F j, Y', strtotime($ord['ordered_at']))) ?>
+                            &bull; <?= htmlspecialchars($ord['payment_method']) ?>
+                            &bull; <i class="fas fa-map-marker-alt"></i> <?= htmlspecialchars($ord['city']) ?>
+                        </div>
+                    </div>
+                    <div class="order-right">
+                        <div class="order-amount">&#8369;<?= number_format((float)$ord['total_amount'], 2) ?></div>
+                        <div style="display:flex;align-items:center;gap:8px;justify-content:flex-end;">
+                            <span style="padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:800;text-transform:uppercase;background:<?= $sc['bg'] ?>;color:<?= $sc['color'] ?>;">
+                                <?= htmlspecialchars($ord['status']) ?>
+                            </span>
+                            <a href="receipt.php?order_id=<?= (int)$ord['order_id'] ?>" class="btn-sm btn-ghost" style="font-size:11px;padding:5px 12px;">
+                                <i class="fas fa-receipt"></i> Receipt
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; endif;
+        endif; ?>
+
+        </div><!-- /main col -->
+
+        <!-- ── SIDEBAR ── -->
+        <aside>
+            <!-- Profile strip -->
+            <div class="profile-strip">
+                <div class="profile-avatar">
+                    <?php
+                    $photo = $_SESSION['profile_photo'] ?? '';
+                    if ($photo): ?>
+                        <img src="<?= htmlspecialchars($photo) ?>" alt="">
+                    <?php else: ?>
+                        <?= strtoupper(substr($first_name ?: $user_name, 0, 1)) ?>
+                    <?php endif; ?>
+                </div>
+                <div class="profile-strip-info">
+                    <div class="profile-strip-name"><?= htmlspecialchars($user_name) ?></div>
+                    <div class="profile-strip-sub"><?= htmlspecialchars($_SESSION['email'] ?? '') ?></div>
+                </div>
+                <a href="profile.php">Edit</a>
+            </div>
+
+            <!-- Summary -->
+            <div class="side-section">
+                <div class="side-section-title"><i class="fas fa-chart-pie"></i> My Summary</div>
+                <div class="summary-grid">
+                    <div class="summary-cell">
+                        <div class="s-num s-orange"><?= $active_count ?></div>
+                        <div class="s-lbl">Active</div>
+                    </div>
+                    <div class="summary-cell">
+                        <div class="s-num s-green"><?= $approved_count ?></div>
+                        <div class="s-lbl">Approved</div>
+                    </div>
+                    <div class="summary-cell">
+                        <div class="s-num s-dark"><?= $completed_count ?></div>
+                        <div class="s-lbl">Completed</div>
+                    </div>
+                    <div class="summary-cell">
+                        <div class="s-num s-red"><?= $rejected_count ?></div>
+                        <div class="s-lbl">Declined</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick links -->
+            <div class="side-section">
+                <div class="side-section-title"><i class="fas fa-bolt"></i> Quick Actions</div>
+                <a href="residents.php" class="qlink"><i class="fas fa-paw"></i> Browse Residents</a>
+                <a href="supplies.php" class="qlink"><i class="fas fa-box-open"></i> Pet Supplies</a>
+                <a href="help.php" class="qlink"><i class="fas fa-question-circle"></i> Help Center</a>
+                <a href="profile.php" class="qlink"><i class="fas fa-user-cog"></i> My Profile</a>
+            </div>
+
+            <!-- Tip -->
+            <?php if ($active_count > 0): ?>
+            <div class="tip-card">
+                <div class="tip-card-title"><i class="fas fa-lightbulb"></i> Heads up</div>
+                <p>Check your <strong>Messages</strong> tab regularly — FluffSide may reach out to schedule your interview or Zoom call.</p>
+            </div>
             <?php endif; ?>
         </aside>
     </div>
@@ -1389,29 +1395,22 @@ $order_count = count($user_orders);
     <?php include 'footer.php'; ?>
 
     <script>
-        // Auto-scroll chat
+        // Auto-scroll chat to bottom
         const log = document.getElementById('chatLog');
         if (log) log.scrollTop = log.scrollHeight;
 
         // 30-second inactivity logout
         let inactivityTimer;
-
         function resetTimer() {
             clearTimeout(inactivityTimer);
             inactivityTimer = setTimeout(() => {
                 window.location.href = 'logout.php?reason=inactive';
             }, 30000);
         }
-        ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(e => {
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
+        ['mousemove','keydown','click','scroll','touchstart'].forEach(e => {
             document.addEventListener(e, resetTimer);
         });
         resetTimer();
     </script>
-<<<<<<< HEAD
 </body>
-=======
-</body>
-
->>>>>>> 5811b114e5fd1e327cc690ba83d3e4517f2253b4
 </html>
