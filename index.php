@@ -2,7 +2,11 @@
 session_start();
 date_default_timezone_set('Asia/Manila');
 
+require_once 'db.inc.php';
+require_once 'db_helper.inc.php';
 require_once 'pets.inc.php';
+
+$homepage_stats = get_homepage_stats();
 
 function h(string $s): string {
     return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
@@ -73,9 +77,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <div class="time" id="currentTime"><?php echo date('h:i:s a') . ' PHT'; ?></div>
             </div>
             <div class="dash-right">
-                <div class="stat-item"><div class="stat-icon"><i class="fas fa-paw"></i></div><div class="stat-text"><h2>32</h2><p>Residents Waiting</p></div></div>
-                <div class="stat-item"><div class="stat-icon"><i class="fas fa-home"></i></div><div class="stat-text"><h2>20</h2><p>Recently Adopted</p></div></div>
-                <div class="stat-item"><div class="stat-icon"><i class="fas fa-dog"></i></div><div class="stat-text"><h2>13</h2><p>Recently Fostered</p></div></div>
+                <div class="stat-item"><div class="stat-icon"><i class="fas fa-paw"></i></div><div class="stat-text"><h2><?= $homepage_stats['waiting'] ?></h2><p>Residents Waiting</p></div></div>
+                <div class="stat-item"><div class="stat-icon"><i class="fas fa-home"></i></div><div class="stat-text"><h2><?= $homepage_stats['adopted'] ?></h2><p>Recently Adopted</p></div></div>
+                <div class="stat-item"><div class="stat-icon"><i class="fas fa-dog"></i></div><div class="stat-text"><h2><?= $homepage_stats['fostered'] ?></h2><p>Recently Fostered</p></div></div>
             </div>
         </section>
 
@@ -152,16 +156,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         </section>
 
         <section class="supply-banner">
-            <img src="Assets/supplies.png" alt="Supplies" class="supply-img" onerror="this.style.display='none'">
-            <div class="supply-content">
+            <img src="Assets/Supply.png" alt="Supplies" class="supply-img-large" onerror="this.style.display='none'">
+            <div class="supply-content-center">
                 <h2>CHECK OUT NEW TOYS AND<br>FOOD AT THE SUPPLY SHOP!</h2>
-                <p>From treats to toys, Fluffside has all the essentials. 10% of<br>every purchase goes to supporting rescued animals.</p>
+                <p>From treats to toys, Fluffside has all the essentials.<br>10% of every purchase goes to supporting rescued animals.</p>
                 <a href="supplies.php" class="btn btn-square" style="background-color: var(--btn-green); border: none;">SHOP NOW</a>
             </div>
-            
-            <div>
-                <img src="Assets/Supply.png" alt="Supplies" class="empty-box">
-            </div>
+            <img src="Assets/supplies.png" alt="Supplies" class="supply-img-large" onerror="this.style.display='none'">
         </section>
 
     </div>

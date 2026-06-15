@@ -13,16 +13,6 @@ $total_revenue  = array_sum(array_column($orders, 'total_amount'));
 $active_apps   = count(array_filter($apps, fn($a) => $a['status'] === 'active' && !$a['rejected']));
 $rejected_apps = count(array_filter($apps, fn($a) => $a['rejected']));
 $completed_apps= count(array_filter($apps, fn($a) => $a['status'] === 'completed'));
-$pending_msgs  = 0;
-$all_msgs = get_all_messages();
-// Count conversations that last message is from user (unanswered)
-$last_by_app = [];
-foreach ($all_msgs as $m) {
-    $last_by_app[$m['app_id']] = $m;
-}
-foreach ($last_by_app as $m) {
-    if ($m['sender'] === 'user') $pending_msgs++;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,12 +106,6 @@ foreach ($last_by_app as $m) {
         <div class="stat-card">
             <div class="stat-icon icon-yellow"><i class="fas fa-envelope-open-text"></i></div>
             <div><h3><?= $active_apps ?></h3><p>Active Applications</p></div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-icon <?= $pending_msgs > 0 ? 'icon-red' : 'icon-green' ?>">
-                <i class="fas fa-comments"></i>
-            </div>
-            <div><h3><?= $pending_msgs ?></h3><p>Unanswered Messages</p></div>
         </div>
         <div class="stat-card">
             <div class="stat-icon icon-green"><i class="fas fa-shopping-bag"></i></div>

@@ -254,27 +254,6 @@ function save_application(array $app): bool {
     return true;
 }
 
-// ── MESSAGES ───────────────────────────────────────────────────
-
-function get_messages_by_app(string $app_id): array {
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM tbl_messages WHERE app_id = ? ORDER BY sent_at ASC");
-    $stmt->execute([$app_id]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function get_all_messages(): array {
-    global $pdo;
-    return $pdo->query("SELECT * FROM tbl_messages ORDER BY sent_at ASC")->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function send_message(string $app_id, int $user_id, string $sender, string $message): bool {
-    global $pdo;
-    $pdo->prepare("INSERT INTO tbl_messages (app_id, user_id, sender, message) VALUES (?,?,?,?)")
-        ->execute([$app_id, $user_id, $sender, trim($message)]);
-    return true;
-}
-
 // ── ORDERS ─────────────────────────────────────────────────────
 
 function generate_order_number(): string {
@@ -338,6 +317,13 @@ function get_orders_by_user(int $user_id): array {
     global $pdo;
     $stmt = $pdo->prepare("SELECT * FROM tbl_orders WHERE user_id = ? ORDER BY ordered_at DESC");
     $stmt->execute([$user_id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function get_order_items(int $order_id): array {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT oi.*, p.name AS product_name FROM tbl_order_items oi LEFT JOIN tbl_products p ON oi.product_id = p.product_id WHERE oi.order_id = ?");
+    $stmt->execute([$order_id]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
@@ -498,4 +484,48 @@ function get_app_full_details(string $app_id): array {
     $result['foster'] = $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
 
     return $result;
+}
+
+// ── NOTIFICATIONS ────────────────────────────────────────────────
+
+function add_notification(int $user_id, string $app_id, string $message): void {
+    global $pdo;
+    $pdo->prepare("INSERT INTO tbl_notifications (user_id, app_id, message) VALUES (?,?,?)")
+        ->execute([$user_id, $app_id, trim($message)]);
+}
+
+function get_unread_notifications(int $user_id): array {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM tbl_notifications WHERE user_id = ? AND is_read = 0 ORDER BY created_at DESC");
+    $stmt->execute([$user_id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function get_all_notifications(int $user_id): array {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM tbl_notifications WHERE user_id = ? ORDER BY created_at DESC LIMIT 30");
+    $stmt->execute([$user_id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function mark_notifications_read(int $user_id): void {
+    global $pdo;
+    $pdo->prepare("UPDATE tbl_notifications SET is_read = 1 WHERE user_id = ?")->execute([$user_id]);
+}
+
+function count_unread_notifications(int $user_id): int {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM tbl_notifications WHERE user_id = ? AND is_read = 0");
+    $stmt->execute([$user_id]);
+    return (int)$stmt->fetchColumn();
+}
+
+// ── HOME PAGE STATS ──────────────────────────────────────────────
+
+function get_homepage_stats(): array {
+    global $pdo;
+    $waiting  = (int)$pdo->query("SELECT COUNT(*) FROM tbl_pets WHERE is_available = 1")->fetchColumn();
+    $adopted  = (int)$pdo->query("SELECT COUNT(*) FROM tbl_applications WHERE app_type='Adoption' AND status='completed' AND rejected=0 AND submitted_at >= DATE_SUB(NOW(), INTERVAL 90 DAY)")->fetchColumn();
+    $fostered = (int)$pdo->query("SELECT COUNT(*) FROM tbl_applications WHERE app_type='Foster'   AND status='completed' AND rejected=0 AND submitted_at >= DATE_SUB(NOW(), INTERVAL 90 DAY)")->fetchColumn();
+    return ['waiting' => $waiting, 'adopted' => $adopted, 'fostered' => $fostered];
 }

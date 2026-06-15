@@ -1,6 +1,25 @@
 <?php
 $current = basename($_SERVER['PHP_SELF']);
 $residents_pages = ['residents.php', 'pet.php', 'adoptform.php', 'fosterform.php'];
+
+// Cart count from session (stored as [product_id => quantity])
+$cart_count = 0;
+if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
+    foreach ($_SESSION['cart'] as $key => $val) {
+        // flat: [product_id => qty]  OR  associative: [idx => ['qty'=>n]]
+        $cart_count += is_array($val) ? (int)($val['qty'] ?? $val['quantity'] ?? 1) : (int)$val;
+    }
+}
+
+// Notification count for logged-in users
+$header_notif_count = 0;
+if (isset($_SESSION['logged_in'], $_SESSION['user_id']) && $_SESSION['logged_in'] === true
+    && ($_SESSION['role'] ?? 'User') !== 'Admin') {
+    // Only load if db_helper is available
+    if (function_exists('count_unread_notifications')) {
+        $header_notif_count = count_unread_notifications((int)$_SESSION['user_id']);
+    }
+}
 ?>
 
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -91,6 +110,43 @@ $residents_pages = ['residents.php', 'pet.php', 'adoptform.php', 'fosterform.php
     .cart-icon {
         color: var(--primary-orange);
         font-size: 20px;
+        position: relative;
+    }
+
+    .cart-badge {
+        position: absolute;
+        top: -7px;
+        right: -9px;
+        background: #e63946;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 900;
+        border-radius: 99px;
+        min-width: 17px;
+        height: 17px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 3px;
+        line-height: 1;
+        font-family: 'Nunito', sans-serif;
+    }
+
+    .nav-notif-dot {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #e63946;
+        color: #fff;
+        font-size: 9px;
+        font-weight: 900;
+        border-radius: 99px;
+        min-width: 16px;
+        height: 16px;
+        padding: 0 3px;
+        margin-left: 4px;
+        line-height: 1;
+        vertical-align: middle;
     }
 
     .btn {
@@ -126,13 +182,18 @@ $residents_pages = ['residents.php', 'pet.php', 'adoptform.php', 'fosterform.php
             <li><a href="index.php" <?= $current === 'index.php'                        ? 'class="active"' : '' ?>>HOME</a></li>
             <li><a href="residents.php" <?= in_array($current, $residents_pages)             ? 'class="active"' : '' ?>>RESIDENTS</a></li>
             <li><a href="supplies.php" <?= $current === 'supplies.php'                     ? 'class="active"' : '' ?>>SUPPLIES</a></li>
-            <li><a href="dashboard.php" <?= $current === 'dashboard.php'                    ? 'class="active"' : '' ?>>DASHBOARD</a></li>
+            <li><a href="dashboard.php" <?= $current === 'dashboard.php' ? 'class="active"' : '' ?>>DASHBOARD<?php if ($header_notif_count > 0): ?><span class="nav-notif-dot"><?= $header_notif_count ?></span><?php endif; ?></a></li>
             <li><a href="about.php" <?= $current === 'about.php'                        ? 'class="active"' : '' ?>>ABOUT US</a></li>
             <li><a href="help.php" <?= $current === 'help.php'                         ? 'class="active"' : '' ?>>HELP</a></li>
         </ul>
     </nav>
     <div class="header-actions">
-        <a href="cart.php" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
+        <a href="cart.php" class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <?php if ($cart_count > 0): ?>
+            <span class="cart-badge"><?= $cart_count ?></span>
+            <?php endif; ?>
+        </a>
 
         <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
             <a href="profile.php" class="btn"><i class="fas fa-user"></i> PROFILE</a>

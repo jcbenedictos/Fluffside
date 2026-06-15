@@ -19,18 +19,6 @@ $user_id   = (int)$_SESSION['user_id'];
 $user_name = trim($_SESSION['first_name'] . ' ' . $_SESSION['last_name']);
 $first_name = trim($_SESSION['first_name'] ?? '');
 
-// ── POST: user sends a message ─────────────────────────────────
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'send_message') {
-    $app_id = trim($_POST['app_id'] ?? '');
-    $msg    = trim($_POST['message'] ?? '');
-    $app    = get_application_by_id($app_id);
-    if ($app && (int)$app['user_id'] === $user_id && $msg) {
-        send_message($app_id, $user_id, 'user', $msg);
-    }
-    header("Location: dashboard.php?tab=messages&app=" . urlencode($app_id));
-    exit;
-}
-
 // ── Load user applications ─────────────────────────────────────
 $all_apps  = get_applications_by_user($user_id);
 $active    = array_filter($all_apps, fn($a) => $a['status'] === 'active' && !$a['rejected']);
@@ -41,14 +29,14 @@ $approved_count  = count(array_filter($all_apps, fn($a) => (int)$a['current_step
 $rejected_count  = count(array_filter($all_apps, fn($a) => $a['rejected']));
 $completed_count = count(array_filter($all_apps, fn($a) => $a['status'] === 'completed'));
 
-// Active tab from query string
-$active_tab      = $_GET['tab'] ?? 'active';
-$selected_app_id = $_GET['app'] ?? (count($all_apps) ? $all_apps[0]['id'] : null);
-$selected_app    = $selected_app_id ? get_application_by_id($selected_app_id) : null;
-if ($selected_app && (int)$selected_app['user_id'] !== $user_id) {
-    $selected_app = null;
+// ── Notifications ──────────────────────────────────────────────
+$active_tab = $_GET['tab'] ?? 'active';
+// Mark notifications as read when user visits updates tab
+if ($active_tab === 'updates') {
+    mark_notifications_read($user_id);
 }
-$chat_msgs = $selected_app ? get_messages_by_app($selected_app['id']) : [];
+$unread_notif_count = count_unread_notifications($user_id);
+$all_notifications  = get_all_notifications($user_id);
 
 $steps_label = ['', 'Submitted', 'Under Review', 'Interview', 'Approved', 'Meet & Greet', 'Take Home'];
 $steps_icon  = ['', 'fa-file-alt', 'fa-search', 'fa-video', 'fa-check-circle', 'fa-handshake', 'fa-home'];
@@ -561,208 +549,82 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             margin-right: auto;
         }
 
-        /* ── MESSAGES ── */
-        .msg-wrap {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 14px;
-            min-height: 500px;
-        }
-
-        .conv-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .conv-item {
-            background: var(--white);
-            border: 1.5px solid var(--border);
-            border-radius: 12px;
-            padding: 13px 15px;
-            display: block;
-            text-decoration: none;
-            transition: all .15s;
-        }
-
-        .conv-item:hover { border-color: var(--orange); }
-
-        .conv-item.active {
-            border-color: var(--orange);
-            background: var(--orange-soft);
-        }
-
-        .conv-item-head {
+        /* ── NOTIFICATIONS ── */
+        .notif-badge {
+            position: absolute;
+            top: -4px; right: -8px;
+            background: var(--orange);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 900;
+            border-radius: 99px;
+            min-width: 18px;
+            height: 18px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 2px;
+            justify-content: center;
+            padding: 0 4px;
+            line-height: 1;
         }
 
-        .conv-item-name {
-            font-size: 13px;
-            font-weight: 900;
-            color: var(--brown-dark);
+        .notif-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .unread-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
+        .notif-item {
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            position: relative;
+            transition: box-shadow .15s;
+        }
+
+        .notif-item.notif-unread {
+            border-color: var(--orange);
+            background: var(--orange-soft, #FFF7F0);
+        }
+
+        .notif-item:hover { box-shadow: 0 4px 14px rgba(62,44,35,.08); }
+
+        .notif-icon {
+            width: 38px; height: 38px;
+            border-radius: 10px;
             background: var(--orange);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px;
             flex-shrink: 0;
         }
 
-        .conv-item-sub {
-            font-size: 10.5px;
-            font-weight: 600;
-            color: var(--brown-light);
-            margin-bottom: 5px;
-        }
+        .notif-body { flex: 1; }
 
-        .conv-item-preview {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--brown-light);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            opacity: .8;
-        }
-
-        /* Chat pane */
-        .chat-pane {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .chat-pane-head {
-            padding: 14px 18px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--cream);
-        }
-
-        .chat-pane-head img {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-
-        .chat-pane-head-text h4 {
-            font-size: 14px;
-            font-weight: 900;
+        .notif-body p {
+            font-size: 13px;
+            font-weight: 700;
             color: var(--brown-dark);
+            margin: 0 0 5px;
+            line-height: 1.5;
         }
 
-        .chat-pane-head-text p {
+        .notif-time {
             font-size: 11px;
             font-weight: 600;
             color: var(--brown-light);
         }
 
-        .chat-log {
-            flex: 1;
-            padding: 18px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            background: #F9F6F1;
-            min-height: 280px;
-            max-height: 360px;
-        }
-
-        .bubble { display: flex; flex-direction: column; max-width: 72%; }
-        .bubble.from-admin { align-self: flex-start; }
-        .bubble.from-user  { align-self: flex-end; }
-
-        .bubble-body {
-            padding: 11px 15px;
-            border-radius: 14px;
-            font-size: 13px;
-            font-weight: 600;
-            line-height: 1.55;
-        }
-
-        .bubble.from-admin .bubble-body {
-            background: var(--white);
-            color: var(--brown-mid);
-            border-bottom-left-radius: 4px;
-            box-shadow: 0 1px 4px rgba(0,0,0,.06);
-        }
-
-        .bubble.from-user .bubble-body {
+        .notif-dot {
+            width: 9px; height: 9px;
+            border-radius: 50%;
             background: var(--orange);
-            color: var(--white);
-            border-bottom-right-radius: 4px;
+            flex-shrink: 0;
+            margin-top: 5px;
         }
-
-        .bubble-time {
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--brown-light);
-            margin-top: 4px;
-            opacity: .75;
-        }
-
-        .bubble.from-user .bubble-time { text-align: right; }
-
-        .chat-input-row {
-            padding: 14px 16px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 10px;
-            background: var(--white);
-        }
-
-        .chat-input-row input {
-            flex: 1;
-            padding: 10px 15px;
-            border: 1.5px solid var(--border);
-            border-radius: 9px;
-            font-size: 13px;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 600;
-            color: var(--brown-mid);
-            background: var(--cream);
-            outline: none;
-            transition: border-color .15s;
-        }
-
-        .chat-input-row input:focus { border-color: var(--orange); background: var(--white); }
-
-        .chat-closed {
-            padding: 14px;
-            text-align: center;
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--brown-light);
-            border-top: 1px solid var(--border);
-        }
-
-        .chat-empty {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: var(--brown-light);
-            font-size: 13px;
-            font-weight: 700;
-            padding: 40px;
-            background: #F9F6F1;
-        }
-
-        .chat-empty i { font-size: 32px; opacity: .25; }
 
         /* ── ORDERS ── */
         .order-card {
@@ -1034,8 +896,11 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             <i class="fas fa-history"></i> Past
             <span class="db-tab-count"><?= count($past) ?></span>
         </a>
-        <a href="?tab=messages" class="db-tab <?= $active_tab === 'messages' ? 'active' : '' ?>">
-            <i class="fas fa-comments"></i> Messages
+        <a href="?tab=updates" class="db-tab <?= $active_tab === 'updates' ? 'active' : '' ?>" style="position:relative;">
+            <i class="fas fa-bell"></i> Updates
+            <?php if ($unread_notif_count > 0): ?>
+            <span class="notif-badge"><?= $unread_notif_count ?></span>
+            <?php endif; ?>
         </a>
         <a href="?tab=orders"   class="db-tab <?= $active_tab === 'orders'   ? 'active' : '' ?>">
             <i class="fas fa-shopping-bag"></i> Orders
@@ -1112,8 +977,8 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
                         <div class="update-chip">
                             <strong>Update: </strong><?= htmlspecialchars($app['last_update'] ?? 'Your application is being processed.') ?>
                         </div>
-                        <a href="?tab=messages&app=<?= urlencode($app['id']) ?>" class="btn-sm btn-primary">
-                            <i class="fas fa-comments"></i> Message Us
+                        <a href="?tab=updates" class="btn-sm btn-primary">
+                            <i class="fas fa-bell"></i> View Updates
                         </a>
                     </div>
                 </div>
@@ -1198,88 +1063,27 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
                 </div>
             <?php endforeach; endif;
 
-        // ── MESSAGES ────────────────────────────────────────────
-        elseif ($active_tab === 'messages'):
-            if (empty($all_apps)): ?>
+        // ── UPDATES (Notifications) ──────────────────────────────
+        elseif ($active_tab === 'updates'):
+            if (empty($all_notifications)): ?>
                 <div class="empty-card">
-                    <div class="empty-icon-wrap"><i class="fas fa-comments"></i></div>
-                    <h3>No conversations yet</h3>
-                    <p>Submit an application to start messaging the FluffSide team.</p>
+                    <div class="empty-icon-wrap"><i class="fas fa-bell"></i></div>
+                    <h3>No updates yet</h3>
+                    <p>When FluffSide processes your application, updates will appear here.</p>
                     <a href="residents.php" class="btn-sm btn-primary" style="margin:0 auto;">Browse Residents</a>
                 </div>
             <?php else: ?>
-                <div class="msg-wrap">
-                    <!-- Conversation list -->
-                    <div class="conv-list">
-                        <?php foreach ($all_apps as $a):
-                            $app_msgs = get_messages_by_app($a['id']);
-                            $last_msg = end($app_msgs);
-                            $has_new  = $last_msg && $last_msg['sender'] === 'admin' && $a['id'] !== ($selected_app['id'] ?? '');
-                        ?>
-                            <a href="?tab=messages&app=<?= urlencode($a['id']) ?>"
-                               class="conv-item <?= (($selected_app['id'] ?? '') === $a['id']) ? 'active' : '' ?>">
-                                <div class="conv-item-head">
-                                    <span class="conv-item-name"><?= htmlspecialchars($a['pet_name']) ?></span>
-                                    <?php if ($has_new): ?><span class="unread-dot"></span><?php endif; ?>
-                                </div>
-                                <div class="conv-item-sub"><?= htmlspecialchars($a['type']) ?> &bull; <?= htmlspecialchars($a['id']) ?></div>
-                                <?php if ($last_msg): ?>
-                                    <div class="conv-item-preview"><?= htmlspecialchars(substr($last_msg['message'], 0, 50)) ?></div>
-                                <?php endif; ?>
-                            </a>
-                        <?php endforeach; ?>
+                <div class="notif-list">
+                    <?php foreach ($all_notifications as $n): ?>
+                    <div class="notif-item <?= $n['is_read'] ? '' : 'notif-unread' ?>">
+                        <div class="notif-icon"><i class="fas fa-paw"></i></div>
+                        <div class="notif-body">
+                            <p><?= htmlspecialchars($n['message']) ?></p>
+                            <span class="notif-time"><?= date('F j, Y \a\t g:i A', strtotime($n['created_at'])) ?></span>
+                        </div>
+                        <?php if (!$n['is_read']): ?><span class="notif-dot"></span><?php endif; ?>
                     </div>
-
-                    <!-- Chat pane -->
-                    <div class="chat-pane">
-                        <?php if ($selected_app): ?>
-                            <div class="chat-pane-head">
-                                <img src="<?= htmlspecialchars($selected_app['pet_image']) ?>"
-                                     alt=""
-                                     onerror="this.src='https://placehold.co/40x40/F3EDE3/8E8279?text=?'">
-                                <div class="chat-pane-head-text">
-                                    <h4><?= htmlspecialchars($selected_app['pet_name']) ?></h4>
-                                    <p><?= htmlspecialchars($selected_app['type']) ?> &bull; <?= htmlspecialchars($selected_app['id']) ?></p>
-                                </div>
-                            </div>
-
-                            <div class="chat-log" id="chatLog">
-                                <?php if (empty($chat_msgs)): ?>
-                                    <div style="text-align:center;color:var(--brown-light);font-size:13px;font-weight:700;padding:24px 0;">
-                                        No messages yet — say hello to the FluffSide team!
-                                    </div>
-                                <?php else:
-                                    foreach ($chat_msgs as $m): ?>
-                                        <div class="bubble <?= $m['sender'] === 'admin' ? 'from-admin' : 'from-user' ?>">
-                                            <div class="bubble-body"><?= nl2br(htmlspecialchars($m['message'])) ?></div>
-                                            <div class="bubble-time">
-                                                <?= $m['sender'] === 'admin' ? 'FluffSide Team' : 'You' ?>
-                                                &bull; <?= htmlspecialchars(date('M j, g:i A', strtotime($m['sent_at']))) ?>
-                                            </div>
-                                        </div>
-                                    <?php endforeach;
-                                endif; ?>
-                            </div>
-
-                            <?php if (!$selected_app['rejected'] && $selected_app['status'] !== 'completed'): ?>
-                                <div class="chat-input-row">
-                                    <form method="POST" style="display:flex;gap:10px;flex:1;">
-                                        <input type="hidden" name="action" value="send_message">
-                                        <input type="hidden" name="app_id" value="<?= htmlspecialchars($selected_app['id']) ?>">
-                                        <input type="text" name="message" placeholder="Type a message…" required autocomplete="off">
-                                        <button type="submit" class="btn-sm btn-primary"><i class="fas fa-paper-plane"></i></button>
-                                    </form>
-                                </div>
-                            <?php else: ?>
-                                <div class="chat-closed">This conversation is closed.</div>
-                            <?php endif; ?>
-                        <?php else: ?>
-                            <div class="chat-empty">
-                                <i class="fas fa-comments"></i>
-                                <span>Select a conversation to view messages</span>
-                            </div>
-                        <?php endif; ?>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             <?php endif;
 
@@ -1386,7 +1190,7 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             <?php if ($active_count > 0): ?>
             <div class="tip-card">
                 <div class="tip-card-title"><i class="fas fa-lightbulb"></i> Heads up</div>
-                <p>Check your <strong>Messages</strong> tab regularly — FluffSide may reach out to schedule your interview or Zoom call.</p>
+                <p>Check your <strong>Updates</strong> tab regularly — FluffSide will notify you when your application moves to a new stage.</p>
             </div>
             <?php endif; ?>
         </aside>
@@ -1395,10 +1199,6 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
     <?php include 'footer.php'; ?>
 
     <script>
-        // Auto-scroll chat to bottom
-        const log = document.getElementById('chatLog');
-        if (log) log.scrollTop = log.scrollHeight;
-
         // 30-second inactivity logout
         let inactivityTimer;
         function resetTimer() {

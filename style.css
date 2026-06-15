@@ -424,43 +424,38 @@
         }
 
         .supply-banner {
-            background-color: #F4EBE1;
-            border-radius: 15px;
             display: flex;
             align-items: center;
-            padding: 30px;
+            justify-content: center;
+            padding: 40px 20px;
             margin-bottom: 60px;
-            gap: 30px;
+            gap: 40px;
         }
 
-        .supply-img {
-            width: 220px;
+        .supply-img-large {
+            width: 280px;
             height: auto;
             object-fit: contain;
+            flex-shrink: 0;
         }
 
-        .supply-content {
-            flex: 1;
+        .supply-content-center {
             text-align: center;
         }
 
-        .supply-content h2 {
-            font-size: 20px;
+        .supply-content-center h2 {
+            font-size: 28px;
             font-weight: 900;
-            margin-bottom: 10px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+            color: var(--text-color);
         }
 
-        .supply-content p {
-            font-size: 12px;
+        .supply-content-center p {
+            font-size: 15px;
             font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .empty-box {
-            width: 220px;
-            height: 220px;
-            background-color: #EBE0D3;
-            border-radius: 10px;
+            margin-bottom: 24px;
+            color: var(--text-color);
         }
 
         .site-footer {

@@ -21,6 +21,12 @@ $cart_is_empty = empty($_SESSION['cart']);
 $cart_total_items = 0;
 $grand_total = 0;
 
+// Purchase history for logged-in users
+$purchase_history = [];
+if (isset($_SESSION['logged_in'], $_SESSION['user_id']) && $_SESSION['logged_in'] === true) {
+    $purchase_history = get_orders_by_user((int)$_SESSION['user_id']);
+}
+
 foreach ($_SESSION['cart'] as $quantity) {
     $cart_total_items += $quantity;
 }
@@ -305,6 +311,36 @@ foreach ($all_products as $p) {
     .btn-browse:hover {
         background-color: var(--primary-hover);
     }
+
+    .btn-history {
+        width: 100%; margin-top: 10px; padding: 12px;
+        background: transparent; border: 2px solid var(--primary-orange);
+        color: var(--primary-orange); border-radius: 30px; font-family: 'Nunito', sans-serif;
+        font-size: 14px; font-weight: 800; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-history:hover { background: var(--primary-orange); color: #fff; }
+
+    .purchase-history-panel {
+        background: var(--white); border-radius: 15px; border: 1px solid #EAE3D9;
+        padding: 24px; margin-top: 24px; display: none;
+    }
+    .purchase-history-panel.open { display: block; }
+    .purchase-history-panel h3 { font-size: 16px; font-weight: 900; color: var(--text-dark); margin-bottom: 16px; }
+    .history-item {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 12px 0; border-bottom: 1px solid #EAE3D9; gap: 12px;
+    }
+    .history-item:last-child { border-bottom: none; }
+    .history-item .order-number { font-weight: 900; font-size: 13px; color: var(--primary-orange); }
+    .history-item .order-date { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+    .history-item .order-total { font-weight: 800; font-size: 14px; color: var(--text-dark); white-space: nowrap; margin-right: 12px; }
+    .btn-receipt {
+        display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px;
+        background: var(--btn-green); color: #fff; border-radius: 20px; text-decoration: none;
+        font-size: 12px; font-weight: 800; white-space: nowrap; transition: opacity 0.2s;
+    }
+    .btn-receipt:hover { opacity: 0.85; }
+    .empty-history { text-align: center; color: var(--text-light); font-weight: 700; padding: 20px 0; font-size: 14px; }
 </style>
 
 <body>
@@ -400,9 +436,44 @@ foreach ($all_products as $p) {
                         </div>
 
                         <a href="checkout.php" class="btn-checkout">Proceed to Checkout</a>
+
+                        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+                        <button onclick="toggleHistory()" class="btn-history" id="historyToggleBtn">
+                            <i class="fas fa-history"></i> View Purchase History
+                        </button>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endif; ?>
+
+        <?php if (!empty($purchase_history)): ?>
+        <div class="purchase-history-panel" id="purchaseHistoryPanel">
+            <h3><i class="fas fa-history" style="color:var(--primary-orange);margin-right:8px;"></i>Purchase History</h3>
+            <?php foreach ($purchase_history as $order):
+                $order_items = get_order_items($order['order_id']);
+                $label = !empty($order_items)
+                    ? implode(', ', array_column($order_items, 'product_name'))
+                    : 'Order';
+                if (strlen($label) > 45) $label = substr($label, 0, 42) . '…';
+            ?>
+            <div class="history-item">
+                <div style="flex:1;">
+                    <div class="order-number"><?= htmlspecialchars($order['order_number']) ?></div>
+                    <div class="order-date"><?= date('M j, Y', strtotime($order['ordered_at'])) ?> &bull; <?= htmlspecialchars($label) ?></div>
+                </div>
+                <div class="order-total">₱<?= number_format($order['total_amount'], 2) ?></div>
+                <a href="receipt.php?order_id=<?= $order['order_id'] ?>" class="btn-receipt">
+                    <i class="fas fa-receipt"></i> Receipt
+                </a>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        <?php elseif (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+        <div class="purchase-history-panel" id="purchaseHistoryPanel">
+            <h3><i class="fas fa-history" style="color:var(--primary-orange);margin-right:8px;"></i>Purchase History</h3>
+            <p class="empty-history"><i class="fas fa-box-open"></i><br>No purchases yet.</p>
+        </div>
+        <?php endif; ?>
 
         </section>
 
@@ -411,9 +482,18 @@ foreach ($all_products as $p) {
     <?php include 'footer.php'; ?>
 
     <script>
+        function toggleHistory() {
+            const panel = document.getElementById('purchaseHistoryPanel');
+            const btn   = document.getElementById('historyToggleBtn');
+            if (!panel) return;
+            panel.classList.toggle('open');
+            btn.innerHTML = panel.classList.contains('open')
+                ? '<i class="fas fa-times"></i> Hide Purchase History'
+                : '<i class="fas fa-history"></i> View Purchase History';
+        }
+
         // 30-second inactivity logout
         let inactivityTimer;
-
         function resetTimer() {
             clearTimeout(inactivityTimer);
             inactivityTimer = setTimeout(function() {

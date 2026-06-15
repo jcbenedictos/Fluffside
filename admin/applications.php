@@ -10,28 +10,23 @@ $error   = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
 
-    // Send message as admin
-    if ($action === 'send_message') {
-        $app_id = trim($_POST['app_id'] ?? '');
-        $msg    = trim($_POST['message'] ?? '');
-        $app    = get_application_by_id($app_id);
-        if ($app && $msg) {
-            send_message($app_id, (int)$app['user_id'], 'admin', $msg);
-            $success = 'Message sent.';
-        }
-    }
-
     // Advance application step
     if ($action === 'advance_step') {
         $app_id = trim($_POST['app_id'] ?? '');
         $note   = trim($_POST['note'] ?? '');
         $app = get_application_by_id($app_id);
         if ($app && !$app['rejected']) {
-            $app['current_step'] = min(6, $app['current_step'] + 1);
-            if ($note) $app['last_update'] = $note;
+            $app['current_step'] = min(6, (int)$app['current_step'] + 1);
+            $steps_label_local = ['','Submitted','Under Review','Interview / Zoom','Approved','Meet & Greet','Take Home'];
+            $step_name = $steps_label_local[$app['current_step']] ?? 'Step '.$app['current_step'];
+            $update_msg = $note ?: 'Your application has been moved to: ' . $step_name . '.';
+            $app['last_update'] = $update_msg;
             if ($app['current_step'] === 6) $app['status'] = 'completed';
             save_application($app);
-            $success = 'Application advanced to step ' . $app['current_step'] . '.';
+            // Notify the user
+            add_notification((int)$app['user_id'], $app_id,
+                'Your application (' . $app_id . ') has been updated to stage: ' . $step_name . '. ' . $update_msg);
+            $success = 'Application advanced to step ' . $app['current_step'] . ' and user notified.';
         }
     }
 
@@ -43,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($app) {
             $app['rejected']    = true;
             $app['status']      = 'rejected';
-            $app['last_update'] = $reason ?: 'Your application has been reviewed and we are unable to proceed at this time. Thank you for your interest.';
+            $reason_msg = $reason ?: 'Your application has been reviewed and we are unable to proceed at this time. Thank you for your interest.';
+            $app['last_update'] = $reason_msg;
             save_application($app);
-            if ($reason) {
-                send_message($app_id, (int)$app['user_id'], 'admin',
-                    "We regret to inform you that your application has not been approved. " . $reason);
-            }
-            $success = 'Application rejected.';
+            // Notify the user
+            add_notification((int)$app['user_id'], $app_id,
+                'Update on your application (' . $app_id . '): ' . $reason_msg);
+            $success = 'Application rejected and user notified.';
         }
     }
 }
@@ -58,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $all_apps  = get_all_applications();
 $view_id   = $_GET['id'] ?? null;
 $view_app  = $view_id ? get_application_by_id($view_id) : null;
-$view_msgs   = $view_app ? get_messages_by_app($view_id) : [];
+
 $view_details = $view_app ? get_app_full_details($view_id) : ['applicant'=>null,'adoption'=>null,'foster'=>null];
 
 $steps_label = ['', 'Submitted', 'Under Review', 'Interview / Zoom', 'Approved', 'Meet & Greet', 'Take Home'];
@@ -261,10 +256,6 @@ $steps_label = ['', 'Submitted', 'Under Review', 'Interview / Zoom', 'Approved',
             <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-light);margin-bottom:4px;">All Applications</div>
             <?php foreach ($all_apps as $a):
                 $is_active_card = $a['id'] === $view_id;
-                // Check if last message from user (unread)
-                $app_msgs = get_messages_by_app($a['id']);
-                $last_msg = end($app_msgs);
-                $has_unread = $last_msg && $last_msg['sender'] === 'user';
             ?>
             <a href="applications.php?id=<?= h($a['id']) ?>"
                class="app-list-card <?= $is_active_card ? 'active' : '' ?>">
@@ -273,9 +264,6 @@ $steps_label = ['', 'Submitted', 'Under Review', 'Interview / Zoom', 'Approved',
                         <h4><?= h($a['user_name']) ?></h4>
                         <p><?= h($a['pet_name']) ?> &bull; <?= h($a['type']) ?></p>
                     </div>
-                    <?php if ($has_unread && !$is_active_card): ?>
-                    <div class="unread"></div>
-                    <?php endif; ?>
                 </div>
                 <div style="display:flex;gap:6px;align-items:center;">
                     <?php
@@ -492,7 +480,7 @@ $steps_label = ['', 'Submitted', 'Under Review', 'Interview / Zoom', 'Approved',
             <?php elseif ($rejected): ?>
             <div class="card" style="border-color:var(--admin-red);">
                 <h3 style="color:var(--admin-red);"><i class="fas fa-ban"></i> Application Rejected</h3>
-                <p style="font-size:13px;font-weight:600;color:var(--text-light);">This application was rejected. The applicant was notified via message.</p>
+                <p style="font-size:13px;font-weight:600;color:var(--text-light);">This application was rejected. The applicant has been notified.</p>
             </div>
             <?php else: ?>
             <div class="card" style="border-color:var(--status-green);">
@@ -501,36 +489,7 @@ $steps_label = ['', 'Submitted', 'Under Review', 'Interview / Zoom', 'Approved',
             </div>
             <?php endif; ?>
 
-            <!-- Chat -->
-            <div class="card">
-                <h3><i class="fas fa-comments" style="color:var(--primary-orange)"></i>
-                    Messages with <?= h($view_app['user_name']) ?></h3>
-                <div class="chat-log" id="chatLog">
-                    <?php if (empty($view_msgs)): ?>
-                    <p style="text-align:center;color:var(--text-light);font-weight:700;font-size:13px;">No messages yet. Start the conversation!</p>
-                    <?php else: ?>
-                    <?php foreach ($view_msgs as $msg): ?>
-                    <div class="msg-bubble <?= $msg['sender'] === 'admin' ? 'admin' : 'user' ?>">
-                        <div class="msg-sender">
-                            <?= $msg['sender'] === 'admin' ? 'You' : h($view_app['user_name']) ?>
-                        </div>
-                        <div class="msg-content"><?= nl2br(h($msg['message'])) ?></div>
-                        <div class="msg-meta">
-                            <?= h(date('M j, g:i A', strtotime($msg['sent_at']))) ?>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
-                    <?php endif; ?>
-                </div>
-                <form method="POST" style="display:flex;flex-direction:column;gap:10px;">
-                    <input type="hidden" name="action"  value="send_message">
-                    <input type="hidden" name="app_id" value="<?= h($view_app['id']) ?>">
-                    <div class="chat-input-row">
-                        <input type="text" name="message" placeholder="Type a message to <?= h($view_app['user_name']) ?>..." required>
-                        <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Send</button>
-                    </div>
-                </form>
-            </div>
+
 
         </div>
     </div>
@@ -566,18 +525,9 @@ $steps_label = ['', 'Submitted', 'Under Review', 'Interview / Zoom', 'Approved',
                 $badge_cls = $a['rejected'] ? 'badge-rejected' : ($a['status']==='completed' ? 'badge-done' : 'badge-active');
                 $badge_lbl = $a['rejected'] ? 'Rejected' : ($a['status']==='completed' ? 'Completed' : 'Active');
                 $step_name = $steps_label[$a['current_step']] ?? 'Step '.$a['current_step'];
-                // Unread check
-                $app_msgs = get_messages_by_app($a['id']);
-                $last_msg = end($app_msgs);
-                $has_unread = $last_msg && $last_msg['sender'] === 'user';
             ?>
             <tr>
-                <td style="font-family:monospace;font-weight:800;">
-                    <?php if ($has_unread): ?>
-                    <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--primary-orange);margin-right:6px;"></span>
-                    <?php endif; ?>
-                    <?= h($a['id']) ?>
-                </td>
+                <td style="font-family:monospace;font-weight:800;"><?= h($a['id']) ?></td>
                 <td><?= h($a['user_name']) ?><br><span style="font-size:11px;color:var(--text-light);"><?= h($a['user_email']) ?></span></td>
                 <td><strong><?= h($a['pet_name']) ?></strong><br><span style="font-size:11px;color:var(--text-light);"><?= h($a['pet_breed']) ?></span></td>
                 <td><span class="badge <?= $a['type']==='Adoption' ? 'badge-adopt' : 'badge-foster' ?>"><?= h($a['type']) ?></span></td>
@@ -593,12 +543,6 @@ $steps_label = ['', 'Submitted', 'Under Review', 'Interview / Zoom', 'Approved',
     <?php endif; ?>
     <?php endif; ?>
 </div>
-
-<script>
-// Auto-scroll chat to bottom
-const chatLog = document.getElementById('chatLog');
-if (chatLog) chatLog.scrollTop = chatLog.scrollHeight;
-</script>
 
 <?php include '../footer.php'; ?>
 </body>
