@@ -603,12 +603,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             line-height: 1.6;
         }
 
-        .alert-success {
-            background: #edfaf3;
-            border: 1.5px solid #6dd5a0;
-            color: #1e7a4a;
-        }
-
         .alert-error {
             background: #fff3f3;
             border: 1.5px solid #f5a0a0;
@@ -621,6 +615,107 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .alert ul li {
             margin-bottom: 3px;
+        }
+
+        /* ── Toast notification ── */
+        .toast {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0,0,0,.14), 0 1px 4px rgba(0,0,0,.06);
+            display: flex;
+            align-items: center;
+            z-index: 9999;
+            overflow: hidden;
+            min-width: 320px;
+            max-width: 400px;
+            animation: toastIn .35s cubic-bezier(.21,1.02,.73,1) both,
+                       toastOut .3s ease forwards;
+            animation-delay: 0s, 4s;
+        }
+
+        .toast-accent {
+            width: 5px;
+            align-self: stretch;
+            background: #4CAF7D;
+            flex-shrink: 0;
+        }
+
+        .toast-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #edfaf3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #4CAF7D;
+            flex-shrink: 0;
+            margin: 14px 4px 14px 14px;
+        }
+
+        .toast-text {
+            flex: 1;
+            padding: 14px 6px 14px 10px;
+        }
+
+        .toast-title {
+            font-size: 14px;
+            font-weight: 900;
+            color: #2d2d2d;
+            margin-bottom: 3px;
+        }
+
+        .toast-sub {
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #bbb;
+            padding: 14px 14px 14px 6px;
+            line-height: 1;
+            transition: color .15s;
+            align-self: flex-start;
+        }
+
+        .toast-close:hover { color: #555; }
+
+        .toast-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .toast-btn {
+            font-size: 11.5px;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .toast-btn-primary { background: #EF8E35; color: #fff; }
+        .toast-btn-ghost   { background: #f0f0f0; color: #555; }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(60px) scale(.95); }
+            to   { opacity: 1; transform: translateX(0) scale(1); }
+        }
+
+        @keyframes toastOut {
+            to { opacity: 0; transform: translateX(60px); }
         }
 
         @media(max-width:600px) {
@@ -657,9 +752,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="form-title">FOSTER APPLICATION</div>
 
                 <?php if ($success): ?>
-                    <div class="alert alert-success">
-                        <strong><i class="fas fa-check-circle"></i> Application submitted!</strong><br>
-                        Thank you, <strong><?php echo old('first_name') . ' ' . old('last_name'); ?></strong>. Our team will review your application and reach out within 3–5 business days.
+                    <div class="toast" id="submitToast">
+                        <div class="toast-accent"></div>
+                        <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="toast-text">
+                            <div class="toast-title">Foster application submitted!</div>
+                            <div class="toast-sub">
+                                Thank you, <strong><?php echo old('first_name'); ?></strong>! We'll review your application and reach out within 3–5 business days.
+                                <div class="toast-actions">
+                                    <a href="dashboard.php" class="toast-btn toast-btn-primary">View Dashboard</a>
+                                    <a href="residents.php" class="toast-btn toast-btn-ghost">Browse More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="toast-close" onclick="document.getElementById('submitToast').style.display='none'">&times;</button>
                     </div>
                 <?php elseif (!empty($errors) && $_SERVER['REQUEST_METHOD'] === 'POST'): ?>
                     <div class="alert alert-error">
