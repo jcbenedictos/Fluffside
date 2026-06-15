@@ -53,13 +53,12 @@ function hasErr(array $errs, string $key): string
     return isset($errs[$key]) ? ' has-error' : '';
 }
 
-// ─── validation ────────────────────────────────────────────────────────────
+
 $success = false;
-$errors  = [];   // keyed by field name
+$errors  = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // ── Applicant Info ──
     if (empty(trim($_POST['first_name'] ?? '')))   $errors['first_name']   = 'First name is required.';
     if (empty(trim($_POST['last_name'] ?? '')))    $errors['last_name']    = 'Last name is required.';
     if (empty(trim($_POST['address'] ?? '')))      $errors['address']      = 'Address is required.';
@@ -70,19 +69,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty(trim($_POST['company'] ?? '')))      $errors['company']      = 'Company / business name is required (type N/A if unemployed).';
     if (empty(trim($_POST['social'] ?? '')))       $errors['social']       = 'Social media link is required (type N/A if none).';
 
-    // status + others
     $status = trim($_POST['status'] ?? '');
     if (empty($status))                            $errors['status']       = 'Status is required.';
     if ($status === 'others' && empty(trim($_POST['status_other'] ?? '')))
         $errors['status_other'] = 'Please specify your status.';
 
-    // pronouns + others
     $pronouns = trim($_POST['pronouns'] ?? '');
     if (empty($pronouns))                          $errors['pronouns']     = 'Pronouns is required.';
     if ($pronouns === 'others' && empty(trim($_POST['pronouns_other'] ?? '')))
         $errors['pronouns_other'] = 'Please specify your pronouns.';
 
-    // prompt source + others
     $prompt_src = trim($_POST['prompt_src'] ?? '');
     if (empty($prompt_src))                        $errors['prompt_src']   = 'Please tell us what prompted you to adopt.';
     if ($prompt_src === 'others' && empty(trim($_POST['prompt_src_other'] ?? '')))
@@ -90,7 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty(trim($_POST['adopted_before'] ?? ''))) $errors['adopted_before'] = 'Please answer this question.';
 
-    // Alternate contact
     if (empty(trim($_POST['alt_first'] ?? '')))    $errors['alt_first']    = 'Alternate contact first name is required.';
     if (empty(trim($_POST['alt_last'] ?? '')))     $errors['alt_last']     = 'Alternate contact last name is required.';
     if (empty(trim($_POST['relationship'] ?? ''))) $errors['relationship'] = 'Relationship is required.';
@@ -98,7 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty(trim($_POST['alt_email'] ?? '')) || !filter_var(trim($_POST['alt_email'] ?? ''), FILTER_VALIDATE_EMAIL))
         $errors['alt_email']    = 'A valid alternate contact email is required.';
 
-    // ── Questionnaire ──
     $building_type = trim($_POST['building_type'] ?? '');
     if (empty($building_type))                     $errors['building_type'] = 'Building type is required.';
     if ($building_type === 'others' && empty(trim($_POST['building_type_other'] ?? '')))
@@ -106,7 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty(trim($_POST['do_rent'] ?? '')))      $errors['do_rent']      = 'Please answer this question.';
 
-    // textarea word-count validation (min 20 words each)
     $textareas = [
         'move_plan'      => 'What happens to your pet if/when you move',
         'care_plan'      => 'Who will be responsible for caring for your pet',
@@ -136,7 +129,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty(trim($_POST['past_pets'] ?? '')))       $errors['past_pets']        = 'Please answer this question.';
     if (empty(trim($_POST['near_road'] ?? '')))       $errors['near_road']        = 'Please answer this question.';
 
-    // ── Photo uploads ──
     $photo_fields = ['1' => 'Front of the house', '2' => 'Living Room', '3' => 'Dining Area', '4' => 'Kitchen', '5' => 'Bedroom'];
     foreach ($photo_fields as $num => $plabel) {
         if (empty($_FILES['photo_' . $num]['name'])) {
@@ -145,7 +137,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if (empty($_FILES['valid_id']['name']))         $errors['valid_id']     = 'A valid ID is required.';
 
-    // ── Interview ──
     if (empty(trim($_POST['interview_date'] ?? ''))) $errors['interview_date'] = 'Preferred interview date is required.';
     if (empty(trim($_POST['interview_time'] ?? ''))) $errors['interview_time'] = 'Preferred interview time is required.';
     if (empty(trim($_POST['same_month'] ?? '')))     $errors['same_month']     = 'Please answer this question.';
@@ -153,10 +144,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         $success = true;
-        // ── Save application to data store ──
+
         require_once 'db_helper.inc.php';
         $new_app = [
-            'id'           => '',  // assigned by save_application
+            'id'           => '',
             'user_id'      => (int)$_SESSION['user_id'],
             'user_name'    => trim(($_POST['first_name'] ?? '') . ' ' . ($_POST['last_name'] ?? '')),
             'user_email'   => $_SESSION['email'] ?? '',
@@ -173,8 +164,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
         save_application($new_app);
 
-        // ── Get the newly created app_id and save full form details ──
-        // save_application() generates the ID — re-fetch the latest one for this user+pet
         global $pdo;
         $stmt = $pdo->prepare("SELECT app_id FROM tbl_applications WHERE user_id = ? AND pet_id = ? ORDER BY submitted_at DESC LIMIT 1");
         $stmt->execute([(int)$_SESSION['user_id'], $selected_pet['id']]);
@@ -611,12 +600,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             line-height: 1.6;
         }
 
-        .alert-success {
-            background: #edfaf3;
-            border: 1.5px solid #6dd5a0;
-            color: #1e7a4a;
-        }
-
         .alert-error {
             background: #fff3f3;
             border: 1.5px solid #f5a0a0;
@@ -629,6 +612,114 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .alert ul li {
             margin-bottom: 3px;
+        }
+
+        /* ── Toast notification ── */
+        .toast {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0,0,0,.14), 0 1px 4px rgba(0,0,0,.06);
+            display: flex;
+            align-items: center;
+            z-index: 9999;
+            overflow: hidden;
+            min-width: 320px;
+            max-width: 400px;
+            animation: toastIn .35s cubic-bezier(.21,1.02,.73,1) both,
+                       toastOut .3s ease forwards;
+            animation-delay: 0s, 4s;
+        }
+
+        .toast-accent {
+            width: 5px;
+            align-self: stretch;
+            background: #4CAF7D;
+            flex-shrink: 0;
+        }
+
+        .toast-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #edfaf3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #4CAF7D;
+            flex-shrink: 0;
+            margin: 14px 4px 14px 14px;
+        }
+
+        .toast-text {
+            flex: 1;
+            padding: 14px 6px 14px 10px;
+        }
+
+        .toast-title {
+            font-size: 14px;
+            font-weight: 900;
+            color: #2d2d2d;
+            margin-bottom: 3px;
+        }
+
+        .toast-sub {
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #bbb;
+            padding: 14px 14px 14px 6px;
+            line-height: 1;
+            transition: color .15s;
+            align-self: flex-start;
+        }
+
+        .toast-close:hover { color: #555; }
+
+        .toast-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .toast-btn {
+            font-size: 11.5px;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .toast-btn-primary {
+            background: #EF8E35;
+            color: #fff;
+        }
+
+        .toast-btn-ghost {
+            background: #f0f0f0;
+            color: #555;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(60px) scale(.95); }
+            to   { opacity: 1; transform: translateX(0) scale(1); }
+        }
+
+        @keyframes toastOut {
+            to { opacity: 0; transform: translateX(60px); }
         }
 
         @media(max-width:600px) {
@@ -650,7 +741,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container">
 
-        <!-- ── HEADER ── -->
         <?php include 'header.php'; ?>
         <div class="adopt-page">
             <a href="pet.php?id=<?= h($pet_id) ?>" class="back-link"><i class="fas fa-chevron-left"></i> Back</a>
@@ -665,9 +755,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="form-title">ADOPTION APPLICATION</div>
 
                 <?php if ($success): ?>
-                    <div class="alert alert-success">
-                        <strong><i class="fas fa-check-circle"></i> Application submitted!</strong><br>
-                        Thank you, <strong><?php echo old('first_name') . ' ' . old('last_name'); ?></strong>. Our team will review your application and reach out within 3–5 business days.
+                    <div class="toast" id="submitToast">
+                        <div class="toast-accent"></div>
+                        <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="toast-text">
+                            <div class="toast-title">Application submitted!</div>
+                            <div class="toast-sub">
+                                Thank you, <strong><?php echo old('first_name'); ?></strong>! We'll review your application and reach out within 3–5 business days.
+                                <div class="toast-actions">
+                                    <a href="dashboard.php" class="toast-btn toast-btn-primary">View Dashboard</a>
+                                    <a href="residents.php" class="toast-btn toast-btn-ghost">Browse More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="toast-close" onclick="document.getElementById('submitToast').style.display='none'">&times;</button>
                     </div>
                 <?php elseif (!empty($errors) && $_SERVER['REQUEST_METHOD'] === 'POST'): ?>
                     <div class="alert alert-error">
@@ -808,7 +909,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
 
-                    <!-- Prompt source + Adopted before -->
                     <div class="form-row">
                         <div class="form-group">
                             <span class="radio-inline-label">What prompted you to adopt from FluffSide? <span class="req">*</span></span>

@@ -1,7 +1,4 @@
 <?php
-// supply.php — LAHAT NA NG PRODUCT ANDITO, SABAYAN NA
-// URL: supply.php?id=1  →  loads product #1
-// No dupe need
 
 session_start();
 
@@ -13,11 +10,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 require_once 'db.inc.php';
 require_once 'db_helper.inc.php';
 
-// ── Grab the product ID from the URL ─────────────────────────
 $product_id = (int)($_GET['id'] ?? 0);
 $product    = $product_id ? get_product_by_id($product_id) : null;
 
-// ── Guard: 404 if not found ───────────────────────────────────
 if (!$product) {
     http_response_code(404);
     echo'<!DOCTYPE html><html><head><title>Product not found — FluffSide</title>
@@ -42,9 +37,6 @@ if (!$product) {
 </body></html>'; exit;
 }
 
-// $product already loaded via get_product_by_id() above
-
-// ── Add to cart (POST from THIS page) ────────────────────────
 if (!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
@@ -54,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     } else {
         $_SESSION['cart'][$product['id']] = $qty;
     }
-    // Redirect back to same page (PRG pattern)
     header("Location: supply.php?id={$product['id']}&added=1");
     exit;
 }
@@ -107,7 +98,6 @@ function h(string $s): string {
             width: 100%;
         }
 
-        /* ── Back link ── */
         .back-link {
             display: inline-flex;
             align-items: center;
@@ -123,35 +113,87 @@ function h(string $s): string {
         .back-link:hover { color: var(--primary-orange); }
         .back-link i { font-size: 11px; }
 
-        /* ── Toast: added to cart ── */
         .toast {
             position: fixed;
             top: 24px;
             right: 24px;
-            background: var(--btn-green);
-            color: var(--white);
-            padding: 14px 22px;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 14px;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0,0,0,.14), 0 1px 4px rgba(0,0,0,.06);
             display: flex;
             align-items: center;
-            gap: 10px;
-            z-index: 999;
-            box-shadow: 0 4px 20px rgba(0,0,0,.15);
-            animation: slideIn .3s ease, fadeOut .4s ease 2.4s forwards;
+            gap: 0;
+            z-index: 9999;
+            overflow: hidden;
+            min-width: 300px;
+            max-width: 360px;
+            animation: toastIn .35s cubic-bezier(.21,1.02,.73,1) both,
+                       toastOut .3s ease .3s forwards;
+            animation-delay: 0s, 2.8s;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(40px); }
-            to   { opacity: 1; transform: translateX(0); }
+        .toast-accent {
+            width: 5px;
+            align-self: stretch;
+            background: #4CAF7D;
+            flex-shrink: 0;
         }
 
-        @keyframes fadeOut {
-            to { opacity: 0; transform: translateX(40px); }
+        .toast-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #edfaf3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            color: #4CAF7D;
+            flex-shrink: 0;
+            margin: 14px 4px 14px 14px;
         }
 
-        /* ── Product detail grid ── */
+        .toast-text {
+            flex: 1;
+            padding: 14px 6px 14px 10px;
+        }
+
+        .toast-title {
+            font-size: 13.5px;
+            font-weight: 900;
+            color: #2d2d2d;
+            margin-bottom: 2px;
+        }
+
+        .toast-sub {
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            color: #bbb;
+            padding: 14px 14px 14px 6px;
+            line-height: 1;
+            transition: color .15s;
+            align-self: flex-start;
+        }
+
+        .toast-close:hover { color: #666; }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(60px) scale(.95); }
+            to   { opacity: 1; transform: translateX(0) scale(1); }
+        }
+
+        @keyframes toastOut {
+            to { opacity: 0; transform: translateX(60px); }
+        }
+
         .product-detail {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -160,7 +202,6 @@ function h(string $s): string {
             align-items: flex-start;
         }
 
-        /* ── LEFT: Gallery ── */
         .gallery { display: flex; flex-direction: column; gap: 14px; }
 
         .gallery-main {
@@ -193,10 +234,8 @@ function h(string $s): string {
         .gallery-thumb:hover   { opacity: .85; }
         .gallery-thumb.active  { border-color: var(--primary-orange); }
 
-        /* ── RIGHT: Info panel ── */
         .product-info-panel { display: flex; flex-direction: column; gap: 18px; }
 
-        /* Breadcrumb-style subtitle */
         .product-subtitle-line {
             font-size: 14px;
             font-weight: 700;
@@ -210,7 +249,6 @@ function h(string $s): string {
             color: var(--text-dark);
         }
 
-        /* Star rating row */
         .rating-row {
             display: flex;
             align-items: center;
@@ -228,13 +266,11 @@ function h(string $s): string {
             font-weight: 800;
         }
 
-        /* Divider */
         .info-divider {
             border: none;
             border-top: 1.5px solid var(--box-border);
         }
 
-        /* SIZE label */
         .size-label {
             font-size: 13px;
             font-weight: 900;
@@ -244,7 +280,6 @@ function h(string $s): string {
 
         .size-label span { color: var(--primary-orange); }
 
-        /* Short description */
         .short-desc {
             font-size: 14px;
             font-weight: 600;
@@ -252,7 +287,6 @@ function h(string $s): string {
             color: var(--text-dark);
         }
 
-        /* Flavor chips */
         .flavor-section { display: flex; flex-direction: column; gap: 10px; }
         .flavor-label { font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: .04em; }
 
@@ -275,7 +309,6 @@ function h(string $s): string {
             background: #FFF3E6;
         }
 
-        /* Price */
         .product-price {
             font-size: 44px;
             font-weight: 900;
@@ -283,7 +316,6 @@ function h(string $s): string {
             line-height: 1;
         }
 
-        /* Quantity + ADD TO CART */
         .qty-cart-row {
             display: flex;
             align-items: center;
@@ -339,7 +371,6 @@ function h(string $s): string {
             outline: none;
         }
 
-        /* Remove number spinners */
         .qty-input::-webkit-outer-spin-button,
         .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; }
         .qty-input[type=number] { appearance: textfield; }
@@ -388,7 +419,6 @@ function h(string $s): string {
             color: var(--white);
         }
 
-        /* BUY NOW */
         .btn-buy-now {
             display: block;
             width: 100%;
@@ -411,7 +441,6 @@ function h(string $s): string {
             color: var(--white);
         }
 
-        /* ── Bottom: Specs + Description ── */
         .product-bottom {
             display: flex;
             flex-direction: column;
@@ -419,7 +448,6 @@ function h(string $s): string {
             margin-bottom: 80px;
         }
 
-        /* Specs table */
         .specs-box {
             background: var(--white);
             border: 1px solid var(--box-border);
@@ -460,7 +488,6 @@ function h(string $s): string {
 
         .specs-table td:last-child { color: var(--primary-orange); font-weight: 700; }
 
-        /* Description box */
         .desc-box {
             background: var(--white);
             border: 1px solid var(--box-border);
@@ -521,7 +548,6 @@ function h(string $s): string {
             color: var(--primary-orange);
         }
 
-        /* Responsive */
         @media (max-width: 900px) {
             .product-detail { grid-template-columns: 1fr; gap: 30px; }
             .product-name   { font-size: 28px; }
@@ -541,23 +567,24 @@ function h(string $s): string {
 
     <?php include 'header.php'; ?>
 
-    <!-- Toast: added to cart confirmation -->
     <?php if ($just_added): ?>
-        <div class="toast">
-            <i class="fas fa-check-circle"></i>
-            Added to cart!
+        <div class="toast" id="cartToast">
+            <div class="toast-accent"></div>
+            <div class="toast-icon"><i class="fas fa-shopping-cart"></i></div>
+            <div class="toast-text">
+                <div class="toast-title">Added to cart!</div>
+                <div class="toast-sub"><?= h($product['title']) ?> is in your cart.</div>
+            </div>
+            <button class="toast-close" onclick="document.getElementById('cartToast').style.display='none'">&times;</button>
         </div>
     <?php endif; ?>
 
-    <!-- Back link -->
     <a href="supplies.php" class="back-link">
         <i class="fas fa-chevron-left"></i> Back to Results
     </a>
 
-    <!-- ════ PRODUCT DETAIL TOP ════ -->
     <div class="product-detail">
 
-        <!-- ── LEFT: Gallery ── -->
         <div class="gallery">
             <img src="<?= h($product['gallery'][0] ?? $product['image']) ?>"
                  alt="<?= h($product['title']) ?>"
@@ -578,16 +605,12 @@ function h(string $s): string {
             <?php endif; ?>
         </div>
 
-        <!-- ── RIGHT: Info panel ── -->
         <div class="product-info-panel">
 
-            <!-- Subtitle / tagline -->
             <p class="product-subtitle-line"><?= h($product['subtitle']) ?></p>
 
-            <!-- Product name -->
             <h1 class="product-name"><?= h($product['title']) ?></h1>
 
-            <!-- Star rating -->
             <div class="rating-row">
                 <span class="stars"><?= str_repeat('★', (int)floor($product['rating'])) ?></span>
                 <span class="rating-text"><?= number_format($product['rating'], 1) ?></span>
@@ -596,13 +619,10 @@ function h(string $s): string {
 
             <hr class="info-divider">
 
-            <!-- Size -->
             <p class="size-label">SIZE: <span><?= h(strtoupper($product['weight'])) ?></span></p>
 
-            <!-- Short description -->
             <p class="short-desc"><?= h($product['description']) ?></p>
 
-            <!-- Flavors (only shown if product has flavors) -->
             <?php if (!empty($product['flavors'])): ?>
                 <div class="flavor-section">
                     <span class="flavor-label">Flavor</span>
@@ -617,10 +637,8 @@ function h(string $s): string {
                 </div>
             <?php endif; ?>
 
-            <!-- Price -->
             <div class="product-price">₱<?= number_format($product['price'], 2) ?></div>
 
-            <!-- Quantity + Add to Cart form -->
             <form method="POST" action="supply.php?id=<?= $product['id'] ?>">
                 <div class="qty-label">Quantity</div>
                 <div class="qty-cart-row">
@@ -641,18 +659,15 @@ function h(string $s): string {
                 </div>
             </form>
 
-            <!-- BUY NOW (can wire to checkout later) -->
             <button class="btn-buy-now" onclick="window.location.href='cart.php'">
                 BUY NOW
             </button>
 
-        </div><!-- /.product-info-panel -->
-    </div><!-- /.product-detail -->
+        </div>
+    </div>
 
-    <!-- ════ PRODUCT BOTTOM: SPECS + DESCRIPTION ════ -->
     <div class="product-bottom">
 
-        <!-- Specs table -->
         <?php if (!empty($product['specs'])): ?>
             <div class="specs-box">
                 <div class="specs-header">Product Specifications</div>
@@ -667,14 +682,11 @@ function h(string $s): string {
             </div>
         <?php endif; ?>
 
-        <!-- Full description -->
         <div class="desc-box" id="reviews">
             <div class="desc-header">Product Description</div>
             <div class="desc-body">
 
-                <!-- Main description paragraphs -->
                 <?php
-                // Split full_description by ". " for bullet-style rendering when it contains bullets (·)
                 $sentences = explode('. ', trim($product['full_description']));
                 $first = array_shift($sentences);
                 ?>
@@ -708,7 +720,6 @@ function h(string $s): string {
                     </ul>
                 <?php endif; ?>
 
-                <!-- Feeding Guide -->
                 <?php if (!empty($product['feeding_guide'])): ?>
                     <p class="desc-section-title">Daily Feeding Guide</p>
                     <ul class="desc-list">
@@ -728,7 +739,6 @@ function h(string $s): string {
                     </ul>
                 <?php endif; ?>
 
-                <!-- Features -->
                 <?php if (!empty($product['features'])): ?>
                     <p class="desc-section-title">Features</p>
                     <ul class="desc-list">
@@ -738,7 +748,6 @@ function h(string $s): string {
                     </ul>
                 <?php endif; ?>
 
-                <!-- Use Guide -->
                 <?php if (!empty($product['use_guide'])): ?>
                     <p class="desc-section-title">Use Guide</p>
                     <ul class="desc-list">
@@ -748,7 +757,6 @@ function h(string $s): string {
                     </ul>
                 <?php endif; ?>
 
-                <!-- What's in the Package -->
                 <?php if (!empty($product['whats_inside'])): ?>
                     <p class="desc-section-title">What's Inside the Package</p>
                     <ul class="desc-list">
@@ -761,12 +769,11 @@ function h(string $s): string {
             </div>
         </div>
 
-    </div><!-- /.product-bottom -->
+    </div>
 
-</div><!-- /.container -->
+</div>
 
 <script>
-    // Gallery switcher (mirrors pet.php)
     function switchPhoto(thumb, src) {
         const main = document.getElementById('mainPhoto');
         main.style.opacity = '0';
@@ -775,7 +782,6 @@ function h(string $s): string {
         thumb.classList.add('active');
     }
 
-    // Quantity control
     function changeQty(delta) {
         const input = document.getElementById('qtyInput');
         let val = parseInt(input.value) + delta;
@@ -784,19 +790,16 @@ function h(string $s): string {
         input.value = val;
     }
 
-    // Flavor chip selection
     function selectFlavor(chip) {
         document.querySelectorAll('.flavor-chip').forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
     }
 
-    // Auto-dismiss toast
     const toast = document.querySelector('.toast');
     if (toast) setTimeout(() => toast.remove(), 3000);
 </script>
 
     <script>
-        // 30-second inactivity logout
         let inactivityTimer;
         function resetTimer() {
             clearTimeout(inactivityTimer);
