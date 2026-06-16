@@ -50,6 +50,7 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,30 +59,36 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --orange:       #EF8E35;
+            --orange: #EF8E35;
             --orange-hover: #D67A26;
-            --orange-soft:  #FEF3E8;
-            --orange-mid:   #FDDCB5;
-            --brown-dark:   #3E2C23;
-            --brown-mid:    #5A483E;
-            --brown-light:  #8E8279;
-            --cream:        #FDFBF5;
-            --cream-dark:   #F3EDE3;
-            --border:       #E8DDD3;
-            --white:        #FFFFFF;
-            --green:        #7DAF5A;
-            --green-soft:   #EBF5E1;
-            --red:          #C0392B;
-            --red-soft:     #FCEAEA;
-            --blue-soft:    #E3F0FF;
-            --blue:         #2471A3;
-            --purple-soft:  #F0EAF8;
-            --purple:       #7D3C98;
-            --yellow-soft:  #FEF9E7;
-            --yellow:       #B7950B;
+            --orange-soft: #FEF3E8;
+            --orange-mid: #FDDCB5;
+            --brown-dark: #3E2C23;
+            --brown-mid: #5A483E;
+            --brown-light: #8E8279;
+            --cream: #FDFBF5;
+            --cream-dark: #F3EDE3;
+            --border: #E8DDD3;
+            --white: #FFFFFF;
+            --green: #7DAF5A;
+            --green-soft: #EBF5E1;
+            --red: #C0392B;
+            --red-soft: #FCEAEA;
+            --blue-soft: #E3F0FF;
+            --blue: #2471A3;
+            --purple-soft: #F0EAF8;
+            --purple: #7D3C98;
+            --yellow-soft: #FEF9E7;
+            --yellow: #B7950B;
         }
 
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Nunito', sans-serif;
@@ -90,6 +97,13 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0 5%;
+            width: 100%;
         }
 
         /* ── HERO STRIP ───────────────────────────────── */
@@ -144,7 +158,7 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
         .db-hero-text p {
             font-size: 13px;
             font-weight: 600;
-            color: rgba(255,255,255,.55);
+            color: rgba(255, 255, 255, .55);
             max-width: 400px;
         }
 
@@ -157,8 +171,8 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
         }
 
         .db-stat {
-            background: rgba(255,255,255,.07);
-            border: 1px solid rgba(255,255,255,.1);
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .1);
             border-radius: 14px;
             padding: 16px 20px;
             text-align: center;
@@ -168,7 +182,7 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
         }
 
         .db-stat:hover {
-            background: rgba(255,255,255,.13);
+            background: rgba(255, 255, 255, .13);
         }
 
         .db-stat-num {
@@ -182,7 +196,7 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
         .db-stat-lbl {
             font-size: 10px;
             font-weight: 800;
-            color: rgba(255,255,255,.45);
+            color: rgba(255, 255, 255, .45);
             text-transform: uppercase;
             letter-spacing: .8px;
         }
@@ -191,7 +205,7 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
         .db-tab-rail {
             background: var(--brown-dark);
             padding: 0 5%;
-            border-bottom: 1px solid rgba(255,255,255,.08);
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
             display: flex;
             gap: 2px;
             position: relative;
@@ -202,7 +216,7 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             padding: 14px 18px;
             font-size: 12.5px;
             font-weight: 800;
-            color: rgba(255,255,255,.45);
+            color: rgba(255, 255, 255, .45);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -213,7 +227,7 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
         }
 
         .db-tab:hover {
-            color: rgba(255,255,255,.8);
+            color: rgba(255, 255, 255, .8);
         }
 
         .db-tab.active {
@@ -222,7 +236,7 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
         }
 
         .db-tab-count {
-            background: rgba(239,142,53,.2);
+            background: rgba(239, 142, 53, .2);
             color: var(--orange);
             font-size: 10px;
             font-weight: 900;
@@ -256,13 +270,21 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
         }
 
         .app-card:hover {
-            box-shadow: 0 6px 28px rgba(62,44,35,.09);
+            box-shadow: 0 6px 28px rgba(62, 44, 35, .09);
             transform: translateY(-1px);
         }
 
-        .app-card.is-rejected { border-left: 4px solid var(--red); }
-        .app-card.is-completed { border-left: 4px solid var(--green); }
-        .app-card.is-active { border-left: 4px solid var(--orange); }
+        .app-card.is-rejected {
+            border-left: 4px solid var(--red);
+        }
+
+        .app-card.is-completed {
+            border-left: 4px solid var(--green);
+        }
+
+        .app-card.is-active {
+            border-left: 4px solid var(--orange);
+        }
 
         .app-card-top {
             display: flex;
@@ -280,7 +302,10 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             border: 2px solid var(--cream-dark);
         }
 
-        .app-pet-info { flex: 1; min-width: 0; }
+        .app-pet-info {
+            flex: 1;
+            min-width: 0;
+        }
 
         .app-pet-info h3 {
             font-size: 17px;
@@ -308,11 +333,30 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             letter-spacing: .3px;
         }
 
-        .pill-adopt   { background: var(--blue-soft);   color: var(--blue); }
-        .pill-foster  { background: var(--purple-soft);  color: var(--purple); }
-        .pill-active  { background: var(--orange-soft);  color: var(--orange-hover); }
-        .pill-done    { background: var(--green-soft);   color: var(--green); }
-        .pill-rejected{ background: var(--red-soft);     color: var(--red); }
+        .pill-adopt {
+            background: var(--blue-soft);
+            color: var(--blue);
+        }
+
+        .pill-foster {
+            background: var(--purple-soft);
+            color: var(--purple);
+        }
+
+        .pill-active {
+            background: var(--orange-soft);
+            color: var(--orange-hover);
+        }
+
+        .pill-done {
+            background: var(--green-soft);
+            color: var(--green);
+        }
+
+        .pill-rejected {
+            background: var(--red-soft);
+            color: var(--red);
+        }
 
         .app-meta {
             text-align: right;
@@ -393,7 +437,7 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             background: var(--white);
             border-color: var(--orange);
             color: var(--orange);
-            box-shadow: 0 0 0 5px rgba(239,142,53,.15);
+            box-shadow: 0 0 0 5px rgba(239, 142, 53, .15);
         }
 
         .step.cut .step-dot {
@@ -413,9 +457,17 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             line-height: 1.3;
         }
 
-        .step.done .step-lbl    { color: var(--green); }
-        .step.current .step-lbl { color: var(--orange); }
-        .step.cut .step-lbl     { color: var(--red); }
+        .step.done .step-lbl {
+            color: var(--green);
+        }
+
+        .step.current .step-lbl {
+            color: var(--orange);
+        }
+
+        .step.cut .step-lbl {
+            color: var(--red);
+        }
 
         /* Progress bar under stepper */
         .progress-bar-wrap {
@@ -455,7 +507,10 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             text-overflow: ellipsis;
         }
 
-        .update-chip strong { font-weight: 900; color: var(--brown-dark); }
+        .update-chip strong {
+            font-weight: 900;
+            color: var(--brown-dark);
+        }
 
         .btn-sm {
             display: inline-flex;
@@ -477,7 +532,9 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             color: var(--white);
         }
 
-        .btn-primary:hover { background: var(--orange-hover); }
+        .btn-primary:hover {
+            background: var(--orange-hover);
+        }
 
         .btn-ghost {
             background: var(--white);
@@ -493,7 +550,7 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
         .rejected-note {
             margin: 0 22px 16px;
             background: var(--red-soft);
-            border: 1px solid rgba(192,57,43,.2);
+            border: 1px solid rgba(192, 57, 43, .2);
             border-radius: 10px;
             padding: 12px 16px;
             display: flex;
@@ -505,7 +562,10 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             line-height: 1.5;
         }
 
-        .rejected-note i { margin-top: 2px; flex-shrink: 0; }
+        .rejected-note i {
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
 
         /* ── EMPTY STATE ── */
         .empty-card {
@@ -549,7 +609,8 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
         /* ── NOTIFICATIONS ── */
         .notif-badge {
             position: absolute;
-            top: -4px; right: -8px;
+            top: -4px;
+            right: -8px;
             background: var(--orange);
             color: #fff;
             font-size: 10px;
@@ -587,19 +648,26 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             background: var(--orange-soft, #FFF7F0);
         }
 
-        .notif-item:hover { box-shadow: 0 4px 14px rgba(62,44,35,.08); }
+        .notif-item:hover {
+            box-shadow: 0 4px 14px rgba(62, 44, 35, .08);
+        }
 
         .notif-icon {
-            width: 38px; height: 38px;
+            width: 38px;
+            height: 38px;
             border-radius: 10px;
             background: var(--orange);
             color: #fff;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 15px;
             flex-shrink: 0;
         }
 
-        .notif-body { flex: 1; }
+        .notif-body {
+            flex: 1;
+        }
 
         .notif-body p {
             font-size: 13px;
@@ -616,7 +684,8 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
         }
 
         .notif-dot {
-            width: 9px; height: 9px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
             background: var(--orange);
             flex-shrink: 0;
@@ -636,7 +705,9 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             transition: box-shadow .2s;
         }
 
-        .order-card:hover { box-shadow: 0 4px 18px rgba(62,44,35,.08); }
+        .order-card:hover {
+            box-shadow: 0 4px 18px rgba(62, 44, 35, .08);
+        }
 
         .order-icon {
             width: 48px;
@@ -651,7 +722,10 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             flex-shrink: 0;
         }
 
-        .order-info { flex: 1; min-width: 0; }
+        .order-info {
+            flex: 1;
+            min-width: 0;
+        }
 
         .order-num {
             font-size: 15px;
@@ -666,7 +740,10 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             color: var(--brown-light);
         }
 
-        .order-right { text-align: right; flex-shrink: 0; }
+        .order-right {
+            text-align: right;
+            flex-shrink: 0;
+        }
 
         .order-amount {
             font-size: 17px;
@@ -696,7 +773,9 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             gap: 7px;
         }
 
-        .side-section-title i { color: var(--orange); }
+        .side-section-title i {
+            color: var(--orange);
+        }
 
         /* Summary numbers */
         .summary-grid {
@@ -727,10 +806,21 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             color: var(--brown-light);
         }
 
-        .s-orange { color: var(--orange); }
-        .s-green  { color: var(--green); }
-        .s-red    { color: var(--red); }
-        .s-dark   { color: var(--brown-dark); }
+        .s-orange {
+            color: var(--orange);
+        }
+
+        .s-green {
+            color: var(--green);
+        }
+
+        .s-red {
+            color: var(--red);
+        }
+
+        .s-dark {
+            color: var(--brown-dark);
+        }
 
         /* Quick links */
         .qlink {
@@ -748,7 +838,9 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             transition: all .15s;
         }
 
-        .qlink:last-child { margin-bottom: 0; }
+        .qlink:last-child {
+            margin-bottom: 0;
+        }
 
         .qlink i {
             width: 20px;
@@ -822,7 +914,10 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             object-fit: cover;
         }
 
-        .profile-strip-info { flex: 1; min-width: 0; }
+        .profile-strip-info {
+            flex: 1;
+            min-width: 0;
+        }
 
         .profile-strip-name {
             font-size: 14px;
@@ -848,11 +943,16 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             white-space: nowrap;
         }
 
-        .profile-strip a:hover { text-decoration: underline; }
+        .profile-strip a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
+
 <body>
-    <?php include 'header.php'; ?>
+    <div class="container">
+        <?php include 'header.php'; ?>
+    </div>
 
     <!-- ── HERO ── -->
     <div class="db-hero">
@@ -882,24 +982,25 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             </div>
         </div>
     </div>
+    </div>
 
     <!-- ── TAB RAIL ── -->
     <div class="db-tab-rail">
-        <a href="?tab=active"   class="db-tab <?= $active_tab === 'active'   ? 'active' : '' ?>">
+        <a href="?tab=active" class="db-tab <?= $active_tab === 'active'   ? 'active' : '' ?>">
             <i class="fas fa-file-alt"></i> Active
             <span class="db-tab-count"><?= count($active) ?></span>
         </a>
-        <a href="?tab=past"     class="db-tab <?= $active_tab === 'past'     ? 'active' : '' ?>">
+        <a href="?tab=past" class="db-tab <?= $active_tab === 'past'     ? 'active' : '' ?>">
             <i class="fas fa-history"></i> Past
             <span class="db-tab-count"><?= count($past) ?></span>
         </a>
         <a href="?tab=updates" class="db-tab <?= $active_tab === 'updates' ? 'active' : '' ?>" style="position:relative;">
             <i class="fas fa-bell"></i> Updates
             <?php if ($unread_notif_count > 0): ?>
-            <span class="notif-badge"><?= $unread_notif_count ?></span>
+                <span class="notif-badge"><?= $unread_notif_count ?></span>
             <?php endif; ?>
         </a>
-        <a href="?tab=orders"   class="db-tab <?= $active_tab === 'orders'   ? 'active' : '' ?>">
+        <a href="?tab=orders" class="db-tab <?= $active_tab === 'orders'   ? 'active' : '' ?>">
             <i class="fas fa-shopping-bag"></i> Orders
             <span class="db-tab-count"><?= $order_count ?></span>
         </a>
@@ -910,224 +1011,227 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
         <!-- Main column -->
         <div>
 
-        <?php
-        // ── ACTIVE ──────────────────────────────────────────────
-        if ($active_tab === 'active'):
-            if (empty($active)): ?>
-                <div class="empty-card">
-                    <div class="empty-icon-wrap"><i class="fas fa-paw"></i></div>
-                    <h3>No active applications yet</h3>
-                    <p>Browse our residents and start an adoption or foster application.</p>
-                    <a href="residents.php" class="btn-sm btn-primary" style="margin:0 auto;">Browse Residents</a>
-                </div>
-            <?php else:
-                foreach ($active as $app):
-                    $step = (int)$app['current_step'];
-                    $pct  = round(($step / 6) * 100);
-            ?>
-                <div class="app-card is-active">
-                    <div class="app-card-top">
-                        <img class="app-pet-thumb"
-                             src="<?= htmlspecialchars($app['pet_image']) ?>"
-                             alt="<?= htmlspecialchars($app['pet_name']) ?>"
-                             onerror="this.src='https://placehold.co/80x80/F3EDE3/8E8279?text=?'">
-                        <div class="app-pet-info">
-                            <h3><?= htmlspecialchars($app['pet_name']) ?></h3>
-                            <div class="breed"><?= htmlspecialchars($app['pet_breed']) ?></div>
-                            <span class="pill <?= $app['type'] === 'Adoption' ? 'pill-adopt' : 'pill-foster' ?>">
-                                <i class="fas <?= $app['type'] === 'Adoption' ? 'fa-heart' : 'fa-home' ?>"></i>
-                                <?= htmlspecialchars($app['type']) ?>
-                            </span>
-                        </div>
-                        <div class="app-meta">
-                            <span class="pill pill-active">Active</span>
-                            <div class="app-date">Submitted <?= htmlspecialchars($app['submitted_at']) ?></div>
-                            <div class="app-id"><?= htmlspecialchars($app['id']) ?></div>
-                        </div>
+            <?php
+            // ── ACTIVE ──────────────────────────────────────────────
+            if ($active_tab === 'active'):
+                if (empty($active)): ?>
+                    <div class="empty-card">
+                        <div class="empty-icon-wrap"><i class="fas fa-paw"></i></div>
+                        <h3>No active applications yet</h3>
+                        <p>Browse our residents and start an adoption or foster application.</p>
+                        <a href="residents.php" class="btn-sm btn-primary" style="margin:0 auto;">Browse Residents</a>
                     </div>
-
-                    <!-- Stepper -->
-                    <div class="stepper-area">
-                        <div class="stepper-track">
-                            <?php foreach ($steps_label as $i => $label):
-                                if ($i === 0) continue;
-                                $cls = $i < $step ? 'done' : ($i === $step ? 'current' : '');
-                            ?>
-                                <div class="step <?= $cls ?>">
-                                    <div class="step-dot">
-                                        <?php if ($i < $step): ?>
-                                            <i class="fas fa-check"></i>
-                                        <?php else: ?>
-                                            <i class="fas <?= $steps_icon[$i] ?>"></i>
-                                        <?php endif; ?>
-                                    </div>
-                                    <div class="step-lbl"><?= $label ?></div>
+                    <?php else:
+                    foreach ($active as $app):
+                        $step = (int)$app['current_step'];
+                        $pct  = round(($step / 6) * 100);
+                    ?>
+                        <div class="app-card is-active">
+                            <div class="app-card-top">
+                                <img class="app-pet-thumb"
+                                    src="<?= htmlspecialchars($app['pet_image']) ?>"
+                                    alt="<?= htmlspecialchars($app['pet_name']) ?>"
+                                    onerror="this.src='https://placehold.co/80x80/F3EDE3/8E8279?text=?'">
+                                <div class="app-pet-info">
+                                    <h3><?= htmlspecialchars($app['pet_name']) ?></h3>
+                                    <div class="breed"><?= htmlspecialchars($app['pet_breed']) ?></div>
+                                    <span class="pill <?= $app['type'] === 'Adoption' ? 'pill-adopt' : 'pill-foster' ?>">
+                                        <i class="fas <?= $app['type'] === 'Adoption' ? 'fa-heart' : 'fa-home' ?>"></i>
+                                        <?= htmlspecialchars($app['type']) ?>
+                                    </span>
                                 </div>
-                            <?php endforeach; ?>
-                        </div>
-                        <div class="progress-bar-wrap">
-                            <div class="progress-bar-fill" style="width:<?= $pct ?>%"></div>
-                        </div>
-                    </div>
-
-                    <div class="app-card-foot">
-                        <div class="update-chip">
-                            <strong>Update: </strong><?= htmlspecialchars($app['last_update'] ?? 'Your application is being processed.') ?>
-                        </div>
-                        <a href="?tab=updates" class="btn-sm btn-primary">
-                            <i class="fas fa-bell"></i> View Updates
-                        </a>
-                    </div>
-                </div>
-            <?php endforeach; endif;
-
-        // ── PAST ────────────────────────────────────────────────
-        elseif ($active_tab === 'past'):
-            if (empty($past)): ?>
-                <div class="empty-card">
-                    <div class="empty-icon-wrap"><i class="fas fa-history"></i></div>
-                    <h3>No past applications</h3>
-                    <p>Completed and declined applications will show up here.</p>
-                </div>
-            <?php else:
-                foreach ($past as $app):
-                    $step = (int)$app['current_step'];
-                    $is_rej = (bool)$app['rejected'];
-                    $pct = round(($step / 6) * 100);
-            ?>
-                <div class="app-card <?= $is_rej ? 'is-rejected' : 'is-completed' ?>">
-                    <div class="app-card-top">
-                        <img class="app-pet-thumb"
-                             src="<?= htmlspecialchars($app['pet_image']) ?>"
-                             alt="<?= htmlspecialchars($app['pet_name']) ?>"
-                             onerror="this.src='https://placehold.co/80x80/F3EDE3/8E8279?text=?'">
-                        <div class="app-pet-info">
-                            <h3><?= htmlspecialchars($app['pet_name']) ?></h3>
-                            <div class="breed"><?= htmlspecialchars($app['pet_breed']) ?></div>
-                            <span class="pill <?= $app['type'] === 'Adoption' ? 'pill-adopt' : 'pill-foster' ?>">
-                                <i class="fas <?= $app['type'] === 'Adoption' ? 'fa-heart' : 'fa-home' ?>"></i>
-                                <?= htmlspecialchars($app['type']) ?>
-                            </span>
-                        </div>
-                        <div class="app-meta">
-                            <span class="pill <?= $is_rej ? 'pill-rejected' : 'pill-done' ?>">
-                                <?= $is_rej ? 'Declined' : 'Completed' ?>
-                            </span>
-                            <div class="app-date">Submitted <?= htmlspecialchars($app['submitted_at']) ?></div>
-                            <div class="app-id"><?= htmlspecialchars($app['id']) ?></div>
-                        </div>
-                    </div>
-
-                    <div class="stepper-area">
-                        <div class="stepper-track">
-                            <?php foreach ($steps_label as $i => $label):
-                                if ($i === 0) continue;
-                                if ($is_rej && $i > $step) $cls = 'cut';
-                                elseif ($i <= $step)        $cls = 'done';
-                                else                        $cls = '';
-                            ?>
-                                <div class="step <?= $cls ?>">
-                                    <div class="step-dot">
-                                        <?php if ($cls === 'done'): ?>
-                                            <i class="fas fa-check"></i>
-                                        <?php elseif ($cls === 'cut'): ?>
-                                            <i class="fas fa-times"></i>
-                                        <?php else: ?>
-                                            <i class="fas <?= $steps_icon[$i] ?>"></i>
-                                        <?php endif; ?>
-                                    </div>
-                                    <div class="step-lbl"><?= $label ?></div>
+                                <div class="app-meta">
+                                    <span class="pill pill-active">Active</span>
+                                    <div class="app-date">Submitted <?= htmlspecialchars($app['submitted_at']) ?></div>
+                                    <div class="app-id"><?= htmlspecialchars($app['id']) ?></div>
                                 </div>
-                            <?php endforeach; ?>
-                        </div>
-                        <div class="progress-bar-wrap">
-                            <div class="progress-bar-fill" style="width:<?= $pct ?>%;background:<?= $is_rej ? 'var(--red)' : 'var(--green)' ?>;"></div>
-                        </div>
-                    </div>
+                            </div>
 
-                    <?php if ($is_rej): ?>
-                        <div class="rejected-note">
-                            <i class="fas fa-info-circle"></i>
-                            <span><?= htmlspecialchars($app['last_update'] ?? 'This application was not approved.') ?></span>
-                        </div>
-                    <?php else: ?>
-                        <div class="app-card-foot">
-                            <div class="update-chip">
-                                <strong>Last Update: </strong><?= htmlspecialchars($app['last_update'] ?? '') ?>
+                            <!-- Stepper -->
+                            <div class="stepper-area">
+                                <div class="stepper-track">
+                                    <?php foreach ($steps_label as $i => $label):
+                                        if ($i === 0) continue;
+                                        $cls = $i < $step ? 'done' : ($i === $step ? 'current' : '');
+                                    ?>
+                                        <div class="step <?= $cls ?>">
+                                            <div class="step-dot">
+                                                <?php if ($i < $step): ?>
+                                                    <i class="fas fa-check"></i>
+                                                <?php else: ?>
+                                                    <i class="fas <?= $steps_icon[$i] ?>"></i>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="step-lbl"><?= $label ?></div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <div class="progress-bar-wrap">
+                                    <div class="progress-bar-fill" style="width:<?= $pct ?>%"></div>
+                                </div>
+                            </div>
+
+                            <div class="app-card-foot">
+                                <div class="update-chip">
+                                    <strong>Update: </strong><?= htmlspecialchars($app['last_update'] ?? 'Your application is being processed.') ?>
+                                </div>
+                                <a href="?tab=updates" class="btn-sm btn-primary">
+                                    <i class="fas fa-bell"></i> View Updates
+                                </a>
                             </div>
                         </div>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; endif;
+                    <?php endforeach;
+                endif;
 
-        // ── UPDATES (Notifications) ──────────────────────────────
-        elseif ($active_tab === 'updates'):
-            if (empty($all_notifications)): ?>
-                <div class="empty-card">
-                    <div class="empty-icon-wrap"><i class="fas fa-bell"></i></div>
-                    <h3>No updates yet</h3>
-                    <p>When FluffSide processes your application, updates will appear here.</p>
-                    <a href="residents.php" class="btn-sm btn-primary" style="margin:0 auto;">Browse Residents</a>
-                </div>
-            <?php else: ?>
-                <div class="notif-list">
-                    <?php foreach ($all_notifications as $n): ?>
-                    <div class="notif-item <?= $n['is_read'] ? '' : 'notif-unread' ?>">
-                        <div class="notif-icon"><i class="fas fa-paw"></i></div>
-                        <div class="notif-body">
-                            <p><?= htmlspecialchars($n['message']) ?></p>
-                            <span class="notif-time"><?= date('F j, Y \a\t g:i A', strtotime($n['created_at'])) ?></span>
-                        </div>
-                        <?php if (!$n['is_read']): ?><span class="notif-dot"></span><?php endif; ?>
+            // ── PAST ────────────────────────────────────────────────
+            elseif ($active_tab === 'past'):
+                if (empty($past)): ?>
+                    <div class="empty-card">
+                        <div class="empty-icon-wrap"><i class="fas fa-history"></i></div>
+                        <h3>No past applications</h3>
+                        <p>Completed and declined applications will show up here.</p>
                     </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif;
+                    <?php else:
+                    foreach ($past as $app):
+                        $step = (int)$app['current_step'];
+                        $is_rej = (bool)$app['rejected'];
+                        $pct = round(($step / 6) * 100);
+                    ?>
+                        <div class="app-card <?= $is_rej ? 'is-rejected' : 'is-completed' ?>">
+                            <div class="app-card-top">
+                                <img class="app-pet-thumb"
+                                    src="<?= htmlspecialchars($app['pet_image']) ?>"
+                                    alt="<?= htmlspecialchars($app['pet_name']) ?>"
+                                    onerror="this.src='https://placehold.co/80x80/F3EDE3/8E8279?text=?'">
+                                <div class="app-pet-info">
+                                    <h3><?= htmlspecialchars($app['pet_name']) ?></h3>
+                                    <div class="breed"><?= htmlspecialchars($app['pet_breed']) ?></div>
+                                    <span class="pill <?= $app['type'] === 'Adoption' ? 'pill-adopt' : 'pill-foster' ?>">
+                                        <i class="fas <?= $app['type'] === 'Adoption' ? 'fa-heart' : 'fa-home' ?>"></i>
+                                        <?= htmlspecialchars($app['type']) ?>
+                                    </span>
+                                </div>
+                                <div class="app-meta">
+                                    <span class="pill <?= $is_rej ? 'pill-rejected' : 'pill-done' ?>">
+                                        <?= $is_rej ? 'Declined' : 'Completed' ?>
+                                    </span>
+                                    <div class="app-date">Submitted <?= htmlspecialchars($app['submitted_at']) ?></div>
+                                    <div class="app-id"><?= htmlspecialchars($app['id']) ?></div>
+                                </div>
+                            </div>
 
-        // ── ORDERS ──────────────────────────────────────────────
-        elseif ($active_tab === 'orders'):
-            if (empty($user_orders)): ?>
-                <div class="empty-card">
-                    <div class="empty-icon-wrap"><i class="fas fa-shopping-bag"></i></div>
-                    <h3>No orders yet</h3>
-                    <p>Browse our pet supplies and place your first order!</p>
-                    <a href="supplies.php" class="btn-sm btn-primary" style="margin:0 auto;">Shop Now</a>
-                </div>
-            <?php else:
-                $status_styles = [
-                    'Pending'    => ['bg'=>'var(--yellow-soft)', 'color'=>'var(--yellow)'],
-                    'Processing' => ['bg'=>'var(--blue-soft)',   'color'=>'var(--blue)'],
-                    'Shipped'    => ['bg'=>'#E8F8F5',            'color'=>'#148F77'],
-                    'Delivered'  => ['bg'=>'var(--green-soft)',  'color'=>'var(--green)'],
-                    'Cancelled'  => ['bg'=>'var(--red-soft)',    'color'=>'var(--red)'],
-                ];
-                foreach ($user_orders as $ord):
-                    $sc = $status_styles[$ord['status']] ?? ['bg'=>'#F0F0F0','color'=>'#888'];
-            ?>
-                <div class="order-card">
-                    <div class="order-icon"><i class="fas fa-box"></i></div>
-                    <div class="order-info">
-                        <div class="order-num"><?= htmlspecialchars($ord['order_number']) ?></div>
-                        <div class="order-sub">
-                            <?= htmlspecialchars(date('F j, Y', strtotime($ord['ordered_at']))) ?>
-                            &bull; <?= htmlspecialchars($ord['payment_method']) ?>
-                            &bull; <i class="fas fa-map-marker-alt"></i> <?= htmlspecialchars($ord['city']) ?>
+                            <div class="stepper-area">
+                                <div class="stepper-track">
+                                    <?php foreach ($steps_label as $i => $label):
+                                        if ($i === 0) continue;
+                                        if ($is_rej && $i > $step) $cls = 'cut';
+                                        elseif ($i <= $step)        $cls = 'done';
+                                        else                        $cls = '';
+                                    ?>
+                                        <div class="step <?= $cls ?>">
+                                            <div class="step-dot">
+                                                <?php if ($cls === 'done'): ?>
+                                                    <i class="fas fa-check"></i>
+                                                <?php elseif ($cls === 'cut'): ?>
+                                                    <i class="fas fa-times"></i>
+                                                <?php else: ?>
+                                                    <i class="fas <?= $steps_icon[$i] ?>"></i>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="step-lbl"><?= $label ?></div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <div class="progress-bar-wrap">
+                                    <div class="progress-bar-fill" style="width:<?= $pct ?>%;background:<?= $is_rej ? 'var(--red)' : 'var(--green)' ?>;"></div>
+                                </div>
+                            </div>
+
+                            <?php if ($is_rej): ?>
+                                <div class="rejected-note">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span><?= htmlspecialchars($app['last_update'] ?? 'This application was not approved.') ?></span>
+                                </div>
+                            <?php else: ?>
+                                <div class="app-card-foot">
+                                    <div class="update-chip">
+                                        <strong>Last Update: </strong><?= htmlspecialchars($app['last_update'] ?? '') ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                         </div>
+                    <?php endforeach;
+                endif;
+
+            // ── UPDATES (Notifications) ──────────────────────────────
+            elseif ($active_tab === 'updates'):
+                if (empty($all_notifications)): ?>
+                    <div class="empty-card">
+                        <div class="empty-icon-wrap"><i class="fas fa-bell"></i></div>
+                        <h3>No updates yet</h3>
+                        <p>When FluffSide processes your application, updates will appear here.</p>
+                        <a href="residents.php" class="btn-sm btn-primary" style="margin:0 auto;">Browse Residents</a>
                     </div>
-                    <div class="order-right">
-                        <div class="order-amount">&#8369;<?= number_format((float)$ord['total_amount'], 2) ?></div>
-                        <div style="display:flex;align-items:center;gap:8px;justify-content:flex-end;">
-                            <span style="padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:800;text-transform:uppercase;background:<?= $sc['bg'] ?>;color:<?= $sc['color'] ?>;">
-                                <?= htmlspecialchars($ord['status']) ?>
-                            </span>
-                            <a href="receipt.php?order_id=<?= (int)$ord['order_id'] ?>" class="btn-sm btn-ghost" style="font-size:11px;padding:5px 12px;">
-                                <i class="fas fa-receipt"></i> Receipt
-                            </a>
+                <?php else: ?>
+                    <div class="notif-list">
+                        <?php foreach ($all_notifications as $n): ?>
+                            <div class="notif-item <?= $n['is_read'] ? '' : 'notif-unread' ?>">
+                                <div class="notif-icon"><i class="fas fa-paw"></i></div>
+                                <div class="notif-body">
+                                    <p><?= htmlspecialchars($n['message']) ?></p>
+                                    <span class="notif-time"><?= date('F j, Y \a\t g:i A', strtotime($n['created_at'])) ?></span>
+                                </div>
+                                <?php if (!$n['is_read']): ?><span class="notif-dot"></span><?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif;
+
+            // ── ORDERS ──────────────────────────────────────────────
+            elseif ($active_tab === 'orders'):
+                if (empty($user_orders)): ?>
+                    <div class="empty-card">
+                        <div class="empty-icon-wrap"><i class="fas fa-shopping-bag"></i></div>
+                        <h3>No orders yet</h3>
+                        <p>Browse our pet supplies and place your first order!</p>
+                        <a href="supplies.php" class="btn-sm btn-primary" style="margin:0 auto;">Shop Now</a>
+                    </div>
+                    <?php else:
+                    $status_styles = [
+                        'Pending'    => ['bg' => 'var(--yellow-soft)', 'color' => 'var(--yellow)'],
+                        'Processing' => ['bg' => 'var(--blue-soft)',   'color' => 'var(--blue)'],
+                        'Shipped'    => ['bg' => '#E8F8F5',            'color' => '#148F77'],
+                        'Delivered'  => ['bg' => 'var(--green-soft)',  'color' => 'var(--green)'],
+                        'Cancelled'  => ['bg' => 'var(--red-soft)',    'color' => 'var(--red)'],
+                    ];
+                    foreach ($user_orders as $ord):
+                        $sc = $status_styles[$ord['status']] ?? ['bg' => '#F0F0F0', 'color' => '#888'];
+                    ?>
+                        <div class="order-card">
+                            <div class="order-icon"><i class="fas fa-box"></i></div>
+                            <div class="order-info">
+                                <div class="order-num"><?= htmlspecialchars($ord['order_number']) ?></div>
+                                <div class="order-sub">
+                                    <?= htmlspecialchars(date('F j, Y', strtotime($ord['ordered_at']))) ?>
+                                    &bull; <?= htmlspecialchars($ord['payment_method']) ?>
+                                    &bull; <i class="fas fa-map-marker-alt"></i> <?= htmlspecialchars($ord['city']) ?>
+                                </div>
+                            </div>
+                            <div class="order-right">
+                                <div class="order-amount">&#8369;<?= number_format((float)$ord['total_amount'], 2) ?></div>
+                                <div style="display:flex;align-items:center;gap:8px;justify-content:flex-end;">
+                                    <span style="padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:800;text-transform:uppercase;background:<?= $sc['bg'] ?>;color:<?= $sc['color'] ?>;">
+                                        <?= htmlspecialchars($ord['status']) ?>
+                                    </span>
+                                    <a href="receipt.php?order_id=<?= (int)$ord['order_id'] ?>" class="btn-sm btn-ghost" style="font-size:11px;padding:5px 12px;">
+                                        <i class="fas fa-receipt"></i> Receipt
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            <?php endforeach; endif;
-        endif; ?>
+            <?php endforeach;
+                endif;
+            endif; ?>
 
         </div><!-- /main col -->
 
@@ -1185,10 +1289,10 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
 
             <!-- Tip -->
             <?php if ($active_count > 0): ?>
-            <div class="tip-card">
-                <div class="tip-card-title"><i class="fas fa-lightbulb"></i> Heads up</div>
-                <p>Check your <strong>Updates</strong> tab regularly — FluffSide will notify you when your application moves to a new stage.</p>
-            </div>
+                <div class="tip-card">
+                    <div class="tip-card-title"><i class="fas fa-lightbulb"></i> Heads up</div>
+                    <p>Check your <strong>Updates</strong> tab regularly — FluffSide will notify you when your application moves to a new stage.</p>
+                </div>
             <?php endif; ?>
         </aside>
     </div>
@@ -1198,16 +1302,18 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
     <script>
         // 30-second inactivity logout
         let inactivityTimer;
+
         function resetTimer() {
             clearTimeout(inactivityTimer);
             inactivityTimer = setTimeout(() => {
                 window.location.href = 'logout.php?reason=inactive';
             }, 30000);
         }
-        ['mousemove','keydown','click','scroll','touchstart'].forEach(e => {
+        ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(e => {
             document.addEventListener(e, resetTimer);
         });
         resetTimer();
     </script>
 </body>
+
 </html>
