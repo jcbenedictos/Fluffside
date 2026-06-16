@@ -104,9 +104,6 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
             content: '';
             position: absolute;
             inset: 0;
-            background:
-                radial-gradient(ellipse 60% 80% at 90% 110%, rgba(239,142,53,.25) 0%, transparent 65%),
-                radial-gradient(ellipse 40% 60% at 10% -20%, rgba(239,142,53,.12) 0%, transparent 60%);
             pointer-events: none;
         }
 

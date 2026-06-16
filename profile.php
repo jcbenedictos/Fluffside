@@ -476,6 +476,7 @@ $highlight = isset($_GET['highlight']) && $_GET['highlight'] === '1';
             align-items: center;
             gap: 10px;
             cursor: pointer;
+            margin-bottom: 15px;
         }
 
         .sidebar-logout-btn {
