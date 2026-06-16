@@ -1364,3 +1364,5 @@ foreach ($products as $p) {
     $product_lookup[$p->id] = $p;
 }
 ?>
+
+<!-- for clean comments -->

@@ -146,3 +146,5 @@ CREATE INDEX IF NOT EXISTS idx_order_items_ord  ON tbl_order_items(order_id);
 CREATE INDEX IF NOT EXISTS idx_apps_user        ON tbl_applications(user_id);
 CREATE INDEX IF NOT EXISTS idx_msgs_app         ON tbl_messages(app_id);
 CREATE INDEX IF NOT EXISTS idx_pet_traits_pet   ON tbl_pet_traits(pet_id);
+
+/*<!-- for clean comments -->*/

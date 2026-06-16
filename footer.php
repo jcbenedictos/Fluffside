@@ -103,3 +103,4 @@
         <p>&copy; <?php echo date("Y"); ?> FluffSide. All rights reserved.</p>
     </div>
 </footer>
+<!-- for clean comments -->

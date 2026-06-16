@@ -581,3 +581,5 @@ CREATE TABLE IF NOT EXISTS `tbl_notifications` (
  ALTER TABLE tbl_users
   ADD COLUMN payment_method VARCHAR(30) DEFAULT NULL,
   ADD COLUMN payment_account VARCHAR(100) DEFAULT NULL;
+
+  <!-- for clean comments -->

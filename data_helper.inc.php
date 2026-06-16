@@ -150,3 +150,4 @@ function send_message(string $app_id, int $user_id, string $sender, string $mess
     return fs_write('messages.json', $msgs);
 }
 ?>
+<!-- for clean comments -->

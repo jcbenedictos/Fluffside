@@ -529,3 +529,6 @@ function get_homepage_stats(): array {
     $fostered = (int)$pdo->query("SELECT COUNT(*) FROM tbl_applications WHERE app_type='Foster'   AND status='completed' AND rejected=0 AND submitted_at >= DATE_SUB(NOW(), INTERVAL 90 DAY)")->fetchColumn();
     return ['waiting' => $waiting, 'adopted' => $adopted, 'fostered' => $fostered];
 }
+
+
+//-- For clean comments -->

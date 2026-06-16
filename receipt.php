@@ -286,3 +286,6 @@ if (!$order || (int)$order['user_id'] !== (int)$_SESSION['user_id']) {
 
 </body>
 </html>
+
+
+<!-- for clean comments -->

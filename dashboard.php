@@ -1317,3 +1317,5 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good
 </body>
 
 </html>
+
+<!-- for clean comments -->

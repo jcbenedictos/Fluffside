@@ -705,3 +705,5 @@ $final_total = $grand_total + $donation;
 </body>
 
 </html>
+
+<!-- for clean comments -->

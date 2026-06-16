@@ -590,3 +590,5 @@ foreach ($all_products as $p) {
 </body>
 
 </html>
+
+<!-- for clean comments -->

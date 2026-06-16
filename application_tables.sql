@@ -82,3 +82,5 @@ CREATE TABLE IF NOT EXISTS tbl_app_foster (
 
 -- ── Indexes ───────────────────────────────────────────────────
 CREATE INDEX IF NOT EXISTS idx_app_applicant_email ON tbl_app_applicant(email);
+
+<!-- for clean comments -->

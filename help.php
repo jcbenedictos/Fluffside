@@ -517,3 +517,5 @@ $is_logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true
 </body>
 
 </html>
+
+<!-- for clean comments -->

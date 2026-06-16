@@ -9,3 +9,5 @@ CREATE TABLE IF NOT EXISTS `tbl_notifications` (
   PRIMARY KEY (`notif_id`),
   KEY `idx_user_unread` (`user_id`, `is_read`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+<!-- for clean comments -->

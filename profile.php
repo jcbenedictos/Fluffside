@@ -864,3 +864,5 @@ $highlight = isset($_GET['highlight']) && $_GET['highlight'] === '1';
 </body>
 
 </html>
+
+<!-- for clean comments -->
