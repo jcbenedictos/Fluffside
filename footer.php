@@ -93,8 +93,8 @@
 
         <div class="footer-contact">
             <h3>Contact Us</h3>
-            <p><i class="fas fa-map-marker-alt"></i> 6767 Diyan sa bahay ng inay,<br>Pet Valley, 4234</p>
-            <p><i class="fas fa-envelope"></i>barukbok@gmail.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> 6767 Sta. Anastacia Sto. Tomas, Batangas,<br>Pet Valley, 4234</p>
+            <p><i class="fas fa-envelope"></i>Fluffside@gmail.com</p>
             <p><i class="fas fa-phone"></i> +63 912 345 6789</p>
         </div>
     </div>

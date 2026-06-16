@@ -322,7 +322,7 @@ function get_orders_by_user(int $user_id): array {
 
 function get_order_items(int $order_id): array {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT oi.*, p.name AS product_name FROM tbl_order_items oi LEFT JOIN tbl_products p ON oi.product_id = p.product_id WHERE oi.order_id = ?");
+    $stmt = $pdo->prepare("SELECT oi.*, p.title AS product_name FROM tbl_order_items oi LEFT JOIN tbl_products p ON oi.product_id = p.product_id WHERE oi.order_id = ?");
     $stmt->execute([$order_id]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
