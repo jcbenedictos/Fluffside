@@ -155,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adoption Application — FluffSide</title>
+    <title>Foster Application — FluffSide</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -778,7 +778,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 <?php endif; ?>
 
-                <form method="POST" action="adoptform.php?pet=<?= h($pet_id) ?>" enctype="multipart/form-data" novalidate>
+                <form method="POST" action="fosterform.php?pet=<?= h($pet_id) ?>" enctype="multipart/form-data" novalidate>
 
                     <!-- ══ SELECTED RESIDENT ══ -->
                     <div class="form-section-title">
