@@ -547,3 +547,5 @@ $steps_label = ['', 'Submitted', 'Under Review', 'Interview / Zoom', 'Approved',
 <?php include '../footer.php'; ?>
 </body>
 </html>
+
+<!-- for clean comments -->
