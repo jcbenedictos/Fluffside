@@ -577,3 +577,7 @@ CREATE TABLE IF NOT EXISTS `tbl_notifications` (
   KEY `idx_user_unread` (`user_id`, `is_read`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
  
+ JUNE 16 (PRESENTATION NA MAYA HAUP)
+ ALTER TABLE tbl_users
+  ADD COLUMN payment_method VARCHAR(30) DEFAULT NULL,
+  ADD COLUMN payment_account VARCHAR(100) DEFAULT NULL;

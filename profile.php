@@ -22,6 +22,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pdo->prepare("UPDATE tbl_users SET full_name=?, email=?, phone=?, dob=?, address=? WHERE user_id=?")
         ->execute([$full_name, $new_email, $new_phone, $new_dob ?: null, $new_addr ?: null, $uid]);
 
+    // Save payment info if submitted
+    if (isset($_POST['payment_method'])) {
+        $pay_method  = trim($_POST['payment_method'] ?? '');
+        $pay_account = trim($_POST['payment_account'] ?? '');
+        $pdo->prepare("UPDATE tbl_users SET payment_method=?, payment_account=? WHERE user_id=?")
+            ->execute([$pay_method ?: null, $pay_account ?: null, $uid]);
+        $_SESSION['payment_method']  = $pay_method;
+        $_SESSION['payment_account'] = $pay_account;
+    }
+
     $_SESSION['first_name'] = $new_first;
     $_SESSION['last_name']  = $new_last;
     $_SESSION['email']      = $new_email;
@@ -77,6 +87,14 @@ $phone       = $_SESSION['phone'] ?? '';
 $dob         = $_SESSION['dob'] ?? '';
 $role        = $_SESSION['role'] ?? '';
 $profile_pic = $_SESSION['profile_pic'] ?? '';
+
+$pay_row = $pdo->prepare("SELECT payment_method, payment_account FROM tbl_users WHERE user_id=?");
+$pay_row->execute([(int)$_SESSION['user_id']]);
+$pay_data = $pay_row->fetch(PDO::FETCH_ASSOC);
+$saved_payment_method  = $pay_data['payment_method']  ?? '';
+$saved_payment_account = $pay_data['payment_account'] ?? '';
+$_SESSION['payment_method']  = $saved_payment_method;
+$_SESSION['payment_account'] = $saved_payment_account;
 
 $display_name = (!empty($first_name) || !empty($last_name)) ? trim("$first_name $last_name") : "NAME";
 $highlight = isset($_GET['highlight']) && $_GET['highlight'] === '1';
@@ -490,6 +508,25 @@ $highlight = isset($_GET['highlight']) && $_GET['highlight'] === '1';
                 grid-column: span 1;
             }
         }
+
+        .pay-opt-btn {
+            background: transparent;
+            border: 2px solid var(--fs-orange);
+            color: var(--fs-orange);
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pay-opt-btn:hover,
+        .pay-opt-btn.pay-opt-selected {
+            background: var(--fs-orange);
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -534,8 +571,11 @@ $highlight = isset($_GET['highlight']) && $_GET['highlight'] === '1';
                         <button type="button" class="role-btn <?php echo ($role === 'Foster') ? 'selected-choice' : ''; ?>" id="roleBtnFoster" onclick="selectProfileRole('Foster')">Foster</button>
                     </div>
 
-                    <button type="button" class="sidebar-menu-btn">
+                    <button type="button" class="sidebar-menu-btn" onclick="showPanel('personal')">
                         <i class="fas fa-user-circle"></i> Personal Information
+                    </button>
+                    <button type="button" class="sidebar-menu-btn" onclick="showPanel('payment')">
+                        <i class="fas fa-credit-card"></i> Payment Options
                     </button>
 
                     <a href="logout.php" class="sidebar-logout-btn">
@@ -544,48 +584,101 @@ $highlight = isset($_GET['highlight']) && $_GET['highlight'] === '1';
                 </aside>
 
                 <main class="profile-form-container">
-                    <h2>Personal Information</h2>
+                    <div id="panel-personal">
+                        <h2>Personal Information</h2>
 
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="first_name">First Name</label>
-                            <input type="text" class="form-control" placeholder="First Name" id="first_name" name="first_name" value="<?php echo htmlspecialchars($first_name); ?>" readonly>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <input type="text" class="form-control" placeholder="First Name" id="first_name" name="first_name" value="<?php echo htmlspecialchars($first_name); ?>" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" class="form-control" placeholder="Last Name" id="last_name" name="last_name" value="<?php echo htmlspecialchars($last_name); ?>" readonly>
+                            </div>
+
+                            <div class="form-group full-width-field">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" placeholder="Email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+                            </div>
+
+                            <div class="form-group full-width-field">
+                                <label for="address">Address</label>
+                                <input type="text" class="form-control" placeholder="Address" id="address" name="address" value="<?php echo htmlspecialchars($address); ?>" readonly <?php if ($highlight && empty($address)) echo 'style="border:2px solid #EF8E35;background:#FDF1E6;"'; ?>>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" class="form-control" placeholder="Phone Number" id="phone" name="phone" value="<?php echo htmlspecialchars($phone); ?>" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" class="form-control" id="dob" name="dob" value="<?php echo htmlspecialchars($dob); ?>" readonly>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="last_name">Last Name</label>
-                            <input type="text" class="form-control" placeholder="Last Name" id="last_name" name="last_name" value="<?php echo htmlspecialchars($last_name); ?>" readonly>
+                        <div class="view-mode-actions" id="viewActions">
+                            <button type="button" class="btn-edit-profile" onclick="enableEditMode()">Edit Profile</button>
                         </div>
 
-                        <div class="form-group full-width-field">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" placeholder="Email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+                        <div class="edit-mode-actions" id="editActions">
+                            <a href="profile.php" class="btn-discard">Discard Changes</a>
+                            <button type="submit" class="btn-save">Save Changes</button>
+                        </div>
+                    </div><!-- end panel-personal -->
+
+                    <div id="panel-payment" style="display:none;">
+                        <h2>Payment Options</h2>
+                        <p style="font-size:14px;color:#8E8279;margin-bottom:20px;font-weight:700;">
+                            Link a payment account to use GCash or Card at checkout. Cash on Delivery is always available without setup.
+                        </p>
+
+                        <div class="form-group full-width-field" style="margin-bottom:20px;">
+                            <label style="font-weight:800;font-size:14px;display:block;margin-bottom:10px;">Select Method to Link</label>
+                            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                                <button type="button" class="pay-opt-btn <?= $saved_payment_method === 'GCash' ? 'pay-opt-selected' : '' ?>" onclick="selectPayOpt('GCash', event)">
+                                    <i class="fas fa-university"></i> GCash
+                                </button>
+                                <button type="button" class="pay-opt-btn <?= $saved_payment_method === 'Credit / Debit Card' ? 'pay-opt-selected' : '' ?>" onclick="selectPayOpt('Credit / Debit Card', event)">
+                                    <i class="fas fa-credit-card"></i> Credit / Debit Card
+                                </button>
+                            </div>
+                            <input type="hidden" name="payment_method" id="paymentMethodField" value="<?= htmlspecialchars($saved_payment_method) ?>">
                         </div>
 
-                        <div class="form-group full-width-field">
-                            <label for="address">Address</label>
-                            <input type="text" class="form-control" placeholder="Address" id="address" name="address" value="<?php echo htmlspecialchars($address); ?>" readonly <?php if($highlight && empty($address)) echo 'style="border:2px solid #EF8E35;background:#FDF1E6;"'; ?>>
+                        <div class="form-group full-width-field" id="accountFieldWrap" style="<?= empty($saved_payment_method) ? 'display:none;' : '' ?>margin-bottom:20px;">
+                            <label for="payment_account" style="font-weight:800;font-size:14px;" id="accountLabel">
+                                <?= $saved_payment_method === 'GCash' ? 'GCash Number' : 'Card — last 4 digits (display only)' ?>
+                            </label>
+                            <input type="text" name="payment_account" id="payment_account" class="form-control"
+                                value="<?= htmlspecialchars($saved_payment_account) ?>"
+                                placeholder="<?= $saved_payment_method === 'GCash' ? '09XXXXXXXXX' : 'e.g. 1234' ?>"
+                                maxlength="<?= $saved_payment_method === 'GCash' ? '11' : '4' ?>">
                         </div>
 
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" class="form-control" placeholder="Phone Number" id="phone" name="phone" value="<?php echo htmlspecialchars($phone); ?>" readonly>
+                        <?php if (!empty($saved_payment_method)): ?>
+                            <div style="background:#F0F7EC;border:1.5px solid #9BB374;border-radius:12px;padding:14px 18px;margin-bottom:20px;font-size:13px;font-weight:700;color:#5A483E;">
+                                <i class="fas fa-check-circle" style="color:#9BB374;margin-right:6px;"></i>
+                                Linked: <strong><?= htmlspecialchars($saved_payment_method) ?></strong>
+                                <?php if (!empty($saved_payment_account)): ?>
+                                    — <?= htmlspecialchars($saved_payment_method === 'GCash' ? $saved_payment_account : '•••• ' . $saved_payment_account) ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <div style="display:flex;gap:12px;margin-top:8px;">
+                            <button type="submit" class="btn-save" style="width:auto;padding:12px 30px;">Save Payment</button>
+                            <?php if (!empty($saved_payment_method)): ?>
+                                <button type="button" onclick="removePayment()" style="background:transparent;border:2px solid #E74C3C;color:#E74C3C;border-radius:25px;padding:12px 20px;font-weight:800;font-size:14px;cursor:pointer;font-family:'Nunito';">
+                                    <i class="fas fa-unlink"></i> Remove
+                                </button>
+                            <?php endif; ?>
                         </div>
+                        <input type="hidden" name="remove_payment" id="removePaymentField" value="">
+                    </div><!-- end panel-payment -->
 
-                        <div class="form-group">
-                            <label for="dob">Date of Birth</label>
-                            <input type="date" class="form-control" id="dob" name="dob" value="<?php echo htmlspecialchars($dob); ?>" readonly>
-                        </div>
-                    </div>
-
-                    <div class="view-mode-actions" id="viewActions">
-                        <button type="button" class="btn-edit-profile" onclick="enableEditMode()">Edit Profile</button>
-                    </div>
-
-                    <div class="edit-mode-actions" id="editActions">
-                        <a href="profile.php" class="btn-discard">Discard Changes</a>
-                        <button type="submit" class="btn-save">Save Changes</button>
-                    </div>
                 </main>
 
             </div>
@@ -702,34 +795,71 @@ $highlight = isset($_GET['highlight']) && $_GET['highlight'] === '1';
             }
         }
 
-        <?php if($highlight): ?>
-        window.addEventListener('load', function() {
-            document.getElementById('dashboardWrapper').classList.add('is-editing');
-            const inputs = document.querySelectorAll('.form-grid input');
-            inputs.forEach(input => input.removeAttribute('readonly'));
+        <?php if ($highlight): ?>
+            window.addEventListener('load', function() {
+                document.getElementById('dashboardWrapper').classList.add('is-editing');
+                const inputs = document.querySelectorAll('.form-grid input');
+                inputs.forEach(input => input.removeAttribute('readonly'));
 
-            const addressField = document.getElementById('address');
-            addressField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            addressField.focus();
-            addressField.style.border = '2px solid #EF8E35';
-            addressField.style.background = '#FDF1E6';
-        });
+                const addressField = document.getElementById('address');
+                addressField.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                addressField.focus();
+                addressField.style.border = '2px solid #EF8E35';
+                addressField.style.background = '#FDF1E6';
+            });
         <?php endif; ?>
     </script>
     <script>
         // 30-second inactivity logout
         let inactivityTimer;
+
         function resetTimer() {
             clearTimeout(inactivityTimer);
             inactivityTimer = setTimeout(function() {
                 window.location.href = 'logout.php?reason=inactive';
             }, 30000);
         }
-        ['mousemove','keydown','click','scroll','touchstart'].forEach(function(e) {
+        ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(function(e) {
             document.addEventListener(e, resetTimer);
         });
         resetTimer();
     </script>
+
+    <script>
+        function showPanel(name) {
+            document.getElementById('panel-personal').style.display = name === 'personal' ? '' : 'none';
+            document.getElementById('panel-payment').style.display = name === 'payment' ? '' : 'none';
+        }
+
+        function selectPayOpt(method, e) {
+            document.getElementById('paymentMethodField').value = method;
+            document.querySelectorAll('.pay-opt-btn').forEach(b => b.classList.remove('pay-opt-selected'));
+            e.target.closest('.pay-opt-btn').classList.add('pay-opt-selected');
+            const wrap = document.getElementById('accountFieldWrap');
+            const label = document.getElementById('accountLabel');
+            const input = document.getElementById('payment_account');
+            wrap.style.display = '';
+            if (method === 'GCash') {
+                label.textContent = 'GCash Number';
+                input.placeholder = '09XXXXXXXXX';
+                input.maxLength = 11;
+            } else {
+                label.textContent = 'Card — last 4 digits (for display only)';
+                input.placeholder = 'e.g. 1234';
+                input.maxLength = 4;
+            }
+        }
+
+        function removePayment() {
+            document.getElementById('removePaymentField').value = '1';
+            document.getElementById('paymentMethodField').value = '';
+            document.querySelector('form').submit();
+        }
+    </script>
+
 </body>
 
 </html>

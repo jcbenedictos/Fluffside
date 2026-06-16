@@ -205,7 +205,16 @@ if (!$order || (int)$order['user_id'] !== (int)$_SESSION['user_id']) {
                 </div>
                 <div class="info-block">
                     <h4><i class="fas fa-credit-card"></i> Payment Method</h4>
-                    <p><?= htmlspecialchars($order['payment_method']) ?></p>
+                    <p><?= htmlspecialchars($order['payment_method']) ?>
+                    <?php
+                        $rec_account = $_SESSION['payment_account'] ?? '';
+                        $rec_method  = $_SESSION['payment_method']  ?? '';
+                        if (!empty($rec_account) && $rec_method === $order['payment_method']):
+                            $display = $rec_method === 'GCash' ? $rec_account : '•••• ' . $rec_account;
+                    ?>
+                        <br><span style="font-size:12px;color:#8E8279;font-weight:700;"><?= htmlspecialchars($display) ?></span>
+                    <?php endif; ?>
+                    </p>
                 </div>
                 <div class="info-block">
                     <h4><i class="fas fa-calendar-alt"></i> Order Date</h4>

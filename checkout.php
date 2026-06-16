@@ -3,6 +3,10 @@ session_start();
 require_once 'db.inc.php';
 require_once 'db_helper.inc.php';
 
+$saved_pay_method  = $_SESSION['payment_method']  ?? '';
+$saved_pay_account = $_SESSION['payment_account'] ?? '';
+$has_linked_payment = !empty($saved_pay_method) && $saved_pay_method !== 'Cash on Delivery';
+
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header("Location: login.php?msg=login_required");
     exit;
@@ -112,7 +116,7 @@ $final_total = $grand_total + $donation;
             width: 100%;
         }
 
-        
+
 
         .section-title {
             font-size: 22px;
@@ -542,7 +546,7 @@ $final_total = $grand_total + $donation;
             <a href="cart.php" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Cart</a>
 
             <form action="checkout.php" method="POST">
-                <input type="hidden" name="payment_method" id="paymentMethodInput" value="Cash on Delivery">
+                <input type="hidden" name="payment_method" id="paymentMethodInput" value="<?= htmlspecialchars($has_linked_payment ? $saved_pay_method : 'Cash on Delivery') ?>">
                 <div class="checkout-layout">
 
                     <div class="checkout-main">
@@ -587,14 +591,30 @@ $final_total = $grand_total + $donation;
                         <!-- Payment Method -->
                         <div class="checkout-card">
                             <h3><i class="fas fa-credit-card" style="color:var(--primary-orange)"></i> Payment Method</h3>
+
+                            <?php if (!$has_linked_payment): ?>
+                                <div style="background:#FDF1E6;border:1.5px solid var(--primary-orange);border-radius:12px;padding:14px 18px;margin-bottom:16px;font-size:13px;font-weight:700;color:#5A483E;">
+                                    <i class="fas fa-exclamation-circle" style="color:var(--primary-orange);margin-right:6px;"></i>
+                                    No payment account linked. <a href="profile.php" style="color:var(--primary-orange);font-weight:800;text-decoration:underline;">Set one up in your profile</a> to use GCash or Card — or continue with Cash on Delivery.
+                                </div>
+                            <?php else: ?>
+                                <div style="background:#F0F7EC;border:1.5px solid #9BB374;border-radius:12px;padding:14px 18px;margin-bottom:16px;font-size:13px;font-weight:700;color:#5A483E;">
+                                    <i class="fas fa-check-circle" style="color:#9BB374;margin-right:6px;"></i>
+                                    Linked: <strong><?= htmlspecialchars($saved_pay_method) ?></strong>
+                                    <?php if (!empty($saved_pay_account)): ?>
+                                        — <?= htmlspecialchars($saved_pay_method === 'GCash' ? $saved_pay_account : '•••• ' . $saved_pay_account) ?>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+
                             <div class="payment-options">
-                                <button type="button" class="payment-btn selected" data-method="Cash on Delivery" onclick="selectPayment(this)">
+                                <button type="button" class="payment-btn <?= !$has_linked_payment || $saved_pay_method === 'Cash on Delivery' ? 'selected' : '' ?>" data-method="Cash on Delivery" onclick="selectPayment(this)">
                                     <i class="fas fa-money-bill-wave"></i> Cash on Delivery
                                 </button>
-                                <button type="button" class="payment-btn" data-method="GCash" onclick="selectPayment(this)">
+                                <button type="button" class="payment-btn <?= $saved_pay_method === 'GCash' ? 'selected' : '' ?>" data-method="GCash" onclick="selectPayment(this)" <?= $saved_pay_method !== 'GCash' ? 'disabled title="Link a GCash account in your profile first"' : '' ?> style="<?= $saved_pay_method !== 'GCash' ? 'opacity:0.4;cursor:not-allowed;' : '' ?>">
                                     <i class="fas fa-university"></i> GCash
                                 </button>
-                                <button type="button" class="payment-btn" data-method="Credit / Debit Card" onclick="selectPayment(this)">
+                                <button type="button" class="payment-btn <?= $saved_pay_method === 'Credit / Debit Card' ? 'selected' : '' ?>" data-method="Credit / Debit Card" onclick="selectPayment(this)" <?= $saved_pay_method !== 'Credit / Debit Card' ? 'disabled title="Link a card in your profile first"' : '' ?> style="<?= $saved_pay_method !== 'Credit / Debit Card' ? 'opacity:0.4;cursor:not-allowed;' : '' ?>">
                                     <i class="fas fa-credit-card"></i> Credit / Debit Card
                                 </button>
                             </div>
