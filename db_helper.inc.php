@@ -82,8 +82,22 @@ function save_pet(array $pet): bool {
 
 function delete_pet(string $id): bool {
     global $pdo;
-    $pdo->prepare("UPDATE tbl_pets SET is_available = 0 WHERE pet_id = ?")->execute([$id]);
-    return true;
+    try {
+        // Delete related records first (to maintain referential integrity)
+        $pdo->prepare("DELETE FROM tbl_pet_gallery WHERE pet_id = ?")->execute([$id]);
+        $pdo->prepare("DELETE FROM tbl_pet_traits WHERE pet_id = ?")->execute([$id]);
+        
+        // Delete applications involving this pet
+        $pdo->prepare("DELETE FROM tbl_app_adoption WHERE app_id IN (SELECT app_id FROM tbl_applications WHERE pet_id = ?)")->execute([$id]);
+        $pdo->prepare("DELETE FROM tbl_applications WHERE pet_id = ?")->execute([$id]);
+        
+        // Finally delete the pet itself
+        $pdo->prepare("DELETE FROM tbl_pets WHERE pet_id = ?")->execute([$id]);
+        return true;
+    } catch (Exception $e) {
+        error_log("Error deleting pet: " . $e->getMessage());
+        return false;
+    }
 }
 
 // ── PRODUCTS ───────────────────────────────────────────────────
@@ -168,8 +182,20 @@ function save_product(array $product): bool {
 
 function delete_product(int $id): bool {
     global $pdo;
-    $pdo->prepare("UPDATE tbl_products SET is_active = 0 WHERE product_id = ?")->execute([$id]);
-    return true;
+    try {
+        // Delete related records first (to maintain referential integrity)
+        $pdo->prepare("DELETE FROM tbl_product_gallery WHERE product_id = ?")->execute([$id]);
+        
+        // Delete order items containing this product
+        $pdo->prepare("DELETE FROM tbl_order_items WHERE product_id = ?")->execute([$id]);
+        
+        // Finally delete the product itself
+        $pdo->prepare("DELETE FROM tbl_products WHERE product_id = ?")->execute([$id]);
+        return true;
+    } catch (Exception $e) {
+        error_log("Error deleting product: " . $e->getMessage());
+        return false;
+    }
 }
 
 // ── APPLICATIONS ───────────────────────────────────────────────
